@@ -175,7 +175,7 @@ class TphpdeveloperCmsServiceProvider extends ServiceProvider
         ], 'tphpdeveloper_backend_seeds');
 
         $this->publishes([
-            __DIR__.'/publishes/routes' => base_path('routes/'.config('myself.folder') )
+            __DIR__.'/publishes/routes/backend' => base_path('routes/'.config('myself.folder') )
         ], 'tphpdeveloper_backend_routes');
 
     }

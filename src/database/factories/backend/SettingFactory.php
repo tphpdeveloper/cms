@@ -19,20 +19,19 @@ $factory->define(Setting::class, function (Faker $faker) {
 	//array
 	if($text_array){
 		$number = rand(3, 10);
-		$colors = [];
 		for($i = 0; $i < $number; $i++){
 			$values['en'][] = $faker->safeColorName;
 			$values['ru'][] = $ru->safeColorName;
 		}
 	}
 	else{
-		$values['en'][] = $faker->safeColorName;
-		$values['ru'][] = $ru->safeColorName;
+		$values['en'] = $faker->safeColorName;
+		$values['ru'] = $ru->safeColorName;
 	}
 
     return [
         'key' => $faker->word,
-        'value' => $colors,
-        'selected' => ($text_array ? array_rand($colors, 1) : null)
+        'value' => $values,
+        'selected' => ($text_array ? array_rand($values['en'], 1) : null)
     ];
 });

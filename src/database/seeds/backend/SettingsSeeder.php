@@ -22,7 +22,10 @@ class SettingsSeeder extends Seeder
     {
         factory(Setting::class)->create([
             'key' => 'color-scheme',
-            'value' => ['blue', 'green', 'orange', 'red', 'yellow'],
+            'value' => [
+                "en" => ['blue', 'green', 'orange', 'red', 'yellow'],
+                "ru" => ["голубой", "зеленый", "оранжевый", "красный", "жолтый"]
+            ],
             'selected' => 0
         ]);
 

@@ -37,56 +37,76 @@ class TphpdeveloperVendorPublish extends Command
      */
     public function handle()
     {
-        $this->call('vendor:publish', [
-            '--tag' => 'tphpdeveloper_backend_config',
-        ]);
-		
-		$this->call('vendor:publish', [
-            '--provider' => 'Themsaid\Multilingual\MultilingualServiceProvider',
-        ]);
+        again:
 
-		$this->call('vendor:publish', [
-            '--provider' => 'Aginev\Datagrid\DatagridServiceProvider',
-			'--tag' => 'views',
-        ]);
+        $action = [
+            '1' => 'Publish data',
+            '2' => 'Run migration',
+            '3' => 'Seeding test data'
+        ];
+
+        $question = $this->choice('What should be done? For speed, enter the key from the list.',$action);
+
+        switch(array_flip($action)[$question]){
+            case 1:
+
+                $this->call('vendor:publish', [
+                    '--tag' => 'tphpdeveloper_backend_config',
+                ]);
+
+                $this->call('vendor:publish', [
+                    '--provider' => 'Themsaid\Multilingual\MultilingualServiceProvider',
+                ]);
+
+                $this->call('vendor:publish', [
+                    '--provider' => 'Aginev\Datagrid\DatagridServiceProvider',
+                    '--tag' => 'views',
+                ]);
+
+                $this->call('config:cache');
+
+                $this->call('vendor:publish', [
+                    '--tag' => [
+                        'tphpdeveloper_backend_controllers',
+                        'tphpdeveloper_backend_models',
+                        'tphpdeveloper_backend_public',
+                        'tphpdeveloper_backend_routes',
+                        'tphpdeveloper_backend_factories',
+                        'tphpdeveloper_backend_migrations',
+                        'tphpdeveloper_backend_seeds',
+                        'tphpdeveloper_backend_views',
+                        ]
+                ]);
+
+                $this->call('config:cache');
+
+                $this->info('> composer dump-autoload');
+                $res_shel = shell_exec('composer dump-autoload');
+                $this->info($res_shel);
+
+                break;
+            case 2:
+                $this->call('migrate');
+
+                break;
+            case 3:
+                $this->info('> php artisan db:seed --class=SettingsSeeder');
+                $this->call('db:seed', [
+                    '--class' => 'SettingsSeeder'
+                ]);
+                $this->info('> php artisan db:seed --class=TabsSeeder');
+                $this->call('db:seed', [
+                    '--class' => 'TabsSeeder'
+                ]);
+                break;
+        }
 
         $this->call('config:cache');
 
-        $this->call('vendor:publish', [
-            '--tag' => [
-                'tphpdeveloper_backend_controllers',
-                'tphpdeveloper_backend_models',
-                'tphpdeveloper_backend_public',
-                'tphpdeveloper_backend_routes',
-                'tphpdeveloper_backend_factories',
-                'tphpdeveloper_backend_migrations',				
-                'tphpdeveloper_backend_seeds',
-                'tphpdeveloper_backend_views',
-                ]
-        ]);
+        if($this->confirm('Repeat ?')){
+            goto again;
+        }
 
-
-		$this->call('config:cache');
-
-        $this->call('migrate');
-
-        $this->info('> composer dump-autoload');
-        $res_shel = shell_exec('composer dump-autoload');
-        $this->info($res_shel);
-		$this->call('config:cache');
-		
-		if($this->confirm('Do you want to fill the table with test data?')){
-		
-			$this->info('> php artisan db:seed --class=SettingsSeeder');		
-			$this->call('db:seed', [
-				'--class' => 'SettingsSeeder'
-			]);
-			$this->info('> php artisan db:seed --class=TabsSeeder');		
-			$this->call('db:seed', [
-				'--class' => 'TabsSeeder'
-			]);
-		}
-		
 		$this->info('Finished!!!');
 
     }
