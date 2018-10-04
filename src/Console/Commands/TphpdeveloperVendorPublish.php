@@ -42,7 +42,8 @@ class TphpdeveloperVendorPublish extends Command
         $action = [
             '1' => 'Publish data',
             '2' => 'Run migration',
-            '3' => 'Seeding test data'
+            '3' => 'Seeding test data',
+			'4' => 'Exit'
         ];
 
         $question = $this->choice('What should be done? For speed, enter the key from the list.',$action);
@@ -99,6 +100,9 @@ class TphpdeveloperVendorPublish extends Command
                     '--class' => 'TabsSeeder'
                 ]);
                 break;
+			case 4:
+				goto finished;
+				break;
         }
 
         $this->call('config:cache');
@@ -106,8 +110,10 @@ class TphpdeveloperVendorPublish extends Command
         if($this->confirm('Show menu?')){
             goto again;
         }
-
-		$this->info('Finished!!!');
+		
+		finished:
+		$this->info('Finished');
+		$this->info('Bye bye!!!');
 
     }
 }
