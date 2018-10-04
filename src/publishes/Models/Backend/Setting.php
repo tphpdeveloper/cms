@@ -22,10 +22,4 @@ class Setting extends Model
         'value' => 'array'
     ];
 
-    public function getValueAttribute($value){
-        if(count($value) == 1){
-            return array_shift($value);
-        }
-        return $value;
-    }
 }
