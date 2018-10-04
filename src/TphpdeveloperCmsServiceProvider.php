@@ -18,7 +18,7 @@ use Tphpdeveloper\Cms\Console\Commands\TphpdeveloperVendorPublish;
 use Themsaid\Multilingual\MultilingualServiceProvider;
 use Aginev\Datagrid\DatagridServiceProvider;
 
-class MyselfCmsServiceProvider extends ServiceProvider
+class TphpdeveloperCmsServiceProvider extends ServiceProvider
 {
 
     protected $providers = [
