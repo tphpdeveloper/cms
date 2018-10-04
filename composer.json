@@ -1,0 +1,28 @@
+{
+    "name": "tphpdeveloper/cms",
+    "description": "Package for using admin part",
+    "keywords": [
+        "laravel",
+        "cms"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Igor Kutsan",
+            "email": "igorkutsan@ukr.net",
+            "homepage": "https://igorkutsan.info",
+            "role": "Developer"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=7.1.0",
+		"themsaid/laravel-multilingual": "*",
+		"aginev/datagrid": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Tphpdeveloper\\Cms\\": "src"
+        }
+    }
+}
