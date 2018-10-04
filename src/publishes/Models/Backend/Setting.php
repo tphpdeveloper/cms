@@ -14,8 +14,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Setting extends Model
 {
+	    use \Themsaid\Multilingual\Translatable;
+	
     protected $fillable = ['key', 'value', 'selected'];
-
+    public $translatable = ['value'];	
     protected $casts = [
         'value' => 'array'
     ];
