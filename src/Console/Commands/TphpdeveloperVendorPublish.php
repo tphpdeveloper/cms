@@ -102,8 +102,8 @@ class TphpdeveloperVendorPublish extends Command
         }
 
         $this->call('config:cache');
-
-        if($this->confirm('Repeat ?')){
+		$this->info('Done!!!');
+        if($this->confirm('Show menu?')){
             goto again;
         }
 
