@@ -10,7 +10,7 @@
             <div class="col-md-12">
                 <div class="card">
 
-                    {!! $grid->show('grid-table') !!}
+                    
 
                 </div>
             </div>
