@@ -15,9 +15,9 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\File;
 use Tphpdeveloper\Cms\Console\Commands\TphpdeveloperVendorPublish;
-use Collective\Html\HtmlServiceProvider,
-use Collective\Html\FormFacade,
-use Collective\Html\HtmlFacade,
+use Collective\Html\HtmlServiceProvider;
+use Collective\Html\FormFacade;
+use Collective\Html\HtmlFacade;
 use Themsaid\Multilingual\MultilingualServiceProvider;
 use Aginev\Datagrid\DatagridServiceProvider;
 
