@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\File;
 use Tphpdeveloper\Cms\Console\Commands\TphpdeveloperVendorPublish;
+use Collective\Html\HtmlServiceProvider,
 use Themsaid\Multilingual\MultilingualServiceProvider;
 use Aginev\Datagrid\DatagridServiceProvider;
 
@@ -24,10 +25,13 @@ class TphpdeveloperCmsServiceProvider extends ServiceProvider
     protected $providers = [
 		MultilingualServiceProvider::class,
 		DatagridServiceProvider::class,
+		HtmlServiceProvider::class,
 
     ];
 	
 	protected $aliases = [
+		'Form' => Collective\Html\FormFacade::class,
+		'Html' => Collective\Html\HtmlFacade::class,
 		'Datagrid' => Aginev\Datagrid\Datagrid::class,
 	];
 

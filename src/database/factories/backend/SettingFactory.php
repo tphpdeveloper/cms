@@ -14,24 +14,14 @@ use Faker\Factory;
 
 $factory->define(Setting::class, function (Faker $faker) {
 	$ru = Factory::create('ru_Ru');
-	$text_array = rand(0,1);
-	$values = [];
-	//array
-	if($text_array){
-		$number = rand(3, 10);
-		for($i = 0; $i < $number; $i++){
-			$values['en'][] = $faker->safeColorName;
-			$values['ru'][] = $ru->safeColorName;
-		}
-	}
-	else{
-		$values['en'] = $faker->safeColorName;
-		$values['ru'] = $ru->safeColorName;
-	}
+
+    $values['en'] = $faker->safeColorName;
+    $values['ru'] = $ru->safeColorName;
 
     return [
         'key' => $faker->word,
+        'value_translate' => $values,
         'value' => $values,
-        'selected' => ($text_array ? array_rand($values['en'], 1) : null)
+        'selected' => $values['en']
     ];
 });

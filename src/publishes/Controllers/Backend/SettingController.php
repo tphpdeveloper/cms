@@ -20,7 +20,7 @@ class SettingController extends Controller
 {
     public function show()
     {
-        dump(Request::get('f'));
+
         $setting = Setting::paginate(10);
         $grid = new Datagrid($setting, Request::get('f', []));
         $grid
@@ -31,20 +31,15 @@ class SettingController extends Controller
                 // $value is the actual cell value
                 // $row are the all values for this row
                 'wrapper'     => function ($value, $row) {
-                    $option = '';
-                    foreach($value as $key => $item){
-                        $option .= '<option value="'.$key.'">'.$item.'</option>';
-                    }
+                    if(is_array($value)) {
+                        $option = '';
+                        foreach($value as $key => $item){
+                            $option .= '<option value="'.$key.'">'.$item.'</option>';
+                        }
 
-                    return '<select name="value">'.$option.'</select>';
-                }
-            ])
-            ->setColumn('selected', 'Выбранное', [
-                'wrapper'     => function ($value, $row) {
-                    if(!is_null($value) && $value != '' && $value != 'null'){
-                        return $value;
+                        return '<select name="value">'.$option.'</select>';
                     }
-                    return '';
+                    return $value;
                 }
             ])
             // Setup action column
