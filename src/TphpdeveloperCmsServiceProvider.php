@@ -19,14 +19,14 @@ use Collective\Html\HtmlServiceProvider;
 use Collective\Html\FormFacade;
 use Collective\Html\HtmlFacade;
 use Themsaid\Multilingual\MultilingualServiceProvider;
-use Aginev\Datagrid\DatagridServiceProvider;
+//use Aginev\Datagrid\DatagridServiceProvider;
 
 class TphpdeveloperCmsServiceProvider extends ServiceProvider
 {
 
     protected $providers = [
 		MultilingualServiceProvider::class,
-		DatagridServiceProvider::class,
+		//DatagridServiceProvider::class,
 		HtmlServiceProvider::class,
 
     ];
@@ -34,7 +34,7 @@ class TphpdeveloperCmsServiceProvider extends ServiceProvider
 	protected $aliases = [
 		'Form' => FormFacade::class,
 		'Html' => HtmlFacade::class,
-		'Datagrid' => Aginev\Datagrid\Datagrid::class,
+		//'Datagrid' => Aginev\Datagrid\Datagrid::class,
 	];
 
     /**
