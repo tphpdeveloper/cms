@@ -23,20 +23,20 @@ class Setting extends Model
         'value' => 'array'
     ];
 
-    public function getValueAttribute($value)
-    {
-
-        if($this->value_translate){
-            return $this->value_translate;
-        }
-
-        $res = json_decode($value);
-        if(count($res) == 1){
-            return array_shift($res);
-        }
-
-        return $res;
-    }
+//    public function getValueAttribute($value)
+//    {
+//
+//        if($this->value_translate){
+//            return $this->value_translate;
+//        }
+//
+//        $res = json_decode($value);
+//        if(count($res) == 1){
+//            return array_shift($res);
+//        }
+//
+//        return $res;
+//    }
 
 
 }
