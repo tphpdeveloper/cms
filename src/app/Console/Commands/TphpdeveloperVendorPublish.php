@@ -45,74 +45,30 @@ class TphpdeveloperVendorPublish extends Command
      */
     public function handle()
     {
-        again:
-
-        $action = [
-            '1' => 'Publish data',
-			'2' => 'Create queue table migration',
-            '3' => 'Run migration',
-            '4' => 'Seeding test data',
-			'5' => 'Exit'
+        
+        $name_action = [
+            'Publish data' => 'publishData',
+			'Create queue table migration' => 'createQueueTable',
+            'Run migration' => 'runMigration',
+            'Seeding test data' => 'seedingData',
+			'Composer dump-autoload' => 'dumpAutoload',
+			'Config cache' => 'configCache',
+			'Exit' => 'exitCode'
         ];
-
+		
+		$action = [];
+		$functions = [];
+		foreach($name_action as $name => $function){
+			$action[] = $name;
+			$functions[] = $function;
+		}
+		
+		again:
         $question = $this->choice('What should be done? For speed, enter the key from the list.',$action);
-
-        switch(array_flip($action)[$question]){
-            case 1:
-
-                $this->call('vendor:publish', [
-                    '--tag' => 'tphpdeveloper_backend_config',
-                ]);
-
-                $this->call('vendor:publish', [
-                    '--provider' => 'Themsaid\Multilingual\MultilingualServiceProvider',
-                ]);
-
-				/*
-                $this->call('vendor:publish', [
-                    '--provider' => 'Aginev\Datagrid\DatagridServiceProvider',
-                    '--tag' => 'views',
-                ]);
-				*/
-
-                $this->call('config:cache');
-
-                $this->call('vendor:publish', [
-                    '--tag' => [
-                        'tphpdeveloper_backend_public',
-                        'tphpdeveloper_backend_routes',
-                        'tphpdeveloper_backend_views',
-                        'tphpdeveloper_backend_seeds',
-                        ]
-                ]);
-
-                $this->call('config:cache');
-
-                $this->info('> composer dump-autoload');
-                $res_shel = shell_exec('composer dump-autoload');
-                $this->info($res_shel);
-                break;
-            case 2:
-				$this->info('> php artisan queue:table');
-				$this->call('queue:table');
-				$this->info('> php artisan queue:failed-table');
-				$this->call('queue:failed-table');
-                break;
-			case 3:
-                $this->call('migrate');
-                break;
-            case 4:
-				
-				$this->info('> php artisan db:seed');
-				$this->call('db:seed');
-                break;
-			case 5:
-				goto finished;
-				break;
-        }
-
-        $this->call('config:cache');
-		$this->info('Done!!!');
+        $key = array_flip($action)[$question]
+		$this->{$functions[$key]}();
+		$this->infoDone();
+        		
         if($this->confirm('Show menu?')){
             goto again;
         }
@@ -122,4 +78,68 @@ class TphpdeveloperVendorPublish extends Command
 		$this->info('Bye bye!!!');
 
     }
+	
+	private function publishData(){
+		$this->call('vendor:publish', [
+			'--tag' => 'tphpdeveloper_backend_config',
+		]);
+
+		$this->call('vendor:publish', [
+			'--provider' => 'Themsaid\Multilingual\MultilingualServiceProvider',
+		]);
+
+		/*
+		$this->call('vendor:publish', [
+			'--provider' => 'Aginev\Datagrid\DatagridServiceProvider',
+			'--tag' => 'views',
+		]);
+		*/
+
+		$this->call('config:cache');
+
+		$this->call('vendor:publish', [
+			'--tag' => [
+				'tphpdeveloper_backend_public',
+				'tphpdeveloper_backend_routes',
+				'tphpdeveloper_backend_views',
+				'tphpdeveloper_backend_seeds',
+				]
+		]);
+
+		$this->call('config:cache');
+	}
+	
+	private function createQueueTable(){
+		$this->info('> php artisan queue:table');
+		$this->call('queue:table');
+		$this->info('> php artisan queue:failed-table');
+		$this->call('queue:failed-table');
+	}
+	
+	private function runMigration(){
+		 $this->call('migrate');
+	}
+	
+	private function seedingData(){
+		$this->info('> php artisan db:seed');
+		$this->call('db:seed');
+	}
+	
+	private function dumpAutoload(){
+		$this->info('> composer dump-autoload');
+		$res_shel = shell_exec('composer dump-autoload');
+		$this->info($res_shel);
+	}
+	
+	private function configCache(){
+		$this->call('config:cache');
+	}
+	
+	private function infoDone(){
+		$this->info('Done!!!');
+	}
+	
+	private function exitCode(){
+		goto finished;
+	}
 }
