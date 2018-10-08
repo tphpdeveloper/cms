@@ -2,10 +2,6 @@
 
 use Illuminate\Database\Seeder;
 
-use Tphpdeveloper\Cms\Database\Seeds\TabsSeeder;
-use Tphpdeveloper\Cms\Database\Seeds\LabelSeeder;
-use Tphpdeveloper\Cms\Database\Seeds\SettingsSeeder;
-
 class DatabaseSeeder extends Seeder
 {
     /**

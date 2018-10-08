@@ -8,8 +8,6 @@
  * @license   https://opensource.org/licenses/MIT
  */
  
-namespace Tphpdeveloper\Cms\Database\Factories;
-
 use Faker\Generator as Faker;
 use Tphpdeveloper\Cms\App\Models\Label;
 

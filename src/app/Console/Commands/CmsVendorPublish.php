@@ -53,7 +53,7 @@ class CmsVendorPublish extends Command
             'Seeding test data' => 'seedingData',
 			'Composer dump-autoload' => 'dumpAutoload',
 			'Config cache' => 'configCache',
-			'Exit' => 'exitCode'
+			'Exit' => 'Exit'
         ];
 		
 		$action = [];
@@ -65,7 +65,12 @@ class CmsVendorPublish extends Command
 		
 		again:
         $question = $this->choice('What should be done? For speed, enter the key from the list.',$action);
-        $key = array_flip($action)[$question]
+        $key = array_flip($action)[$question];
+		
+		if(($key + 1) == count($functions)){
+			goto finished;
+		}
+		
 		$this->{$functions[$key]}();
 		$this->infoDone();
         		
@@ -139,7 +144,5 @@ class CmsVendorPublish extends Command
 		$this->info('Done!!!');
 	}
 	
-	private function exitCode(){
-		goto finished;
-	}
+
 }

@@ -8,7 +8,6 @@
  * @license   https://opensource.org/licenses/MIT
  */
 
-namespace Tphpdeveloper\Cms\Database\Seeds;
  
 use Illuminate\Database\Seeder;
 use Tphpdeveloper\Cms\App\Models\Label;
