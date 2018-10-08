@@ -23,8 +23,8 @@
     "autoload": {
         "psr-4": {
             "Tphpdeveloper\\Cms\\": "src",
-			"Tphpdeveloper\\Cms\\Database\\Seeds" : "database/seeds",
-			"Tphpdeveloper\\Cms\\Database\\Factories" : "database/factories"
+			"Tphpdeveloper\\Cms\\Database\\Seeds\\" : "database/seeds",
+			"Tphpdeveloper\\Cms\\Database\\Factories\\" : "database/factories"
         }
     }
 }
