@@ -14,12 +14,12 @@ use App;
 use View;
 use File;
 use Illuminate\Support\ServiceProvider;
+use Tphpdeveloper\Cms\App\Console\Commands\TphpdeveloperVendorPublish;
+use Themsaid\Multilingual\MultilingualServiceProvider;
 use Collective\Html\HtmlServiceProvider;
 use Collective\Html\FormFacade;
 use Collective\Html\HtmlFacade;
-use Themsaid\Multilingual\MultilingualServiceProvider;
 //use Aginev\Datagrid\DatagridServiceProvider;
-use Tphpdeveloper\Cms\App\Console\Commands\TphpdeveloperVendorPublish;
 use Tphpdeveloper\Cms\App\Http\ViewComposer\LangComposer;
 
 class TphpdeveloperCmsServiceProvider extends ServiceProvider
