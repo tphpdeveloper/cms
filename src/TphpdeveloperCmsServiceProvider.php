@@ -111,7 +111,7 @@ class TphpdeveloperCmsServiceProvider extends ServiceProvider
         if(File::exists( base_path( 'routes/'.config('myself.folder').'/web.php' ) ) ) {
             $this->loadRoutesFrom( base_path( 'routes/' . config('myself.folder') . '/web.php' ) );
         }
-        $this->loadMigrationsFrom( __DIR__ . 'database/migrations' );
+        $this->loadMigrationsFrom( __DIR__ . '/database/migrations' );
         $this->loadTranslationsFrom( base_path( 'resources/lang/'.config('myself.folder') ), config('myself.prefix') );
         $this->loadViewsFrom( base_path( 'resources/views/'.config('myself.folder') ), config('myself.prefix') );
 
