@@ -97,6 +97,10 @@ class TphpdeveloperVendorPublish extends Command
 
                 break;
             case 2:
+				$this->info('> php artisan queue:table');
+				$this->call('queue:table');
+				$this->info('> php artisan queue:failed-table');
+				$this->call('queue:failed-table');
                 $this->call('migrate');
 
                 break;
