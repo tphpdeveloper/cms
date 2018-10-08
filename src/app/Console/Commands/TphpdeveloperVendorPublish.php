@@ -90,22 +90,22 @@ class TphpdeveloperVendorPublish extends Command
                 $this->info('> composer dump-autoload');
                 $res_shel = shell_exec('composer dump-autoload');
                 $this->info($res_shel);
-
                 break;
             case 2:
 				$this->info('> php artisan queue:table');
 				$this->call('queue:table');
 				$this->info('> php artisan queue:failed-table');
 				$this->call('queue:failed-table');
-                $this->call('migrate');
-
                 break;
-            case 3:
+			case 3:
+                $this->call('migrate');
+                break;
+            case 4:
 				
 				$this->info('> php artisan db:seed');
 				$this->call('db:seed');
                 break;
-			case 4:
+			case 5:
 				goto finished;
 				break;
         }
