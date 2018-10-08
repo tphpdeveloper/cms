@@ -9,7 +9,7 @@
  */
 
 use Illuminate\Database\Seeder;
-use Tphpdeveloper\Cms\App\Models\Tab;
+use \Tphpdeveloper\Cms\App\Models\Tab;
 
 class TabsSeeder extends Seeder
 {

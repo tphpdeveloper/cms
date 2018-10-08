@@ -14,6 +14,7 @@ use App;
 use View;
 use File;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Database\Eloquent\Factory;
 use Tphpdeveloper\Cms\App\Console\Commands\CmsVendorPublish;
 use Themsaid\Multilingual\MultilingualServiceProvider;
 use Collective\Html\HtmlServiceProvider;
@@ -45,7 +46,7 @@ class CmsServiceProvider extends ServiceProvider
     {
         $this->registerProviders();
 		$this->registerAliases();
-
+		$this->registerFactory();
 
     }
 
@@ -173,4 +174,9 @@ class CmsServiceProvider extends ServiceProvider
 		
       
     }
+	
+	public function registerFactory(){
+		$this->app->make(Factory::class)->load(__DIR__ . '/database/factories');
+	}
+	
 }

@@ -21,10 +21,7 @@
 		"themsaid/laravel-multilingual": "*"
     },
     "autoload": {
-		"classmap": [
-            "src/database/seeds",
-            "src/database/factories"
-        ],
+		
         "psr-4": {
             "Tphpdeveloper\\Cms\\": "src"
         }

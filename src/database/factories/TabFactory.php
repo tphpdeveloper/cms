@@ -10,7 +10,7 @@
 
 use Faker\Generator as Faker;
 use Faker\Factory;
-use Tphpdeveloper\Cms\App\Models\Tab
+use Tphpdeveloper\Cms\App\Models\Tab;
 
 $factory->define(Tab::class, function (Faker $faker) {
     $ru = Factory::create('ru_Ru');
