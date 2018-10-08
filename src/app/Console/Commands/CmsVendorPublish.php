@@ -12,7 +12,7 @@ namespace Tphpdeveloper\Cms\App\Console\Commands;
 
 use Illuminate\Console\Command;
 
-class TphpdeveloperVendorPublish extends Command
+class CmsVendorPublish extends Command
 {
     /**
      * The name and signature of the console command.

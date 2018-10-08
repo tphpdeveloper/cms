@@ -14,7 +14,7 @@ use App;
 use View;
 use File;
 use Illuminate\Support\ServiceProvider;
-use Tphpdeveloper\Cms\App\Console\Commands\TphpdeveloperVendorPublish;
+use Tphpdeveloper\Cms\App\Console\Commands\CmsVendorPublish;
 use Themsaid\Multilingual\MultilingualServiceProvider;
 use Collective\Html\HtmlServiceProvider;
 use Collective\Html\FormFacade;
@@ -22,7 +22,7 @@ use Collective\Html\HtmlFacade;
 //use Aginev\Datagrid\DatagridServiceProvider;
 use Tphpdeveloper\Cms\App\Http\ViewComposer\LangComposer;
 
-class TphpdeveloperCmsServiceProvider extends ServiceProvider
+class CmsServiceProvider extends ServiceProvider
 {
 
     protected $providers = [
@@ -140,7 +140,7 @@ class TphpdeveloperCmsServiceProvider extends ServiceProvider
     {
         if($this->app->runningInConsole()){
             $this->commands([
-                TphpdeveloperVendorPublish::class
+                CmsVendorPublish::class
             ]);
         }
 
