@@ -9,7 +9,7 @@
  */
 
 Route::middleware('web')
-    ->namespace('App\Http\Controllers\Backend')
+    ->namespace('Tphpdeveloper\Cms\App\Http\Controllers')
     ->prefix('admin')
     ->group(function(){
 
