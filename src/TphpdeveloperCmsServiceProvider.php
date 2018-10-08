@@ -10,16 +10,17 @@
 
 namespace Tphpdeveloper\Cms;
 
+use App;
+use View;
+use File;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\View;
-use Illuminate\Support\Facades\File;
-use Tphpdeveloper\Cms\Console\Commands\TphpdeveloperVendorPublish;
 use Collective\Html\HtmlServiceProvider;
 use Collective\Html\FormFacade;
 use Collective\Html\HtmlFacade;
 use Themsaid\Multilingual\MultilingualServiceProvider;
 //use Aginev\Datagrid\DatagridServiceProvider;
+use Tphpdeveloper\Cms\App\Console\Commands\TphpdeveloperVendorPublish;
+use Tphpdeveloper\Cms\App\Http\ViewComposer\LangComposer;
 
 class TphpdeveloperCmsServiceProvider extends ServiceProvider
 {
@@ -106,10 +107,11 @@ class TphpdeveloperCmsServiceProvider extends ServiceProvider
      */
     protected function registerResources()
     {
-        if(File::exists( base_path( 'routes/'.config('myself.folder').'/web_backend.php' ) ) ) {
-            $this->loadRoutesFrom( base_path( 'routes/' . config('myself.folder') . '/web_backend.php' ) );
+        
+        if(File::exists( base_path( 'routes/'.config('myself.folder').'/web.php' ) ) ) {
+            $this->loadRoutesFrom( base_path( 'routes/' . config('myself.folder') . '/web.php' ) );
         }
-        $this->loadMigrationsFrom( database_path( 'migrations/'.config('myself.folder') ) );
+        $this->loadMigrationsFrom( __DIR__ . 'database/migrations' );
         $this->loadTranslationsFrom( base_path( 'resources/lang/'.config('myself.folder') ), config('myself.prefix') );
         $this->loadViewsFrom( base_path( 'resources/views/'.config('myself.folder') ), config('myself.prefix') );
 
@@ -122,11 +124,12 @@ class TphpdeveloperCmsServiceProvider extends ServiceProvider
      */
     protected function registerViewComposerData()
     {
-//        View::composer(config('myself.prefix').'::admin.layouts.left-nav', AdminNavComposer::class);
-//        View::composer([
-//            config('myself.prefix').'::admin.layouts.app',
-//            config('myself.prefix').'::admin.order.view'
-//        ], AdminAuthComposer::class);
+		View::composer([
+            config('myself.folder').'.helpers.lang_switch',
+            config('myself.folder').'.components.form.*',
+		], LangComposer::class);
+		
+		
 
     }
 
@@ -151,7 +154,24 @@ class TphpdeveloperCmsServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/publishes/config/myself.php' => config_path('myself.php')
         ], 'tphpdeveloper_backend_config');
+		
+		$this->publishes([
+            __DIR__.'/publishes/public' => public_path( config('myself.folder') )
+        ], 'tphpdeveloper_backend_public');
 
+        $this->publishes([
+            __DIR__.'/publishes/resources/views' => resource_path('views/'.config('myself.folder') )
+        ], 'tphpdeveloper_backend_views');
+		
+		$this->publishes([
+            __DIR__.'/publishes/routes' => base_path('routes/'.config('myself.folder') )
+        ], 'tphpdeveloper_backend_routes');
+		
+		$this->publishes([
+            __DIR__.'/database/seeds/DatabaseSeeder.php' => database_path('seeds')
+        ], 'tphpdeveloper_backend_seeds');
+		
+		/*
         $this->publishes([
             __DIR__.'/publishes/Controllers/Backend' => app_path('Http/Controllers/'.ucfirst(config('myself.folder')) )
         ], 'tphpdeveloper_backend_controllers');
@@ -159,15 +179,7 @@ class TphpdeveloperCmsServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/publishes/Models/Backend' => app_path('Models/'.ucfirst(config('myself.folder')) )
         ], 'tphpdeveloper_backend_models');
-
-        $this->publishes([
-            __DIR__.'/publishes/public/backend' => public_path( config('myself.folder') )
-        ], 'tphpdeveloper_backend_public');
-
-        $this->publishes([
-            __DIR__.'/publishes/resources/views/backend' => resource_path('views/'.config('myself.folder') )
-        ], 'tphpdeveloper_backend_views');
-
+		
         $this->publishes([
             __DIR__.'/database/factories/backend' => database_path('factories/'.config('myself.folder'))
         ], 'tphpdeveloper_backend_factories');
@@ -179,10 +191,9 @@ class TphpdeveloperCmsServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/database/seeds' => database_path('seeds')
         ], 'tphpdeveloper_backend_seeds');
-
-        $this->publishes([
-            __DIR__.'/publishes/routes/backend' => base_path('routes/'.config('myself.folder') )
-        ], 'tphpdeveloper_backend_routes');
+		*/
+		
+        
 
     }
 }

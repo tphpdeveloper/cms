@@ -1,19 +1,18 @@
 <?php
 
 /**
- * Tphpdeveloper/CMS
+ * Tphpdeveloper/Cms
  *
  * @author    Igor <kutsani@gmail.com>
- * @copyright 2018 Tphpdeveloper/CMS
+ * @copyright 2018 Tphpdeveloper/Cms
  * @license   https://opensource.org/licenses/MIT
  */
 
-namespace App\Http\Controllers\Backend;
+namespace Tphpdeveloper\Cms\App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
-class MapController extends Controller
+class MapController extends BackendController
 {
     public function show(){
         return view(config('myself.folder').'.map.show');

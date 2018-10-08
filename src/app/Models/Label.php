@@ -1,10 +1,17 @@
 <?php
 
-namespace App\Models\Backend;
+/**
+ * Tphpdeveloper/Cms
+ *
+ * @author    Igor <kutsani@gmail.com>
+ * @copyright 2018 Tphpdeveloper/Cms
+ * @license   https://opensource.org/licenses/MIT
+ */
 
-use Illuminate\Database\Eloquent\Model;
+namespace Tphpdeveloper\Cms\App\Models;
 
-class Label extends Model
+
+class Label extends BackendModel
 {
     use \Themsaid\Multilingual\Translatable;
 

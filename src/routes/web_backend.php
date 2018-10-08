@@ -1,9 +1,10 @@
 <?php
+
 /**
- * Myself/CMS
+ * Tphpdeveloper/Cms
  *
  * @author    Igor <kutsani@gmail.com>
- * @copyright 2018 Myself/CMS
+ * @copyright 2018 Tphpdeveloper/Cms
  * @license   https://opensource.org/licenses/MIT
  */
 

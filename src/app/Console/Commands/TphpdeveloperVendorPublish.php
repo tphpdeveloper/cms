@@ -1,6 +1,14 @@
 <?php
 
-namespace Tphpdeveloper\Cms\Console\Commands;
+/**
+ * Tphpdeveloper/Cms
+ *
+ * @author    Igor <kutsani@gmail.com>
+ * @copyright 2018 Tphpdeveloper/Cms
+ * @license   https://opensource.org/licenses/MIT
+ */
+
+namespace Tphpdeveloper\Cms\App\Console\Commands;
 
 use Illuminate\Console\Command;
 
@@ -59,23 +67,25 @@ class TphpdeveloperVendorPublish extends Command
                     '--provider' => 'Themsaid\Multilingual\MultilingualServiceProvider',
                 ]);
 
+				/*
                 $this->call('vendor:publish', [
                     '--provider' => 'Aginev\Datagrid\DatagridServiceProvider',
                     '--tag' => 'views',
                 ]);
+				*/
 
                 $this->call('config:cache');
 
                 $this->call('vendor:publish', [
                     '--tag' => [
-                        'tphpdeveloper_backend_controllers',
-                        'tphpdeveloper_backend_models',
                         'tphpdeveloper_backend_public',
                         'tphpdeveloper_backend_routes',
-                        'tphpdeveloper_backend_factories',
-                        'tphpdeveloper_backend_migrations',
-                        'tphpdeveloper_backend_seeds',
                         'tphpdeveloper_backend_views',
+                        'tphpdeveloper_backend_seeds',
+                        //'tphpdeveloper_backend_controllers',
+                        //'tphpdeveloper_backend_models',
+                        //'tphpdeveloper_backend_factories',
+                        //'tphpdeveloper_backend_migrations',
                         ]
                 ]);
 
@@ -91,6 +101,7 @@ class TphpdeveloperVendorPublish extends Command
 
                 break;
             case 3:
+				/*
                 $this->info('> php artisan db:seed --class=SettingsSeeder');
                 $this->call('db:seed', [
                     '--class' => 'SettingsSeeder'
@@ -99,6 +110,9 @@ class TphpdeveloperVendorPublish extends Command
                 $this->call('db:seed', [
                     '--class' => 'TabsSeeder'
                 ]);
+				*/
+				$this->info('> php artisan db:seed');
+				$this->call('db:seed');
                 break;
 			case 4:
 				goto finished;

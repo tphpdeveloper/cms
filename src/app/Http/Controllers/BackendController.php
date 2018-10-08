@@ -10,12 +10,11 @@
 
 namespace Tphpdeveloper\Cms\App\Http\Controllers;
 
-use Illuminate\Http\Request;
 
-class DashboardController extends BackendController
+use App\Http\Controllers\Controller;
+
+
+class BackendController extends Controller
 {
-    public function show(){
-        return view(config('myself.folder').'.dashboard.show');
-    }
 
 }

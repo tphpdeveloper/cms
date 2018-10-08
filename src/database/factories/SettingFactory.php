@@ -1,16 +1,18 @@
 <?php
 
 /**
- * Tphpdeveloper/CMS
+ * Tphpdeveloper/Cms
  *
  * @author    Igor <kutsani@gmail.com>
- * @copyright 2018 Tphpdeveloper/CMS
+ * @copyright 2018 Tphpdeveloper/Cms
  * @license   https://opensource.org/licenses/MIT
  */
 
+namespace Tphpdeveloper\Cms\Database\Factories;
+
 use Faker\Generator as Faker;
-use App\Models\Backend\Setting;
 use Faker\Factory;
+use Tphpdeveloper\Cms\App\Models\Setting;
 
 $factory->define(Setting::class, function (Faker $faker) {
 

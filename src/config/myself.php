@@ -12,6 +12,6 @@ return [
 
 
     'folder' => 'backend',
-    'prefix' => 'myself'
+    'prefix' => 'tphpdeveloper'
 
 ];

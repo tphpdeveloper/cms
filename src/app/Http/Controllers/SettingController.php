@@ -1,20 +1,19 @@
 <?php
 
 /**
- * Tphpdeveloper/CMS
+ * Tphpdeveloper/Cms
  *
  * @author    Igor <kutsani@gmail.com>
- * @copyright 2018 Tphpdeveloper/CMS
+ * @copyright 2018 Tphpdeveloper/Cms
  * @license   https://opensource.org/licenses/MIT
  */
 
-namespace App\Http\Controllers\Backend;
+namespace Tphpdeveloper\Cms\App\Http\Controllers;
 
-use App\Models\Backend\Setting;
-use App\Http\Controllers\Controller;
+use Tphpdeveloper\Cms\App\Models\Setting;
 use Cache;
 
-class SettingController extends Controller
+class SettingController extends BackendController
 {
     public function show()
     {

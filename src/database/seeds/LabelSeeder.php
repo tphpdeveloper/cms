@@ -1,7 +1,17 @@
 <?php
 
+/**
+ * Tphpdeveloper/Cms
+ *
+ * @author    Igor <kutsani@gmail.com>
+ * @copyright 2018 Tphpdeveloper/Cms
+ * @license   https://opensource.org/licenses/MIT
+ */
+
+namespace Tphpdeveloper\Cms\Database\Seeds;
+ 
 use Illuminate\Database\Seeder;
-use App\Models\Backend\Label;
+use Tphpdeveloper\Cms\App\Models\Label;
 
 class LabelSeeder extends Seeder
 {

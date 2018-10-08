@@ -1,16 +1,17 @@
 <?php
+
 /**
- * Tphpdeveloper/CMS
+ * Tphpdeveloper/Cms
  *
  * @author    Igor <kutsani@gmail.com>
- * @copyright 2018 Tphpdeveloper/CMS
+ * @copyright 2018 Tphpdeveloper/Cms
  * @license   https://opensource.org/licenses/MIT
  */
 
-namespace App\Http\ViewComposer;
+namespace Tphpdeveloper\Cms\App\Http\ViewComposer;
 
 use Illuminate\View\View;
-use App\Models\Backend\Setting;
+use Tphpdeveloper\Cms\App\Models\Setting;
 
 class LangComposer
 {
