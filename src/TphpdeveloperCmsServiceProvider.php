@@ -177,7 +177,7 @@ class TphpdeveloperCmsServiceProvider extends ServiceProvider
         ], 'tphpdeveloper_backend_migrations');
 
         $this->publishes([
-            __DIR__.'/database/seeds/backend' => database_path('seeds/'.config('myself.folder'))
+            __DIR__.'/database/seeds' => database_path('seeds')
         ], 'tphpdeveloper_backend_seeds');
 
         $this->publishes([
