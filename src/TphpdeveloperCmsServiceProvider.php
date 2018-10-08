@@ -152,48 +152,25 @@ class TphpdeveloperCmsServiceProvider extends ServiceProvider
     protected function publishesFile()
     {
         $this->publishes([
-            __DIR__.'/publishes/config/myself.php' => config_path('myself.php')
+            __DIR__.'/config/myself.php' => config_path('myself.php')
         ], 'tphpdeveloper_backend_config');
 		
 		$this->publishes([
-            __DIR__.'/publishes/public' => public_path( config('myself.folder') )
+            __DIR__.'/public' => public_path( config('myself.folder') )
         ], 'tphpdeveloper_backend_public');
 
         $this->publishes([
-            __DIR__.'/publishes/resources/views' => resource_path('views/'.config('myself.folder') )
+            __DIR__.'/resources/views' => resource_path('views/'.config('myself.folder') )
         ], 'tphpdeveloper_backend_views');
 		
 		$this->publishes([
-            __DIR__.'/publishes/routes' => base_path('routes/'.config('myself.folder') )
+            __DIR__.'/routes' => base_path('routes/'.config('myself.folder') )
         ], 'tphpdeveloper_backend_routes');
 		
 		$this->publishes([
             __DIR__.'/database/seeds/DatabaseSeeder.php' => database_path('seeds')
         ], 'tphpdeveloper_backend_seeds');
 		
-		/*
-        $this->publishes([
-            __DIR__.'/publishes/Controllers/Backend' => app_path('Http/Controllers/'.ucfirst(config('myself.folder')) )
-        ], 'tphpdeveloper_backend_controllers');
-
-        $this->publishes([
-            __DIR__.'/publishes/Models/Backend' => app_path('Models/'.ucfirst(config('myself.folder')) )
-        ], 'tphpdeveloper_backend_models');
-		
-        $this->publishes([
-            __DIR__.'/database/factories/backend' => database_path('factories/'.config('myself.folder'))
-        ], 'tphpdeveloper_backend_factories');
-		
-		$this->publishes([
-            __DIR__.'/database/migrations/backend' => database_path('migrations/'.config('myself.folder'))
-        ], 'tphpdeveloper_backend_migrations');
-
-        $this->publishes([
-            __DIR__.'/database/seeds' => database_path('seeds')
-        ], 'tphpdeveloper_backend_seeds');
-		*/
-		
-        
-
+      
     }
 }

@@ -82,10 +82,6 @@ class TphpdeveloperVendorPublish extends Command
                         'tphpdeveloper_backend_routes',
                         'tphpdeveloper_backend_views',
                         'tphpdeveloper_backend_seeds',
-                        //'tphpdeveloper_backend_controllers',
-                        //'tphpdeveloper_backend_models',
-                        //'tphpdeveloper_backend_factories',
-                        //'tphpdeveloper_backend_migrations',
                         ]
                 ]);
 
@@ -105,16 +101,7 @@ class TphpdeveloperVendorPublish extends Command
 
                 break;
             case 3:
-				/*
-                $this->info('> php artisan db:seed --class=SettingsSeeder');
-                $this->call('db:seed', [
-                    '--class' => 'SettingsSeeder'
-                ]);
-                $this->info('> php artisan db:seed --class=TabsSeeder');
-                $this->call('db:seed', [
-                    '--class' => 'TabsSeeder'
-                ]);
-				*/
+				
 				$this->info('> php artisan db:seed');
 				$this->call('db:seed');
                 break;
