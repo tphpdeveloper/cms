@@ -49,9 +49,10 @@ class TphpdeveloperVendorPublish extends Command
 
         $action = [
             '1' => 'Publish data',
-            '2' => 'Run migration',
-            '3' => 'Seeding test data',
-			'4' => 'Exit'
+			'2' => 'Create queue table migration',
+            '3' => 'Run migration',
+            '4' => 'Seeding test data',
+			'5' => 'Exit'
         ];
 
         $question = $this->choice('What should be done? For speed, enter the key from the list.',$action);
