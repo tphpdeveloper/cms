@@ -7,7 +7,7 @@
         <link rel="icon" type="image/png" href="{{ asset('backend/img/favicon.png') }}">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <title>
-            @yield('meta_title', 'Панель прибров')
+            @section('meta_title', 'Панель прибров') @show
         </title>
         <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
         <!--     Fonts and icons     -->
@@ -27,9 +27,13 @@
     <body class="">
         <div class="wrapper ">
 
-            @include(config('myself.folder').'.layout.sidebar')
+            @section('sidebar')
+                @include(config('myself.folder').'.layout.sidebar')
+            @show
             <div class="main-panel">
-                @include(config('myself.folder').'.layout.navbar')
+                @section('navbar')
+                    @include(config('myself.folder').'.layout.navbar')
+                @show
 
                 @section('panel-header') @show
 
@@ -37,7 +41,9 @@
                     @section('content') @show
                 </div>
 
-                @include(config('myself.folder').'.layout.footer')
+                @section('footer')
+                    @include(config('myself.folder').'.layout.footer')
+                @show
             </div>
         </div>
 

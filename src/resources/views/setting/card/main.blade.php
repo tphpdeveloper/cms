@@ -14,7 +14,8 @@
 @include(config('myself.folder').'.components.form.select', [
     'alias' => $model->get('color_scheme')->label->name,
     'name' => 'color_scheme',
-    'value' => $model->get('color_scheme')->value,
+    'value' => $model->get('color_scheme')->value_array,
+    'selected' => $model->get('color_scheme')->selected
 ])
 
 

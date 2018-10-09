@@ -15,11 +15,11 @@ class Setting extends BackendModel
 {
 	    use \Themsaid\Multilingual\Translatable;
 
-    protected $fillable = ['tab_id', 'label_id', 'key', 'value_translate', 'value', 'selected'];
+    protected $fillable = ['tab_id', 'label_id', 'key', 'value', 'value_translate', 'value_array', 'selected'];
     public $translatable = ['value_translate'];
     protected $casts = [
         'value_translate' => 'array',
-        'value' => 'array'
+        'value_array' => 'array'
     ];
 
     /**

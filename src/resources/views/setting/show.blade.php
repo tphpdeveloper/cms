@@ -17,7 +17,7 @@
                                    aria-controls="home" aria-selected="true">Главная</a>
                             </li>
                             <li class="nav-item" data-color="blue">
-                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#langs" role="tab"
                                    aria-controls="profile" aria-selected="false">Языки</a>
                             </li>
                             <li class="nav-item" data-color="blue">
@@ -27,19 +27,24 @@
                         </ul>
                     </div>
                     <div class="card-body">
+                        {!! Form::open(['route' => ['admin.setting.update', 1], 'method' => 'PUT']) !!}
                         <div class="tab-content" id="myTabContent">
-                            {{--Главная--}}
-                            <div class="tab-pane fade show active " id="home" role="tabpanel"
-                                 aria-labelledby="home-tab">
-                                @include(config('myself.folder').'.setting.card.main')
-                            </div>
-                            <div class="tab-pane fade " id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                @include(config('myself.folder').'.setting.card.langs')
-                            </div>
-                            <div class="tab-pane fade " id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                                {{--Главная--}}
+                                <div class="tab-pane fade show active " id="home" role="tabpanel"
+                                     aria-labelledby="home-tab">
+                                    @include(config('myself.folder').'.setting.card.main')
+                                </div>
+                                {{--Языки сайта--}}
+                                <div class="tab-pane fade " id="langs" role="tabpanel" aria-labelledby="profile-tab">
+                                    @include(config('myself.folder').'.setting.card.langs')
+                                </div>
+                                <div class="tab-pane fade " id="contact" role="tabpanel" aria-labelledby="contact-tab">
 
-                            </div>
+                                </div>
+
                         </div>
+                        {!! Form::submit('Изменить данные', ['class' => 'btn btn-primary']) !!}
+                        {!! Form::close() !!}
                     </div>
 
                 </div>

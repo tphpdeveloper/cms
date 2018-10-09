@@ -1,4 +1,4 @@
-<div class="sidebar" data-color="blue">
+<div class="sidebar" data-color="{{ $color_sidebar }}">
     <!--
       Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
   -->
@@ -54,8 +54,8 @@
                     <p>Типография</p>
                 </a>
             </li>
-            <li {!! route('admin.setting') == URL::current() ? 'class="active"' : ''  !!}>
-                <a href="{{  route('admin.setting') }}">
+            <li {!! route('admin.setting.index') == URL::current() ? 'class="active"' : ''  !!}>
+                <a href="{{  route('admin.setting.index') }}">
                     <i class="now-ui-icons ui-2_settings-90"></i>
                     <p>Настройки</p>
                 </a>

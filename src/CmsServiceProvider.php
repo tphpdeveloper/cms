@@ -11,31 +11,33 @@
 namespace Tphpdeveloper\Cms;
 
 use App;
-use View;
-use File;
-use Illuminate\Support\ServiceProvider;
-use Illuminate\Database\Eloquent\Factory;
-use Tphpdeveloper\Cms\App\Console\Commands\CmsVendorPublish;
-use Themsaid\Multilingual\MultilingualServiceProvider;
-use Collective\Html\HtmlServiceProvider;
+//use Aginev\Datagrid\DatagridServiceProvider;
 use Collective\Html\FormFacade;
 use Collective\Html\HtmlFacade;
-//use Aginev\Datagrid\DatagridServiceProvider;
+use Collective\Html\HtmlServiceProvider;
+use Illuminate\Database\Eloquent\Factory;
+use Illuminate\Support\ServiceProvider;
+use Themsaid\Multilingual\MultilingualServiceProvider;
+use Tphpdeveloper\Cms\App\Console\Commands\CmsVendorPublish;
+use Tphpdeveloper\Cms\App\Http\ViewComposer\ColorSidebarComposer;
 use Tphpdeveloper\Cms\App\Http\ViewComposer\LangComposer;
+use View;
+use File;
+
 
 class CmsServiceProvider extends ServiceProvider
 {
 
     protected $providers = [
-		MultilingualServiceProvider::class,
+		MultilingualServiceProvider ::class,
 		//DatagridServiceProvider::class,
-		HtmlServiceProvider::class,
+		HtmlServiceProvider ::class,
 
     ];
-	
+
 	protected $aliases = [
-		'Form' => FormFacade::class,
-		'Html' => HtmlFacade::class,
+		'Form' => FormFacade ::class,
+		'Html' => HtmlFacade ::class,
 		//'Datagrid' => Aginev\Datagrid\Datagrid::class,
 	];
 
@@ -76,7 +78,7 @@ class CmsServiceProvider extends ServiceProvider
             }
         }
     }
-	
+
 	/**
      * Registering facades
      */
@@ -108,7 +110,7 @@ class CmsServiceProvider extends ServiceProvider
      */
     protected function registerResources()
     {
-        
+
         if(File::exists( base_path( 'routes/'.config('myself.folder').'/web.php' ) ) ) {
             $this->loadRoutesFrom( base_path( 'routes/' . config('myself.folder') . '/web.php' ) );
         }
@@ -129,8 +131,11 @@ class CmsServiceProvider extends ServiceProvider
             config('myself.folder').'.helpers.lang_switch',
             config('myself.folder').'.components.form.*',
 		], LangComposer::class);
-		
-		
+
+        View::composer([
+            config('myself.folder').'.layout.sidebar'
+        ], ColorSidebarComposer::class);
+
 
     }
 
@@ -155,7 +160,7 @@ class CmsServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/config/myself.php' => config_path('myself.php')
         ], 'tphpdeveloper_backend_config');
-		
+
 		$this->publishes([
             __DIR__.'/public' => public_path( config('myself.folder') )
         ], 'tphpdeveloper_backend_public');
@@ -163,20 +168,20 @@ class CmsServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/resources/views' => resource_path('views/'.config('myself.folder') )
         ], 'tphpdeveloper_backend_views');
-		
+
 		$this->publishes([
             __DIR__.'/routes' => base_path('routes/'.config('myself.folder') )
         ], 'tphpdeveloper_backend_routes');
-		
+
 		$this->publishes([
             __DIR__.'/database/seeds/DatabaseSeeder.php' => database_path('seeds')
         ], 'tphpdeveloper_backend_seeds');
-		
-      
+
+
     }
-	
+
 	public function registerFactory(){
 		$this->app->make(Factory::class)->load(__DIR__ . '/database/factories');
 	}
-	
+
 }

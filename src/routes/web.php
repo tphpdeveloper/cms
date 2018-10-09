@@ -11,10 +11,14 @@
 Route::middleware('web')
     ->namespace('Tphpdeveloper\Cms\App\Http\Controllers')
     ->prefix('admin')
+    ->name('admin.')
     ->group(function(){
 
-        Route::get('dashboard', ['as' => 'admin.dashboard', 'uses' => 'DashboardController@show']);
-        Route::get('map', ['as' => 'admin.map', 'uses' => 'MapController@show']);
-        Route::get('setting', ['as' => 'admin.setting', 'uses' => 'SettingController@show']);
+        Route::get('dashboard', 'DashboardController@show')->name('dashboard');
+        Route::get('map', 'MapController@show')->name('map');
+
+        Route::resources([
+            'setting' => 'SettingController',
+        ]);
 
     });

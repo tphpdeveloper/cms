@@ -6,7 +6,10 @@
 @else
     @php
         $value_translate = $model->get($name)->value_translateTranslations->toArray();
+        $al = $alias;
+        $nm = $name;
     @endphp
+
     @foreach($langs as $lang)
         @php
         $star =  '';
@@ -21,11 +24,11 @@
             $d_none = 'd-none';
         }
 
-        $alias .= ' ('.strtoupper($lang).$star.')';
-        $name .= '['.$lang.']';
+        $alias = $al . ' ('.strtoupper($lang).$star.')';
+        $name = $nm . '['.$lang.']';
 
         @endphp
-        <div class="form-group {{ $d_none ?? '' }}" data-languages="{{ $lang ?? ''}}">
+        <div class="form-group js_lang_switcher {{ $d_none ?? '' }}" lang="{{ $lang ?? ''}}">
             {{ Form::label( $name, $alias, ['class' => 'control-label'] ) }}
             {{ Form::text( $name, $value, array_merge(['class' => 'form-control'], ( $attributes ?? [] ) ) ) }}
         </div>

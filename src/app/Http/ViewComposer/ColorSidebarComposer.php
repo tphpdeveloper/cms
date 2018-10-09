@@ -1,10 +1,9 @@
 <?php
-
 /**
- * Tphpdeveloper/Cms
+ * Tphpdeveloper/CMS
  *
  * @author    Igor <kutsani@gmail.com>
- * @copyright 2018 Tphpdeveloper/Cms
+ * @copyright 2018 Tphpdeveloper/CMS
  * @license   https://opensource.org/licenses/MIT
  */
 
@@ -13,7 +12,7 @@ namespace Tphpdeveloper\Cms\App\Http\ViewComposer;
 use Illuminate\View\View;
 use Tphpdeveloper\Cms\App\Models\Setting;
 
-class LangComposer
+class ColorSidebarComposer
 {
 
 
@@ -29,7 +28,7 @@ class LangComposer
      */
     public function compose(View $view)
     {
-        $langs = Setting::where('key', 'langs')->first();
-        $view->with('langs', $langs->value_array);
+        $color = Setting::where('key', 'color_scheme')->first();
+        $view->with('color_sidebar', $color->value_array[$color->selected]);
     }
 }
