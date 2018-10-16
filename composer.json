@@ -18,8 +18,7 @@
     "require": {
         "php": ">=7.1.0",
 		"laravelcollective/html":"*",
-		"themsaid/laravel-multilingual": "*",
-		"aginev/datagrid": "*"
+		"themsaid/laravel-multilingual": "*"
     },
     "autoload": {
 		"classmap": [

@@ -3,7 +3,7 @@
 namespace Tphpdeveloper\Cms\App\Http\Controllers;
 
 use Tphpdeveloper\Cms\App\Models\Setting;
-use Illuminate\Http\Request;
+use Request;
 use Cache;
 
 class SettingController extends BackendController
@@ -15,13 +15,35 @@ class SettingController extends BackendController
      */
     public function index()
     {
-        $setting = Cache::remember('admin_setting', 1, function(){
-            return Setting::with(['tab', 'label'])->get();
-        })
-            ->keyBy('key');
 
-        return view(config('myself.folder').'.setting.show')
-            ->with('model', $setting);
+        dump(Request::get('f', []));
+
+        $setting = Setting::query()->paginate($this->getAdminElementOnPage());
+        $grid = new \Datagrid($setting, Request::get('f', []));
+
+        $grid
+            ->setColumn('id', '#')
+            ->setColumn('name', 'Имя настройки', [
+                'sortable'    => true,
+                'has_filters' => true,
+            ])
+
+            ->setActionColumn([
+                'attributes' => [
+                    'class' => 'text-right'
+                ],
+                'wrapper' => function ($value, $row) {
+                    return '<a href="' . route('admin.setting.show', $row->id) . '" title="Edit" class="btn">
+                                <span class="fa fa-pencil" aria-hidden="true"></span>
+                            </a>
+					        <a href="' . route('admin.setting.destroy', $row->id) . '" title="Delete" data-method="DELETE" class="btn text-danger" data-confirm="Are you sure?">
+					            <span class="fa fa-remove" aria-hidden="true"></span>
+                            </a>';
+                }
+            ]);
+
+        return view(config('myself.folder').'.setting.index')
+            ->with('grid', $grid);
     }
 
     /**

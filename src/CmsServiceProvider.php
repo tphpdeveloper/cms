@@ -10,8 +10,8 @@
 
 namespace Tphpdeveloper\Cms;
 
+use Aginev\Datagrid\DatagridServiceProvider;
 use App;
-//use Aginev\Datagrid\DatagridServiceProvider;
 use Collective\Html\FormFacade;
 use Collective\Html\HtmlFacade;
 use Collective\Html\HtmlServiceProvider;
@@ -30,7 +30,7 @@ class CmsServiceProvider extends ServiceProvider
 
     protected $providers = [
 		MultilingualServiceProvider ::class,
-		//DatagridServiceProvider::class,
+		DatagridServiceProvider ::class,
 		HtmlServiceProvider ::class,
 
     ];
@@ -38,7 +38,7 @@ class CmsServiceProvider extends ServiceProvider
 	protected $aliases = [
 		'Form' => FormFacade ::class,
 		'Html' => HtmlFacade ::class,
-		//'Datagrid' => Aginev\Datagrid\Datagrid::class,
+		'Datagrid' => Aginev\Datagrid\Datagrid::class,
 	];
 
     /**
@@ -176,6 +176,11 @@ class CmsServiceProvider extends ServiceProvider
 		$this->publishes([
             __DIR__.'/database/seeds/DatabaseSeeder.php' => database_path('seeds')
         ], 'tphpdeveloper_backend_seeds');
+
+        $this->publishes([
+            __DIR__.'/resources/datagrid' => resource_path('views/vendor/datagrid' )
+        ], 'tphpdeveloper_datagrid');
+
 
 
     }

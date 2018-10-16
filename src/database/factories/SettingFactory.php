@@ -15,11 +15,11 @@ use Tphpdeveloper\Cms\App\Models\Setting;
 $factory->define(Setting::class, function (Faker $faker) {
 
     return [
-        'tab_id' => $faker->numberBetween(1, 10),
-        'label_id' => $faker->numberBetween(1, 10),
+        'name' => [],
         'key' => '',
+        'value' => '',
         'value_translate' => [],
-        'value' => [],
+        'value_array' => [],
         'selected' => $faker->numberBetween(1, 10)
     ];
 });

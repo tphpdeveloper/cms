@@ -21,8 +21,10 @@ class SettingsSeeder extends Seeder
     public function run()
     {
         factory(Setting::class)->create([
-            'tab_id' => 1,
-            'label_id' => 1,
+            'name' => [
+                'en' => 'Color sidebar',
+                'ru' => 'Цветовая тема sidebar'
+            ],
             'key' => 'color_scheme',
             'value' => null,
             'value_translate' => null,
@@ -31,8 +33,10 @@ class SettingsSeeder extends Seeder
         ]);
 
         factory(Setting::class)->create([
-            'tab_id' => 1,
-            'label_id' => 2,
+            'name' => [
+                'en' => 'Title site',
+                'ru' => 'Заголовок сайта'
+            ],
             'key' => 'main_title',
             'value' => null,
             'value_translate' => [
@@ -44,8 +48,10 @@ class SettingsSeeder extends Seeder
         ]);
 
 		factory(Setting::class)->create([
-            'tab_id' => 1,
-            'label_id' => 3,
+            'name' => [
+                'en' => 'Description site',
+                'ru' => 'Описание сайта'
+            ],
             'key' => 'main_description',
             'value' => null,
             'value_translate' => [
@@ -57,18 +63,22 @@ class SettingsSeeder extends Seeder
         ]);
 
         factory(Setting::class)->create([
-            'tab_id' => 1,
-            'label_id' => 4,
+            'name' => [
+                'en' => 'Count element on a page in admin panel',
+                'ru' => 'Количество элементов на стр. в админ-панели'
+            ],
             'key' => 'count_item_on_admin_page',
-            'value' => 10,
+            'value' => 3,
             'value_translate' => null,
             'value_array' => null,
             'selected' => null
         ]);
 
         factory(Setting::class)->create([
-            'tab_id' => 3,
-            'label_id' => 5,
+            'name' => [
+                'en' => 'Languages site',
+                'ru' => 'Язики сайта'
+            ],
             'key' => 'langs',
             'value' => null,
             'value_translate' => null,
