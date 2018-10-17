@@ -20,7 +20,8 @@ use Themsaid\Multilingual\MultilingualServiceProvider;
 use Tphpdeveloper\Cms\App\Console\Commands\CmsVendorPublish;
 use Tphpdeveloper\Cms\App\Http\ViewComposer\ColorSidebarComposer;
 use Tphpdeveloper\Cms\App\Http\ViewComposer\LangComposer;
-use Tphpdeveloper\Datagrid\DatagridServiceProvider;
+use Tphpdeveloper\Gridview\Datagrid\Datagrid;
+use Tphpdeveloper\Gridview\DatagridServiceProvider;
 use View;
 use File;
 
@@ -38,6 +39,7 @@ class CmsServiceProvider extends ServiceProvider
 	protected $aliases = [
 		'Form' => FormFacade ::class,
 		'Html' => HtmlFacade ::class,
+        'Datagrid' => Datagrid::class
 	];
 
     /**
