@@ -2,7 +2,7 @@
 /**
  * Tphpdeveloper/CMS
  *
- * @author    Igor <kutsani@gmail.com>
+ * @author    Igor <igorkutsan@ukr.net>
  * @copyright 2018 Tphpdeveloper/CMS
  * @license   https://opensource.org/licenses/MIT
  */

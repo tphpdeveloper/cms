@@ -10,7 +10,7 @@
         {
             "name": "Igor Kutsan",
             "email": "igorkutsan@ukr.net",
-            "homepage": "https://igorkutsan.info",
+            "homepage": "https://github.com/tphpdeveloper/cms",
             "role": "Developer"
         }
     ],
@@ -18,7 +18,9 @@
     "require": {
         "php": ">=7.1.0",
 		"laravelcollective/html":"*",
-		"themsaid/laravel-multilingual": "*"
+		"themsaid/laravel-multilingual": "*",
+		"tphpdeveloper/datagrid": "*"
+
     },
     "autoload": {
 		"classmap": [

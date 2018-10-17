@@ -3,7 +3,7 @@
 /**
  * Tphpdeveloper/CMS
  *
- * @author    Igor <kutsani@gmail.com>
+ * @author    Igor <igorkutsan@ukr.net>
  * @copyright 2018 Tphpdeveloper/CMS
  * @license   https://opensource.org/licenses/MIT
  */
@@ -170,9 +170,6 @@ class CmsServiceProvider extends ServiceProvider
             __DIR__.'/routes' => base_path('routes/'.config('myself.folder') )
         ], 'tphpdeveloper_backend_routes');
 
-		$this->publishes([
-            __DIR__.'/database/seeds/DatabaseSeeder.php' => database_path('seeds')
-        ], 'tphpdeveloper_backend_seeds');
 
     }
 

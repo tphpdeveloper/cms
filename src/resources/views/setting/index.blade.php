@@ -10,7 +10,6 @@
             <div class="card">
                 <div class="card-body">
 
-                    {!! $grid->show('grid-table') !!}
 
                 </div>
             </div>

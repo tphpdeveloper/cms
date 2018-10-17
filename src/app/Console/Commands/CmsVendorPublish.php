@@ -3,7 +3,7 @@
 /**
  * Tphpdeveloper/Cms
  *
- * @author    Igor <kutsani@gmail.com>
+ * @author    Igor <igorkutsan@ukr.net>
  * @copyright 2018 Tphpdeveloper/Cms
  * @license   https://opensource.org/licenses/MIT
  */
@@ -106,7 +106,6 @@ class CmsVendorPublish extends Command
 				'tphpdeveloper_backend_public',
 				'tphpdeveloper_backend_routes',
 				'tphpdeveloper_backend_views',
-				'tphpdeveloper_backend_seeds',
 				]
 		]);
 
