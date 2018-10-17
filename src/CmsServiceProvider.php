@@ -20,6 +20,7 @@ use Themsaid\Multilingual\MultilingualServiceProvider;
 use Tphpdeveloper\Cms\App\Console\Commands\CmsVendorPublish;
 use Tphpdeveloper\Cms\App\Http\ViewComposer\ColorSidebarComposer;
 use Tphpdeveloper\Cms\App\Http\ViewComposer\LangComposer;
+use Tphpdeveloper\Datagrid\DatagridServiceProvider;
 use View;
 use File;
 
@@ -30,6 +31,7 @@ class CmsServiceProvider extends ServiceProvider
     protected $providers = [
 		MultilingualServiceProvider ::class,
 		HtmlServiceProvider ::class,
+        DatagridServiceProvider::class
 
     ];
 
