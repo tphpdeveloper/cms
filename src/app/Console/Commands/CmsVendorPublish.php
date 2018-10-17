@@ -107,7 +107,6 @@ class CmsVendorPublish extends Command
 				'tphpdeveloper_backend_routes',
 				'tphpdeveloper_backend_views',
 				'tphpdeveloper_backend_seeds',
-				'tphpdeveloper_datagrid',
 				]
 		]);
 
