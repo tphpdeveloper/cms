@@ -11,6 +11,8 @@
 namespace Tphpdeveloper\Cms\App\Http\Controllers;
 
 use Tphpdeveloper\Cms\App\Models\Setting;
+use Datagrid;
+use Form;
 
 class SettingController extends BackendController
 {
@@ -22,11 +24,12 @@ class SettingController extends BackendController
     public function index()
     {
 
-
-        $settings = Setting::query()->paginate($this->getAdminElementOnPage());
-
+//        $settings = Setting::query()->paginate($this->getAdminElementOnPage());
+        $settings = Setting::query();
+        $grid = Datagrid::setData($settings);
         return view(config('myself.folder').'.setting.index')
-            ->with('settings', $settings);
+            ;
+//            ->with('grid', $grid);
     }
 
     /**
