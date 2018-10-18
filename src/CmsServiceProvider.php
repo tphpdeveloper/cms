@@ -37,8 +37,8 @@ class CmsServiceProvider extends ServiceProvider
     ];
 
 	protected $aliases = [
-		'Form' => FormFacade ::class,
-		'Html' => HtmlFacade ::class,
+		'Form' => FormFacade::class,
+		'Html' => HtmlFacade::class,
         'Datagrid' => DatagridFacade::class
 	];
 
