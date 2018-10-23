@@ -42,8 +42,7 @@
             "aliases": {
                 "Datagrid": "Tphpdeveloper\\Gridview\\Datagrid\\DatagridFacade",
                 "Form": "Collective\\Html\\FormFacade",
-                "Html": "Collective\\Html\\HtmlFacade",
-                "Datagrid": "Tphpdeveloper\\Gridview\\Datagrid\\DatagridFacade"
+                "Html": "Collective\\Html\\HtmlFacade"
             }
         }
     }

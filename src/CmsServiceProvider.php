@@ -18,6 +18,7 @@ use Tphpdeveloper\Cms\App\Http\ViewComposer\ColorSidebarComposer;
 use Tphpdeveloper\Cms\App\Http\ViewComposer\LangComposer;
 use View;
 use File;
+use Form;
 
 
 class CmsServiceProvider extends ServiceProvider
@@ -39,6 +40,8 @@ class CmsServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+		//dd($this->app);
+		
         $this->registerMiddleware();
         $this->registerResources();
         $this->registerViewComposerData();
