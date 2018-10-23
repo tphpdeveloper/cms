@@ -40,7 +40,6 @@ class CmsServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-		//dd($this->app);
 		
         $this->registerMiddleware();
         $this->registerResources();

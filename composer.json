@@ -34,13 +34,13 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Tphpdeveloper\\Cms\\CmsServiceProvider",
                 "Collective\\Html\\HtmlServiceProvider",
                 "Tphpdeveloper\\Gridview\\DatagridServiceProvider",
-                "Themsaid\\Multilingual\\MultilingualServiceProvider"
+                "Themsaid\\Multilingual\\MultilingualServiceProvider",
+				"Tphpdeveloper\\Cms\\CmsServiceProvider"
             ],
             "aliases": {
-                "Datagrid": "Tphpdeveloper\\Gridview\\Datagrid\\DatagridFacade",
+				"Datagrid": "Tphpdeveloper\\Gridview\\Datagrid\\DatagridFacade",
                 "Form": "Collective\\Html\\FormFacade",
                 "Html": "Collective\\Html\\HtmlFacade"
             }
