@@ -26,10 +26,7 @@ class SettingsSeeder extends Seeder
                 'ru' => 'Цветовая тема sidebar'
             ],
             'key' => 'color_scheme',
-            'value' => null,
-            'value_translate' => null,
-            'value_array' => ['blue', 'green', 'orange', 'red', 'yellow'],
-            'selected' => 0
+            'value' => 'blue',
         ]);
 
         factory(Setting::class)->create([
@@ -38,13 +35,10 @@ class SettingsSeeder extends Seeder
                 'ru' => 'Заголовок сайта'
             ],
             'key' => 'main_title',
-            'value' => null,
             'value_translate' => [
                 'en' => 'Title site',
                 'ru' => 'Заголовок сайта'
             ],
-            'value_array' => null,
-            'selected' => null
         ]);
 
 		factory(Setting::class)->create([
@@ -53,13 +47,10 @@ class SettingsSeeder extends Seeder
                 'ru' => 'Описание сайта'
             ],
             'key' => 'main_description',
-            'value' => null,
             'value_translate' => [
                 'en' => 'description site',
                 'ru' => 'Описание сайта'
             ],
-            'value_array' => null,
-            'selected' => null
         ]);
 
         factory(Setting::class)->create([
@@ -69,9 +60,6 @@ class SettingsSeeder extends Seeder
             ],
             'key' => 'count_item_on_admin_page',
             'value' => 3,
-            'value_translate' => null,
-            'value_array' => null,
-            'selected' => null
         ]);
 
         factory(Setting::class)->create([
@@ -79,11 +67,16 @@ class SettingsSeeder extends Seeder
                 'en' => 'Languages site',
                 'ru' => 'Язики сайта'
             ],
-            'key' => 'langs',
-            'value' => null,
-            'value_translate' => null,
-            'value_array' => ['ru','en'],
-            'selected' => 0
+            'key' => 'lang',
+            'value' => 'ru',
+        ]);
+
+        factory(Setting::class)->create([
+            'name' => [
+                'ru' => 'Мультиязичность'
+            ],
+            'key' => 'multiplelanguages',
+            'disabled' => 1
         ]);
 
     }

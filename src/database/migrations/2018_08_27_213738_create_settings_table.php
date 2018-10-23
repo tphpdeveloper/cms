@@ -27,9 +27,8 @@ class CreateSettingsTable extends Migration
             $table->string('key', 100);
             $table->string('value', 255)->nullable();
             $table->json('value_translate')->nullable();
-            $table->json('value_array')->nullable();
-            $table->string('selected', 255)->nullable();
             $table->smallInteger('o')->unsigned()->nullable();
+            $table->smallInteger('disabled')->unsigned()->nullable();
             $table->timestamps();
         });
     }

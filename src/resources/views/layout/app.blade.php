@@ -35,7 +35,13 @@
                     @include(config('myself.folder').'.layout.navbar')
                 @show
 
-                @section('panel-header') @show
+                @section('panel-header')
+                    @if(route('admin.dashboard') == URL::current())
+                        @include(config('myself.folder').'.layout.panel-header.lg')
+                    @else
+                        @include(config('myself.folder').'.layout.panel-header.sm')
+                    @endif
+                @show
 
                 <div class="content">
                     @section('content') @show

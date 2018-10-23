@@ -10,15 +10,11 @@
 
 use Faker\Generator as Faker;
 use Faker\Factory;
-use Tphpdeveloper\Cms\App\Models\Setting;
+use Tphpdeveloper\Cms\App\Models\Lang;
 
-$factory->define(Setting::class, function (Faker $faker) {
+$factory->define(Lang::class, function (Faker $faker) {
 
     return [
-        'name' => [],
-        'key' => '',
-        'value' => null,
-        'value_translate' => null,
-        'disabled' => null
+        'name' => ''
     ];
 });

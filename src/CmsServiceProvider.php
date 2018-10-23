@@ -11,17 +11,11 @@
 namespace Tphpdeveloper\Cms;
 
 use App;
-use Collective\Html\FormFacade;
-use Collective\Html\HtmlFacade;
-use Collective\Html\HtmlServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
 use Illuminate\Support\ServiceProvider;
-use Themsaid\Multilingual\MultilingualServiceProvider;
 use Tphpdeveloper\Cms\App\Console\Commands\CmsVendorPublish;
 use Tphpdeveloper\Cms\App\Http\ViewComposer\ColorSidebarComposer;
 use Tphpdeveloper\Cms\App\Http\ViewComposer\LangComposer;
-use Tphpdeveloper\Gridview\Datagrid\DatagridFacade;
-use Tphpdeveloper\Gridview\DatagridServiceProvider;
 use View;
 use File;
 
@@ -29,26 +23,11 @@ use File;
 class CmsServiceProvider extends ServiceProvider
 {
 
-    protected $providers = [
-		MultilingualServiceProvider::class,
-		HtmlServiceProvider::class,
-        DatagridServiceProvider::class
-
-    ];
-
-	protected $aliases = [
-		'Form' => FormFacade::class,
-		'Html' => HtmlFacade::class,
-//        'Datagrid' => DatagridFacade::class
-	];
-
     /**
      *  Register application services.
      */
     public function register()
     {
-        $this->registerProviders();
-		$this->registerAliases();
 		$this->registerFactory();
 
     }
@@ -65,30 +44,15 @@ class CmsServiceProvider extends ServiceProvider
         $this->registerViewComposerData();
         $this->registerCommands();
         $this->publishesFile();
-    }
 
-    /**
-     * Registering services
-     */
-    protected function registerProviders()
-    {
-        if(count($this->providers)) {
-            foreach ($this->providers as $provider) {
-                App::register($provider);
-            }
-        }
-    }
-
-	/**
-     * Registering facades
-     */
-    protected function registerAliases()
-    {
-        if(count($this->aliases)) {
-            foreach ($this->aliases as $alias => $facade) {
-                App::alias($alias, $facade);
-            }
-        }
+        Form::component('bsText', config('myself.folder').'.components.form.text', [
+            'name',
+            'alias' => '',
+            'value' => '',
+            'attributes' => [],
+            'd_none' => '',
+            'lang' => '',
+        ]);
     }
 
     /**

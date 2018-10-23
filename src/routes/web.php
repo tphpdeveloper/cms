@@ -19,6 +19,7 @@ Route::middleware('web')
 
         Route::resources([
             'setting' => 'SettingController',
+            'lang-static' => 'LangStaticController'
         ]);
 
     });

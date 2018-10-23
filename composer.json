@@ -30,5 +30,21 @@
         "psr-4": {
             "Tphpdeveloper\\Cms\\": "src"
         }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Tphpdeveloper\\Cms\\CmsServiceProvider",
+                "Collective\\Html\\HtmlServiceProvider",
+                "Tphpdeveloper\\Gridview\\DatagridServiceProvider",
+                "Themsaid\\Multilingual\\MultilingualServiceProvider"
+            ],
+            "aliases": {
+                "Datagrid": "Tphpdeveloper\\Gridview\\Datagrid\\DatagridFacade",
+                "Form": "Collective\\Html\\FormFacade",
+                "Html": "Collective\\Html\\HtmlFacade",
+                "Datagrid": "Tphpdeveloper\\Gridview\\Datagrid\\DatagridFacade"
+            }
+        }
     }
 }

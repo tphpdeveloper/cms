@@ -10,15 +10,13 @@
 
 use Faker\Generator as Faker;
 use Faker\Factory;
-use Tphpdeveloper\Cms\App\Models\Setting;
+use Tphpdeveloper\Cms\App\Models\LangStaticValue;
 
-$factory->define(Setting::class, function (Faker $faker) {
+$factory->define(LangStaticValue::class, function (Faker $faker) {
 
     return [
-        'name' => [],
-        'key' => '',
-        'value' => null,
-        'value_translate' => null,
-        'disabled' => null
+        'lang_static_id' => 1,
+        'lang_id' => 1,
+        'value' => '',
     ];
 });

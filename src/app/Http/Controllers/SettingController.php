@@ -13,6 +13,7 @@ namespace Tphpdeveloper\Cms\App\Http\Controllers;
 use Tphpdeveloper\Cms\App\Models\Setting;
 use Datagrid;
 use Form;
+use Html;
 
 class SettingController extends BackendController
 {
@@ -24,12 +25,46 @@ class SettingController extends BackendController
     public function index()
     {
 
-//        $settings = Setting::query()->paginate($this->getAdminElementOnPage());
-        $settings = Setting::query();
-        $grid = Datagrid::setData($settings);
+        $settings = Setting::whereNull('disabled')->paginate($this->getAdminElementOnPage());
+//        $settings = Setting::all();
+        $grid = Datagrid::setData($settings)
+            ->setColumn('', [
+                'label' => '#',
+                'sort' => true
+            ])
+            ->setColumn('name', [
+                'label' => trans('settings.title.name'),
+                'filter' => true,
+                'sort' => true
+            ])
+            ->setColumn('key', [
+                'label' => trans('settings.title.key'),
+                'filter' => true,
+                'sort' => true
+            ])
+            ->setColumn('value_translate', [
+                'label' => trans('settings.title.value'),
+                'filter' => true
+            ])
+            ->setColumn('', [], function($model){
+                $html = Html::link(route('admin.setting.edit', $model->id), Html::tag('i', '', ['class' => 'fa fa-edit']),
+                    ['class' => 'btn text-success'],
+                    null,
+                    false);
+//                $html .= Html::nbsp();
+//                $html .= Form::open(['route' => ['admin.setting.destroy', $model->id], 'method' => 'DELETE']);
+//                $html .= Form::button(
+//                        Html::tag('i', '', ['class' => 'fa fa-remove']),
+//                        ['type' => 'submit', 'class' => 'btn text-danger']
+//                    );
+//                $html .= Form::close();
+
+                return $html;
+
+            })
+        ;
         return view(config('myself.folder').'.setting.index')
-            ;
-//            ->with('grid', $grid);
+            ->with('grid', $grid);
     }
 
     /**
@@ -72,7 +107,8 @@ class SettingController extends BackendController
      */
     public function edit(Setting $setting)
     {
-        //
+        return view(config('myself.folder').'.setting.edit')
+            ->with('setting', $setting);
     }
 
     /**
@@ -95,6 +131,6 @@ class SettingController extends BackendController
      */
     public function destroy(Setting $setting)
     {
-        //
+        dd($setting);
     }
 }

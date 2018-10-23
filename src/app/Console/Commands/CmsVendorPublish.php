@@ -95,17 +95,14 @@ class CmsVendorPublish extends Command
 			'--provider' => 'Themsaid\Multilingual\MultilingualServiceProvider',
 		]);
 
-
-		$this->call('vendor:publish', [
-			'--provider' => 'Aginev\Datagrid\DatagridServiceProvider',
-			'--tag' => 'views',
-		]);
-
 		$this->call('vendor:publish', [
 			'--tag' => [
 				'tphpdeveloper_backend_public',
 				'tphpdeveloper_backend_routes',
 				'tphpdeveloper_backend_views',
+				'laravel-pagination',
+				'datagrid_config',
+				'datagrid_view',
 				]
 		]);
 
