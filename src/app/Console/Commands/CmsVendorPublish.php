@@ -47,7 +47,8 @@ class CmsVendorPublish extends Command
     {
 
         $name_action = [
-            'Publish data' => 'publishData',
+            'Publish config' => 'publishConfig',
+			'Publish data' => 'publishData',
 			'Create queue table migration' => 'createQueueTable',
             'Run migration' => 'runMigration',
             'Seeding test data' => 'seedingData',
@@ -85,11 +86,18 @@ class CmsVendorPublish extends Command
 		$this->info('Bye bye!!!');
 
     }
+	
+	private function publishConfig(){
+		$this->call('vendor:publish', [
+			'--tag' => [
+				'tphpdeveloper_backend_config',
+				'datagrid_config',
+			]
+		]);
+	}
 
 	private function publishData(){
-		$this->call('vendor:publish', [
-			'--tag' => 'tphpdeveloper_backend_config',
-		]);
+		
 
 		$this->call('vendor:publish', [
 			'--provider' => 'Themsaid\Multilingual\MultilingualServiceProvider',
@@ -100,8 +108,7 @@ class CmsVendorPublish extends Command
 				'tphpdeveloper_backend_public',
 				'tphpdeveloper_backend_routes',
 				'tphpdeveloper_backend_views',
-				'laravel-pagination',
-				'datagrid_config',
+				'laravel-pagination',				
 				'datagrid_view',
 				]
 		]);

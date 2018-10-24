@@ -1,12 +1,8 @@
 @extends(config('myself.folder').'.layout.app')
 
-@section('panel-header')
-    @include(config('myself.folder').'.layout.panel-header.sm')
-@endsection
-
 @section('content')
+    @include(config('myself.folder').'.helpers.lang_switch')
     <div class="row">
-        @include(config('myself.folder').'.helpers.lang_switch')
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">

@@ -16,6 +16,7 @@ use Illuminate\Support\ServiceProvider;
 use Tphpdeveloper\Cms\App\Console\Commands\CmsVendorPublish;
 use Tphpdeveloper\Cms\App\Http\ViewComposer\ColorSidebarComposer;
 use Tphpdeveloper\Cms\App\Http\ViewComposer\LangComposer;
+use Tphpdeveloper\Cms\App\Models\Setting;
 use View;
 use File;
 use Form;
@@ -40,21 +41,13 @@ class CmsServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-		
         $this->registerMiddleware();
         $this->registerResources();
         $this->registerViewComposerData();
         $this->registerCommands();
         $this->publishesFile();
-
-        Form::component('bsText', config('myself.folder').'.components.form.text', [
-            'name',
-            'alias' => '',
-            'value' => '',
-            'attributes' => [],
-            'd_none' => '',
-            'lang' => '',
-        ]);
+        $this->makeComponentsForm();
+        $this->shareGlobalVariables();
     }
 
     /**
@@ -62,7 +55,7 @@ class CmsServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerMiddleware()
+    private function registerMiddleware(): void
     {
         $router = $this->app['router'];
 //        $router->aliasMiddleware('main_lang', SetMainLanguage::class);
@@ -74,7 +67,7 @@ class CmsServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerResources()
+    private function registerResources(): void
     {
 
         if(File::exists( base_path( 'routes/'.config('myself.folder').'/web.php' ) ) ) {
@@ -91,7 +84,7 @@ class CmsServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerViewComposerData()
+    private function registerViewComposerData(): void
     {
 		View::composer([
             config('myself.folder').'.helpers.lang_switch',
@@ -108,7 +101,7 @@ class CmsServiceProvider extends ServiceProvider
     /**
      * Registration myself artisan commands
      */
-    protected function registerCommands()
+    private function registerCommands(): void
     {
         if($this->app->runningInConsole()){
             $this->commands([
@@ -121,7 +114,7 @@ class CmsServiceProvider extends ServiceProvider
     /**
      * Publish file
      */
-    protected function publishesFile()
+    private function publishesFile(): void
     {
         $this->publishes([
             __DIR__.'/config/myself.php' => config_path('myself.php')
@@ -142,8 +135,62 @@ class CmsServiceProvider extends ServiceProvider
 
     }
 
-	public function registerFactory(){
+    /**
+     * Load factory class to container
+     */
+    private function registerFactory(): void
+    {
 		$this->app->make(Factory::class)->load(__DIR__ . '/database/factories');
 	}
 
+    /**
+     * Create components for Form facade
+     */
+	private function makeComponentsForm(): void
+    {
+        Form::component('bsText', config('myself.folder').'.components.form.text', [
+            'name',
+            'alias' => '',
+            'value' => null,
+            'attributes' => [],
+            'languages' => false,
+            'class' => '',
+        ]);
+
+        Form::component('bsNumber', config('myself.folder').'.components.form.number', [
+            'name',
+            'alias' => '',
+            'value' => null,
+            'attributes' => [],
+            'class' => '',
+        ]);
+
+        Form::component('bsToggle', config('myself.folder').'.components.form.checkbox', [
+            'name',
+            'alias' => '',
+            'value' => null,
+            'checked' => null,
+            'attributes' => [],
+            'class' => null,
+        ]);
+    }
+
+    /**
+     * Share global variables
+     */
+    private function shareGlobalVariables(): void
+    {
+        $settings = Setting::all();
+        foreach($settings as $setting){
+            switch($setting->key){
+                case 'lang':
+                    app()->setLocale($setting->value);
+                    break;
+                case 'multiple_languages':
+                    View::share('multiple_lang', $setting->value);
+                    break;
+
+            }
+        }
+    }
 }

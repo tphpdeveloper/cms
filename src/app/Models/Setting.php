@@ -15,7 +15,7 @@ class Setting extends BackendModel
 {
 	    use \Themsaid\Multilingual\Translatable;
 
-    protected $fillable = ['name', 'key', 'value', 'value_translate'];
+    protected $fillable = ['name', 'key', 'value', 'value_translate', 'o', 'disabled'];
     public $translatable = [
         'name',
         'value_translate'

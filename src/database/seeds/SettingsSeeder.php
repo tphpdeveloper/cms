@@ -73,9 +73,11 @@ class SettingsSeeder extends Seeder
 
         factory(Setting::class)->create([
             'name' => [
+                'en' => 'Multiple language',
                 'ru' => 'Мультиязичность'
             ],
-            'key' => 'multiplelanguages',
+            'key' => 'multiple_languages',
+            'value' => 1,
             'disabled' => 1
         ]);
 

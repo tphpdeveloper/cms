@@ -5,7 +5,7 @@
  * @license   https://opensource.org/licenses/MIT
  */
 return [
-    'settings' => [
+    'setting' => [
         'title' => [
             'name' => [
                 'ru' => 'Название',
@@ -15,6 +15,40 @@ return [
             ],
             'value' => [
                 'ru' => 'Значение',
+            ],
+        ],
+        'edit' => [
+            'name' => [
+                'ru' => 'Название'
+            ],
+            'key' => [
+                'ru' => 'Ключ'
+            ],
+            'value' => [
+                'ru' => 'Значение'
+            ],
+            'value_translate' => [
+                'ru' => 'Мультиязичное значение'
+            ],
+            'order' => [
+                'ru' => 'Сортировка'
+            ],
+            'disabled' => [
+                'ru' => 'Включен / Отключен'
+            ],
+        ],
+        'button' => [
+            'save' => [
+                'ru' => 'Сохранить',
+            ],
+            'update' => [
+                'ru' => 'Обновить',
+            ],
+            'cancel' => [
+                'ru' => 'Отмена',
+            ],
+            'clear' => [
+                'ru' => 'Очистить',
             ],
         ],
 

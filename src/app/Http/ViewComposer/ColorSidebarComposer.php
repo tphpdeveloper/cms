@@ -29,6 +29,6 @@ class ColorSidebarComposer
     public function compose(View $view)
     {
         $color = Setting::where('key', 'color_scheme')->first();
-        $view->with('color_sidebar', $color->value_array[$color->selected]);
+        $view->with('color_sidebar', $color->value);
     }
 }
