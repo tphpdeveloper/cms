@@ -19,7 +19,7 @@ $factory->define(Setting::class, function (Faker $faker) {
         'key' => '',
         'value' => null,
         'value_translate' => null,
-        'o' => null,
-        'disabled' => null
+        'o' => 0,
+        'disabled' => 0
     ];
 });

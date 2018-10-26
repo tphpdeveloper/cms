@@ -26,5 +26,8 @@ class LangSeeder extends Seeder
         factory(Lang::class)->create([
             'name' => 'en'
         ]);
+        factory(Lang::class)->create([
+            'name' => 'uk'
+        ]);
     }
 }

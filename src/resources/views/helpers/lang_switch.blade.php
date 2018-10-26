@@ -1,15 +1,16 @@
 @if($multiple_lang)
     <div class="row justify-content-end">
-        <div class="col-md-2">
+        <div class="col-md-2 ">
             <div class="card ">
                 <div class="card-body">
-                    @include(config('myself.folder').'.components.form.select',[
-                        'value' =>  $langs,
-                        'selected' => array_flip($langs)[app()->getLocale()],
-                        'attributes' => [
-                            'id' => 'js_lang_switcher'
-                        ],
-                    ])
+                    {!! Form::bsSelect(' ', '', $langs,
+                        array_flip($langs)[app()->getLocale()],
+                        ['id' => 'js_lang_switcher'],
+                        ['attributes_label' => [
+                                'class' => 'd-none',
+                            ]
+                        ]
+                    ) !!}
                 </div>
             </div>
         </div>
@@ -18,6 +19,7 @@
 
     @push('script')
         <script>
+
             $("#js_lang_switcher").change(function (e) {
                 var lang = this.options[this.selectedIndex].text;
 

@@ -1,17 +1,11 @@
-@extends(config('myself.folder').'.layout.app')
+@extends($folder_path.'layout.pages.page_index')
 
-@section('content')
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-body">
-                    <div class="card-body">
-                        {!! $grid->render() !!}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+@section('page_index_header')
+    {!! Form::bsButtonCreate(route('admin.setting.create')) !!}
+@endsection
+
+@section('page_index_body')
+    {!! $grid->render() !!}
 @endsection
 
 

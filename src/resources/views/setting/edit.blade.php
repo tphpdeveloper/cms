@@ -1,25 +1,16 @@
-@extends(config('myself.folder').'.layout.app')
+@extends($folder_path.'layout.pages.page_lang')
 
-@section('content')
-    @include(config('myself.folder').'.helpers.lang_switch')
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-body">
-                    <div class="card-header">
+@section('page_lang_header')
+    {{ $setting->name }}
+@endsection
 
-                    </div>
-                    <div class="card-body">
+@section('page_lang_body')
+    {!! Form::open(['route' => ['admin.setting.update', $setting->id], 'method' => 'PUT']) !!}
+        @include($folder_path.'setting.card.main')
 
-                        @include(config('myself.folder').'.setting.card.main')
+        {!! Form::bsButtonUpdate() !!}
+        {!! Form::bsButtonCancel(route('admin.setting.index')) !!}
 
-                            {{--@include(config('myself.folder').'.setting.card.langs')--}}
-
-
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
+    {!! Form::close() !!}
+    {{--@include($folder_path.'setting.card.langs')--}}
 @endsection

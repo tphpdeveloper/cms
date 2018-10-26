@@ -1,7 +1,7 @@
-@extends(config('myself.folder').'.layout.app')
+@extends($folder_path.'layout.app')
 
 @section('content')
-    @include(config('myself.folder').'.helpers.lang_switch')
+    @include($folder_path.'helpers.lang_switch')
     <div class="row">
         <div class="col-md-12">
             <div class="card">
@@ -28,11 +28,11 @@
                                 {{--Главная--}}
                                 <div class="tab-pane fade show active " id="home" role="tabpanel"
                                      aria-labelledby="home-tab">
-                                    @include(config('myself.folder').'.setting.card.main')
+                                    @include($folder_path.'setting.card.main')
                                 </div>
                                 {{--Языки сайта--}}
                                 <div class="tab-pane fade " id="langs" role="tabpanel" aria-labelledby="profile-tab">
-                                    @include(config('myself.folder').'.setting.card.langs')
+                                    @include($folder_path.'setting.card.langs')
                                 </div>
                                 <div class="tab-pane fade " id="contact" role="tabpanel" aria-labelledby="contact-tab">
 

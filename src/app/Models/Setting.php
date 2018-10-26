@@ -10,6 +10,7 @@
 
 namespace Tphpdeveloper\Cms\App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 
 class Setting extends BackendModel
 {
@@ -22,8 +23,20 @@ class Setting extends BackendModel
     ];
     protected $casts = [
         'name' => 'array',
-        'value_translate' => 'array'
+        'value_translate' => 'array',
+        'disabled' => 'boolean',
     ];
+
+    /**
+     * Add global scope to select setting where disabled = 0
+     */
+    protected static function boot(): void
+    {
+        parent::boot();
+        static::addGlobalScope('disabled', function(Builder $builder){
+            //return $builder->whereDisabled(0);
+        });
+    }
 
 
 

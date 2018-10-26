@@ -1,6 +1,4 @@
 <div class="form-group">
-    @if(isset($alias))
-        {{ Form::label( $name, $alias, ['class' => 'control-label'] ) }}
-    @endif
-    {{ Form::select(($name ?? ''), ($value ?? []), ($selected ?? null) , array_merge( ['class' => 'form-control'], ( $attributes ?? [] ) ) ) }}
+    @include($folder_path.'helpers.label', $label)
+    {!! Form::select($name, $list, $selected , array_merge( ['class' => 'form-control'], $attributes ) ) !!}
 </div>

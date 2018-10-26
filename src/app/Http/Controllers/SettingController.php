@@ -26,32 +26,24 @@ class SettingController extends BackendController
     public function index()
     {
 
-        $settings = Setting::whereNull('disabled')->paginate($this->getAdminElementOnPage());
+        $settings = Setting::query()->paginate($this->getAdminElementOnPage());
 
         $grid = Datagrid::setData($settings)
             ->setColumn('', [
                 'label' => '#',
             ])
             ->setColumn('name', [
-                'label' => trans('setting.title.name'),
+                'label' => trans('setting.edit.name'),
             ])
             ->setColumn('key', [
-                'label' => trans('setting.title.key'),
-                'filter' => true,
-                'sort' => true
+                'label' => trans('setting.edit.key'),
             ])
             ->setColumn('', [], function($model){
-                $html = Html::link(route('admin.setting.edit', $model->id),
-                    Html::tag('i', '', ['class' => 'fa fa-edit']),
-                    ['class' => 'btn btn-sm text-success btn-neutral'],
-                    null,
-                    false);
+                $html = Form::bsButtonEdit(route('admin.setting.edit', $model->id));
+
 //                $html .= Html::nbsp();
 //                $html .= Form::open(['route' => ['admin.setting.destroy', $model->id], 'method' => 'DELETE']);
-//                $html .= Form::button(
-//                        Html::tag('i', '', ['class' => 'fa fa-remove']),
-//                        ['type' => 'submit', 'class' => 'btn text-danger']
-//                    );
+//                $html .= Form::bsButtonDelete();
 //                $html .= Form::close();
 
                 return $html;
@@ -115,8 +107,8 @@ class SettingController extends BackendController
      */
     public function update(Request $request, Setting $setting)
     {
-        dump($request->all());
-        //dump($setting);
+        $setting->update($request->all());
+        return redirect()->route('admin.setting.index');
     }
 
     /**

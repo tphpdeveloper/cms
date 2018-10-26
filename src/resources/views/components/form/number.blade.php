@@ -1,7 +1,4 @@
 <div class="form-group {{ $class }}" >
-    @include(config('myself.folder').'.helpers.label', [
-        'name' => $name,
-        'alias' => $alias
-    ])
-    {{ Form::number( $name, $value ?? Form::old($name), array_merge(['class' => 'form-control'], $attributes ) ) }}
+    @include($folder_path.'helpers.label', $label)
+    {{ Form::number( $name, $value ?? Form::old($name), array_merge(['class' => 'form-control', 'min' => 0], $attributes ) ) }}
 </div>

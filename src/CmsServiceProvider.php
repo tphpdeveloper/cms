@@ -20,10 +20,13 @@ use Tphpdeveloper\Cms\App\Models\Setting;
 use View;
 use File;
 use Form;
+use Html;
 
 
 class CmsServiceProvider extends ServiceProvider
 {
+
+    private $folder_path = '';
 
     /**
      *  Register application services.
@@ -41,6 +44,7 @@ class CmsServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->folder_path = config('myself.folder');
         $this->registerMiddleware();
         $this->registerResources();
         $this->registerViewComposerData();
@@ -70,12 +74,12 @@ class CmsServiceProvider extends ServiceProvider
     private function registerResources(): void
     {
 
-        if(File::exists( base_path( 'routes/'.config('myself.folder').'/web.php' ) ) ) {
-            $this->loadRoutesFrom( base_path( 'routes/' . config('myself.folder') . '/web.php' ) );
+        if(File::exists( base_path( 'routes/' . $this->folder_path . '/web.php' ) ) ) {
+            $this->loadRoutesFrom( base_path( 'routes/' . $this->folder_path . '/web.php' ) );
         }
         $this->loadMigrationsFrom( __DIR__ . '/database/migrations' );
-        //$this->loadTranslationsFrom( base_path( 'resources/lang/'.config('myself.folder') ), config('myself.prefix') );
-        //$this->loadViewsFrom( base_path( 'resources/views/'.config('myself.folder') ), config('myself.prefix') );
+        //$this->loadTranslationsFrom( base_path( 'resources/lang/' . $this->folder_path ), config('myself.prefix') );
+        //$this->loadViewsFrom( base_path( 'resources/views/' . $this->folder_path ), config('myself.prefix') );
 
     }
 
@@ -87,12 +91,12 @@ class CmsServiceProvider extends ServiceProvider
     private function registerViewComposerData(): void
     {
 		View::composer([
-            config('myself.folder').'.helpers.lang_switch',
-            config('myself.folder').'.components.form.*',
+            $this->folder_path.'.helpers.lang_switch',
+            $this->folder_path.'.components.form.*',
 		], LangComposer::class);
 
         View::composer([
-            config('myself.folder').'.layout.sidebar'
+            $this->folder_path.'.layout.sidebar'
         ], ColorSidebarComposer::class);
 
 
@@ -121,15 +125,15 @@ class CmsServiceProvider extends ServiceProvider
         ], 'tphpdeveloper_backend_config');
 
 		$this->publishes([
-            __DIR__.'/public' => public_path( config('myself.folder') )
+            __DIR__.'/public' => public_path( $this->folder_path )
         ], 'tphpdeveloper_backend_public');
 
         $this->publishes([
-            __DIR__.'/resources/views' => resource_path('views/'.config('myself.folder') )
+            __DIR__.'/resources/views' => resource_path('views/'.$this->folder_path )
         ], 'tphpdeveloper_backend_views');
 
 		$this->publishes([
-            __DIR__.'/routes' => base_path('routes/'.config('myself.folder') )
+            __DIR__.'/routes' => base_path('routes/'.$this->folder_path )
         ], 'tphpdeveloper_backend_routes');
 
 
@@ -148,31 +152,94 @@ class CmsServiceProvider extends ServiceProvider
      */
 	private function makeComponentsForm(): void
     {
-        Form::component('bsText', config('myself.folder').'.components.form.text', [
+        /********* Group components form BEGIN *********/
+        Form::component('bsText', $this->folder_path.'.components.form.text', [
             'name',
             'alias' => '',
-            'value' => null,
+            'value' => '',
             'attributes' => [],
             'languages' => false,
             'class' => '',
+            'label' => []
         ]);
 
-        Form::component('bsNumber', config('myself.folder').'.components.form.number', [
+        Form::component('bsNumber', $this->folder_path.'.components.form.number', [
             'name',
             'alias' => '',
-            'value' => null,
+            'value' => '',
             'attributes' => [],
             'class' => '',
+            'label' => [],
         ]);
 
-        Form::component('bsToggle', config('myself.folder').'.components.form.checkbox', [
+        Form::component('bsToggle', $this->folder_path.'.components.form.toggle', [
             'name',
             'alias' => '',
-            'value' => null,
-            'checked' => null,
+            'checked' => 0,
             'attributes' => [],
             'class' => null,
         ]);
+
+        Form::component('bsSelect', $this->folder_path.'.components.form.select', [
+            'name',
+            'alias' => '',
+            'list' => [],
+            'selected' => null,
+            'attributes' => [],
+            'label' => [],
+        ]);
+        /******** Group components form END ************/
+
+        /********* Group components button BEGIN *********/
+        Form::component('bsButtonDelete', $this->folder_path.'.helpers.buttons.button.btn_delete', [
+            'btn_delete_name' => Html::tag('i', '', ['class' => 'fa fa-remove']),
+            'btn_delete_attributes' => [],
+        ]);
+
+        Form::component('bsButtonReset', $this->folder_path.'.helpers.buttons.input.btn_inp_reset', [
+            'btn_reset_name' => trans('setting.button.reset'),
+            'btn_reset_attributes' => [],
+        ]);
+
+        Form::component('bsButtonSave', $this->folder_path.'.helpers.buttons.input.btn_inp_save', [
+            'btn_save_name' => trans('setting.button.save'),
+            'btn_save_attributes' => [],
+        ]);
+
+        Form::component('bsButtonUpdate', $this->folder_path.'.helpers.buttons.input.btn_inp_update', [
+            'btn_update_name' => trans('setting.button.update'),
+            'btn_update_attributes' => [],
+        ]);
+
+        Form::component('bsButtonCancel', $this->folder_path.'.helpers.buttons.link.btn_lnk_cancel', [
+            'btn_cancel_route' => '#',
+            'btn_cancel_name' => trans('setting.button.cancel'),
+            'btn_cancel_attributes' => [],
+            'btn_cancel_secure' => null,
+            'btn_cancel_escape' => true,
+        ]);
+
+        Form::component('bsButtonCreate', $this->folder_path.'.helpers.buttons.link.btn_lnk_create', [
+            'btn_create_route' => '#',
+            'btn_create_name' => trans('setting.button.create'),
+            'btn_create_attributes' => [],
+            'btn_create_secure' => null,
+            'btn_create_escape' => true,
+        ]);
+
+        Form::component('bsButtonEdit', $this->folder_path.'.helpers.buttons.link.btn_lnk_edit', [
+            'btn_edit_route' => '#',
+            'btn_edit_name' => Html::tag('i', '', ['class' => 'fa fa-edit']),
+            'btn_edit_attributes' => [],
+            'btn_edit_secure' => null,
+            'btn_edit_escape' => false,
+        ]);
+        /******** Group components button END ************/
+
+
+        /********* Group components form BEGIN *********/
+        /******** Group components form END ************/
+
     }
 
     /**
@@ -192,5 +259,7 @@ class CmsServiceProvider extends ServiceProvider
 
             }
         }
+
+        View::share('folder_path', $this->folder_path.'.');
     }
 }

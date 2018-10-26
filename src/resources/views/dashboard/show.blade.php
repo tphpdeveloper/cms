@@ -1,4 +1,4 @@
-@extends(config('myself.folder').'.layout.app')
+@extends($folder_path.'layout.app')
 
 @section('content')
     <div class="row">

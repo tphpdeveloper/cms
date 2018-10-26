@@ -9,11 +9,14 @@
                 }
                 $data[] = [
                      'name' => $name.'['.$lang.']',
-                     'alias' => $alias.$wishbone,
                      'value' => $value[$lang] ?? '',
                      'lang' => $lang,
                      'class' => (app()->getLocale() != $lang ? 'd-none ' : '').$class,
-                     'attributes' => $attributes
+                     'attributes' => $attributes,
+                     'label' => array_merge([
+                            'name' => $name.'['.$lang.']',
+                            'alias' => $alias.$wishbone
+                         ],$label),
                 ];
             }
         }
@@ -21,12 +24,15 @@
     else{
         $data[] = [
              'name' => $name,
-             'alias' => $alias,
              'value' => $value,
              'lang' => '',
              'class' => $class,
-             'attributes' => $attributes
+             'attributes' => $attributes,
+             'label' => array_merge([
+                    'name' => $name,
+                    'alias' => $alias
+                 ],$label),
         ];
     }
 @endphp
-@each(config('myself.folder').'.components.form.card.text', $data, 'model')
+@each($folder_path.'components.form.card.text', $data, 'model')

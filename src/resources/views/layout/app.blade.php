@@ -6,9 +6,7 @@
         <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('backend/img/apple-icon.png') }}">
         <link rel="icon" type="image/png" href="{{ asset('backend/img/favicon.png') }}">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-        <title>
-            @section('meta_title', 'Панель прибров') @show
-        </title>
+        <title> @yield('meta_title', 'Панель прибров') </title>
         <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
         <!--     Fonts and icons     -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" />
@@ -17,7 +15,7 @@
         <link rel="stylesheet" href="{{ asset('backend/css/bootstrap.min.css') }}" />
         <link rel="stylesheet" href="{{ asset('backend/css/now-ui-dashboard.css?v=1.1.0') }}" />
         <!-- CSS Just for demo purpose, don't include it in your project -->
-        <link href="{{ asset('backend/demo/demo.css" rel="stylesheet') }}" />
+        {{--<link href="{{ asset('backend/demo/demo.css" rel="stylesheet') }}" />--}}
 
         <link rel="stylesheet" href="{{ asset('backend/css/main.css') }}" />
         @stack('style')
@@ -28,18 +26,18 @@
         <div class="wrapper ">
 
             @section('sidebar')
-                @include(config('myself.folder').'.layout.sidebar')
+                @include($folder_path.'layout.sidebar')
             @show
             <div class="main-panel">
                 @section('navbar')
-                    @include(config('myself.folder').'.layout.navbar')
+                    @include($folder_path.'layout.navbar')
                 @show
 
                 @section('panel-header')
                     @if(route('admin.dashboard') == URL::current())
-                        @include(config('myself.folder').'.layout.panel-header.lg')
+                        @include($folder_path.'layout.panel-header.lg')
                     @else
-                        @include(config('myself.folder').'.layout.panel-header.sm')
+                        @include($folder_path.'layout.panel-header.sm')
                     @endif
                 @show
 
@@ -48,7 +46,7 @@
                 </div>
 
                 @section('footer')
-                    @include(config('myself.folder').'.layout.footer')
+                    @include($folder_path.'layout.footer')
                 @show
             </div>
         </div>
@@ -59,7 +57,8 @@
         <script src="{{ asset('backend/js/core/bootstrap.min.js') }}"></script>
         <script src="{{ asset('backend/js/plugins/perfect-scrollbar.jquery.min.js') }}"></script>
         <!--  Google Maps Plugin    -->
-        <script src="https://maps.googleapis.com/maps/api/js"></script>
+        {{--<script src="https://maps.googleapis.com/maps/api/js"></script>--}}
+
         <!-- Chart JS -->
         <script src="{{ asset('backend/js/plugins/chartjs.min.js') }}"></script>
         <!--  Notifications Plugin    -->
@@ -75,7 +74,7 @@
 
             {{--});--}}
         {{--</script>--}}
-        <script src="{{ asset('backend/js/plugins/ckeditor/ckeditor.js') }}"></script>
+        {{--<script src="{{ asset('backend/js/plugins/ckeditor/ckeditor.js') }}"></script>--}}
         <script src="{{ asset('backend/js/main.js') }}"></script>
         @stack('script')
 
