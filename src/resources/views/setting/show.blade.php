@@ -32,7 +32,6 @@
                                 </div>
                                 {{--Языки сайта--}}
                                 <div class="tab-pane fade " id="langs" role="tabpanel" aria-labelledby="profile-tab">
-                                    @include($folder_path.'setting.card.langs')
                                 </div>
                                 <div class="tab-pane fade " id="contact" role="tabpanel" aria-labelledby="contact-tab">
 

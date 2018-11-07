@@ -1,2 +1,2 @@
-@include($folder_path.'setting.card.create')
-{!! Form::bsToggle('o', trans('setting.edit.disabled')) !!}
+@include($folder_path.'setting.card.edit')
+{!! Form::bsCheckbox('disabled', trans('cms.page.disabled')) !!}

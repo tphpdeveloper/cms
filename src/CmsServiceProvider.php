@@ -11,17 +11,22 @@
 namespace Tphpdeveloper\Cms;
 
 use App;
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Database\Eloquent\Factory;
 use Illuminate\Support\ServiceProvider;
 use Tphpdeveloper\Cms\App\Console\Commands\CmsVendorPublish;
+use Tphpdeveloper\Cms\App\Http\Middleware\AdminMiddleware;
 use Tphpdeveloper\Cms\App\Http\ViewComposer\ColorSidebarComposer;
 use Tphpdeveloper\Cms\App\Http\ViewComposer\LangComposer;
+use Tphpdeveloper\Cms\App\Models\Lang;
 use Tphpdeveloper\Cms\App\Models\Setting;
+use Tphpdeveloper\Cms\App\Scopes\SettingWithoutDisabledScope;
 use View;
 use File;
 use Form;
 use Html;
-
+use Log;
+use Schema;
 
 class CmsServiceProvider extends ServiceProvider
 {
@@ -52,6 +57,10 @@ class CmsServiceProvider extends ServiceProvider
         $this->publishesFile();
         $this->makeComponentsForm();
         $this->shareGlobalVariables();
+        $this->closureBootedForCommangs();
+
+//        dump($this->app);
+
     }
 
     /**
@@ -62,7 +71,7 @@ class CmsServiceProvider extends ServiceProvider
     private function registerMiddleware(): void
     {
         $router = $this->app['router'];
-//        $router->aliasMiddleware('main_lang', SetMainLanguage::class);
+        $router->aliasMiddleware('admin', AdminMiddleware::class);
     }
 
     /**
@@ -90,10 +99,6 @@ class CmsServiceProvider extends ServiceProvider
      */
     private function registerViewComposerData(): void
     {
-		View::composer([
-            $this->folder_path.'.helpers.lang_switch',
-            $this->folder_path.'.components.form.*',
-		], LangComposer::class);
 
         View::composer([
             $this->folder_path.'.layout.sidebar'
@@ -152,15 +157,39 @@ class CmsServiceProvider extends ServiceProvider
      */
 	private function makeComponentsForm(): void
     {
+        Form::component('bsFormGroup', $this->folder_path.'.components.form.helpers.form_group',[
+            'content' => '',
+            'attribute' => [],
+        ]);
+
+        Form::component('bsLabel', $this->folder_path.'.components.form.helpers.label',[
+            'name' => '',
+            'alias' => '',
+            'attributes' => [],
+            'entities' => true,
+        ]);
+
+        Form::component('bsErrors', $this->folder_path.'.components.form.helpers.errors',[
+            'name' => '',
+        ]);
+
         /********* Group components form BEGIN *********/
         Form::component('bsText', $this->folder_path.'.components.form.text', [
             'name',
             'alias' => '',
             'value' => '',
+            'multiple_lang' => false,
             'attributes' => [],
-            'languages' => false,
-            'class' => '',
-            'label' => []
+            'textarea'=> false
+        ]);
+
+        Form::component('bsTextarea', $this->folder_path.'.components.form.text', [
+            'name',
+            'alias' => '',
+            'value' => '',
+            'multiple_lang' => false,
+            'attributes' => [],
+            'textarea'=> true
         ]);
 
         Form::component('bsNumber', $this->folder_path.'.components.form.number', [
@@ -168,16 +197,13 @@ class CmsServiceProvider extends ServiceProvider
             'alias' => '',
             'value' => '',
             'attributes' => [],
-            'class' => '',
-            'label' => [],
         ]);
 
-        Form::component('bsToggle', $this->folder_path.'.components.form.toggle', [
+        Form::component('bsCheckbox', $this->folder_path.'.components.form.checkbox', [
             'name',
             'alias' => '',
             'checked' => 0,
             'attributes' => [],
-            'class' => null,
         ]);
 
         Form::component('bsSelect', $this->folder_path.'.components.form.select', [
@@ -186,48 +212,47 @@ class CmsServiceProvider extends ServiceProvider
             'list' => [],
             'selected' => null,
             'attributes' => [],
-            'label' => [],
         ]);
         /******** Group components form END ************/
 
         /********* Group components button BEGIN *********/
-        Form::component('bsButtonDelete', $this->folder_path.'.helpers.buttons.button.btn_delete', [
+        Form::component('bsButtonDelete', $this->folder_path.'.components.form.helpers.buttons.button.btn_delete', [
             'btn_delete_name' => Html::tag('i', '', ['class' => 'fa fa-remove']),
             'btn_delete_attributes' => [],
         ]);
 
-        Form::component('bsButtonReset', $this->folder_path.'.helpers.buttons.input.btn_inp_reset', [
-            'btn_reset_name' => trans('setting.button.reset'),
+        Form::component('bsButtonReset', $this->folder_path.'.components.form.helpers.buttons.input.btn_inp_reset', [
+            'btn_reset_name' => trans('cms.helpers.button.reset'),
             'btn_reset_attributes' => [],
         ]);
 
-        Form::component('bsButtonSave', $this->folder_path.'.helpers.buttons.input.btn_inp_save', [
-            'btn_save_name' => trans('setting.button.save'),
+        Form::component('bsButtonSave', $this->folder_path.'.components.form.helpers.buttons.input.btn_inp_save', [
+            'btn_save_name' => trans('cms.helpers.button.save'),
             'btn_save_attributes' => [],
         ]);
 
-        Form::component('bsButtonUpdate', $this->folder_path.'.helpers.buttons.input.btn_inp_update', [
-            'btn_update_name' => trans('setting.button.update'),
+        Form::component('bsButtonUpdate', $this->folder_path.'.components.form.helpers.buttons.input.btn_inp_update', [
+            'btn_update_name' => trans('cms.helpers.button.update'),
             'btn_update_attributes' => [],
         ]);
 
-        Form::component('bsButtonCancel', $this->folder_path.'.helpers.buttons.link.btn_lnk_cancel', [
+        Form::component('bsButtonCancel', $this->folder_path.'.components.form.helpers.buttons.link.btn_lnk_cancel', [
             'btn_cancel_route' => '#',
-            'btn_cancel_name' => trans('setting.button.cancel'),
+            'btn_cancel_name' => trans('cms.helpers.button.cancel'),
             'btn_cancel_attributes' => [],
             'btn_cancel_secure' => null,
             'btn_cancel_escape' => true,
         ]);
 
-        Form::component('bsButtonCreate', $this->folder_path.'.helpers.buttons.link.btn_lnk_create', [
+        Form::component('bsButtonCreate', $this->folder_path.'.components.form.helpers.buttons.link.btn_lnk_create', [
             'btn_create_route' => '#',
-            'btn_create_name' => trans('setting.button.create'),
+            'btn_create_name' => trans('cms.helpers.button.create'),
             'btn_create_attributes' => [],
             'btn_create_secure' => null,
             'btn_create_escape' => true,
         ]);
 
-        Form::component('bsButtonEdit', $this->folder_path.'.helpers.buttons.link.btn_lnk_edit', [
+        Form::component('bsButtonEdit', $this->folder_path.'.components.form.helpers.buttons.link.btn_lnk_edit', [
             'btn_edit_route' => '#',
             'btn_edit_name' => Html::tag('i', '', ['class' => 'fa fa-edit']),
             'btn_edit_attributes' => [],
@@ -247,19 +272,38 @@ class CmsServiceProvider extends ServiceProvider
      */
     private function shareGlobalVariables(): void
     {
-        $settings = Setting::all();
-        foreach($settings as $setting){
-            switch($setting->key){
-                case 'lang':
-                    app()->setLocale($setting->value);
-                    break;
-                case 'multiple_languages':
-                    View::share('multiple_lang', $setting->value);
-                    break;
+        if(Schema::hasTable('settings')) {
+            $settings = Setting::withoutGlobalScope(SettingWithoutDisabledScope::class)->get();
+            foreach ($settings as $setting) {
+                switch ($setting->key) {
+                    case 'lang':
+                        app()->setLocale($setting->value);
+                        break;
+                    case 'multiple_languages':
+                        View::share('multilingual', $setting->value);
+                        break;
 
+                }
             }
         }
 
         View::share('folder_path', $this->folder_path.'.');
+
+        if( count( config('multilingual.locales') ) == 1  && Schema::hasTable('langs')) {
+            config(['multilingual.locales' => Lang::all(['id', 'name'])->pluck('name', 'id')->toArray()]);
+        }
+    }
+
+    /**
+     * Schedule a command running
+     */
+    private function closureBootedForCommangs(){
+        $this->app->booted(function () {
+            $schedule = $this->app->make(Schedule::class);
+            $schedule->command('view:clear')->name('view_clear')->withoutOverlapping()->daily() ;
+            $schedule->command('config:cache')->name('config_cache')->withoutOverlapping()->daily();
+//            $schedule->command('queue:restart')->daily();
+//            $schedule->command('queue:work')->withoutOverlapping();
+        });
     }
 }

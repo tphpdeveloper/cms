@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 class DashboardController extends BackendController
 {
     public function show(){
-        return view(config('myself.folder').'.dashboard.show');
+        return view($this->getFolderPath().'dashboard.show');
     }
 
 }

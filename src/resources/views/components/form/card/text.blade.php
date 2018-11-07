@@ -1,4 +1,6 @@
-<div class="form-group {!! $model['lang'] != '' ? 'js_lang_switcher' : '' !!} {{ $model['class'] }}" {!! $model['lang'] != '' ? 'lang="'.$model['lang'].'"' : '' !!}>
-    @include($folder_path.'helpers.label', $model['label'])
-    {{ Form::text( $model['name'], $model['value'] ?? Form::old($model['name']), array_merge(['class' => 'form-control'], $model['attributes'] ) ) }}
-</div>
+{!! Form::bsFormGroup(
+    Form::bsLabel( $data['name'], $data['alias']).
+    Form::text( $data['name'], $data['value'], array_merge(['class' => 'form-control'], $data['attributes'] ) ).
+    Form::bsErrors($data['error_name']),
+    $data['form_group_attributes']
+) !!}

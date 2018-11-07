@@ -1,4 +1,4 @@
-<div class="sidebar" data-color="{{ $color_sidebar }}">
+<div class="sidebar" data-color="{{ $color_sidebar }}" style="--sidebar-color: {{ $color_sidebar }};">
     <!--
       Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
   -->

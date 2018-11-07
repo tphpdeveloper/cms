@@ -1,12 +1,13 @@
-@if($multiple_lang)
+@if($multilingual)
     <div class="row justify-content-end">
         <div class="col-md-2 ">
             <div class="card ">
                 <div class="card-body">
-                    {!! Form::bsSelect(' ', '', $langs,
-                        array_flip($langs)[app()->getLocale()],
-                        ['id' => 'js_lang_switcher'],
-                        ['attributes_label' => [
+                    {!! Form::bsSelect('', '', config('multilingual.locales'),
+                        array_flip(config('multilingual.locales'))[app()->getLocale()],
+                        [
+                        'id' => 'js_lang_switcher',
+                        'label_attributes' => [
                                 'class' => 'd-none',
                             ]
                         ]

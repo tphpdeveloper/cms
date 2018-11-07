@@ -1,11 +1,22 @@
-{!! Form::bsText('name', trans('setting.edit.name'), $setting->nameTranslations->toArray() ?? [], [], true ) !!}
-{!! Form::bsText('key', trans('setting.edit.key'), $setting->key ?? '', ['form-control', 'disabled']) !!}
+{!! Form::bsText('name') !!}
 
-@if( (isset($setting->value_translate) && $setting->value_translate == '' ) || !isset($setting->value_translate) )
-{!! Form::bsText('value', trans('setting.edit.value'), $setting->value ?? '') !!}
-@endif
-@if( (isset($setting->value) && $setting->value == '') || !isset($setting->value))
-{!! Form::bsText('value_translate', trans('setting.edit.value'), $setting->value_translateTranslations->toArray() ?? [], [], '', true) !!}
-@endif
+{{--@include(config('myself.folder').'.components.form.text', [--}}
+    {{--'alias' => $model->get('main_description')->label->name,--}}
+    {{--'name' => 'main_description',--}}
+    {{--'lang' => true,--}}
+{{--])--}}
 
-{!! Form::bsNumber('o', trans('setting.edit.order'), $setting->o ?? '') !!}
+
+{{--@include(config('myself.folder').'.components.form.select', [--}}
+    {{--'alias' => $model->get('color_scheme')->label->name,--}}
+    {{--'name' => 'color_scheme',--}}
+    {{--'value' => $model->get('color_scheme')->value_array,--}}
+    {{--'selected' => $model->get('color_scheme')->selected--}}
+{{--])--}}
+
+
+{{--@include(config('myself.folder').'.components.form.text', [--}}
+    {{--'alias' => $model->get('count_item_on_admin_page')->label->name,--}}
+    {{--'name' => 'count_item_on_admin_page',--}}
+    {{--'value' => $model->get('count_item_on_admin_page')->value,--}}
+{{--])--}}

@@ -2,12 +2,13 @@
 <html lang="{{ app()->getLocale() }}">
 
     <head>
+        <title> @yield('meta_title', 'Админ панель') </title>
         <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+        <meta name="csrf-token" content="{{ csrf_token() }}"/>
         <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('backend/img/apple-icon.png') }}">
         <link rel="icon" type="image/png" href="{{ asset('backend/img/favicon.png') }}">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-        <title> @yield('meta_title', 'Панель прибров') </title>
-        <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
         <!--     Fonts and icons     -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" />
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -74,8 +75,27 @@
 
             {{--});--}}
         {{--</script>--}}
-        {{--<script src="{{ asset('backend/js/plugins/ckeditor/ckeditor.js') }}"></script>--}}
+        <script src="{{ asset('backend/js/plugins/ckeditor/ckeditor.js') }}"></script>
         <script src="{{ asset('backend/js/main.js') }}"></script>
+        <script>
+            $(document).ready(function(){
+                @if(session()->has('notification_primary'))
+                    showNotification('{!! session('notification_primary') !!}', 'primary');
+                @endif
+                @if(session()->has('notification_info'))
+                    showNotification('{!! session('notification_info') !!}', 'info');
+                @endif
+                @if(session()->has('notification_success'))
+                    showNotification('{!! session('notification_success') !!}', 'success');
+                @endif
+                @if(session()->has('notification_warning'))
+                    showNotification('{!! session('notification_warning') !!}', 'warning');
+                @endif
+                @if(session()->has('notification_danger'))
+                    showNotification('{!! session('notification_danger') !!}', 'danger');
+                @endif
+            });
+        </script>
         @stack('script')
 
     </body>

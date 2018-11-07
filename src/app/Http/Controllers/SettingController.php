@@ -11,6 +11,7 @@
 namespace Tphpdeveloper\Cms\App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Tphpdeveloper\Cms\App\Http\Requests\SettingRequest;
 use Tphpdeveloper\Cms\App\Models\Setting;
 use Datagrid;
 use Form;
@@ -21,11 +22,10 @@ class SettingController extends BackendController
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
-
         $settings = Setting::query()->paginate($this->getAdminElementOnPage());
 
         $grid = Datagrid::setData($settings)
@@ -33,10 +33,10 @@ class SettingController extends BackendController
                 'label' => '#',
             ])
             ->setColumn('name', [
-                'label' => trans('setting.edit.name'),
+                'label' => trans('cms.page.name'),
             ])
             ->setColumn('key', [
-                'label' => trans('setting.edit.key'),
+                'label' => trans('cms.page.key'),
             ])
             ->setColumn('', [], function($model){
                 $html = Form::bsButtonEdit(route('admin.setting.edit', $model->id));
@@ -50,29 +50,39 @@ class SettingController extends BackendController
 
             })
         ;
-        return view(config('myself.folder').'.setting.index')
+        return view($this->getFolderPath().'setting.index')
             ->with('grid', $grid);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
-        //
+        return view($this->getFolderPath().'setting.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request  $request
-     * @return \Illuminate\Http\Response
+     * @param SettingRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(SettingRequest $request)
     {
-        //
+        $data = $request->except(['_method', '_token']);
+        $data['key'] = str_slug($request->input('name.'.app()->getLocale()), '_');
+        $setting = Setting::firstOrCreate($data);
+        $redirect = redirect()->route('admin.setting.index');
+        if($setting) {
+            $redirect->with('notification_primary', $setting->name.'.<br>'.trans('cms.notification.success.create'));
+        }
+        else{
+            $redirect->with('notification_danger', $setting->name.'.<br>'.trans('cms.notification.error'));
+        }
+        return $redirect;
     }
 
     /**
@@ -94,31 +104,49 @@ class SettingController extends BackendController
      */
     public function edit(Setting $setting)
     {
-        return view(config('myself.folder').'.setting.edit')
+        return view($this->getFolderPath().'setting.edit')
             ->with('setting', $setting);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param SettingRequest $request
      * @param Setting $setting
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Setting $setting)
+    public function update(SettingRequest $request, Setting $setting)
     {
         $setting->update($request->all());
-        return redirect()->route('admin.setting.index');
+        $redirect = redirect()->route('admin.setting.index');
+        if($setting) {
+            $redirect->with('notification_primary', $setting->name.'.<br>'.trans('cms.notification.success.update'));
+        }
+        else{
+            $redirect->with('notification_danger', $setting->name.'.<br>'.trans('cms.notification.error'));
+        }
+        return $redirect;
+
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Setting  $setting
-     * @return \Illuminate\Http\Response
+     * @param Setting $setting
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function destroy(Setting $setting)
     {
-        dd($setting);
+        $name = $setting->name;
+        $setting->delete();
+        $redirect = redirect()->route('admin.page.index');
+        if($setting) {
+            $redirect->with('notification_primary', $name.'.<br>'.trans('cms.notification.success.delete'));
+        }
+        else{
+            $redirect->with('notification_danger', $name.'.<br>'.trans('cms.notification.error'));
+        }
+        return $redirect;
     }
 }

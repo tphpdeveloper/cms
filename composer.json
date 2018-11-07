@@ -19,7 +19,8 @@
         "php": ">=7.1.0",
 		"laravelcollective/html":"*",
 		"themsaid/laravel-multilingual": "*",
-		"tphpdeveloper/datagrid": "*"
+		"tphpdeveloper/datagrid": "*",
+        "caouecs/laravel-lang": "~3.0"
 
     },
     "autoload": {

@@ -1,16 +1,15 @@
-@extends($folder_path.'layout.page_lang')
+@extends($folder_path.'layout.pages.page_lang')
 
-@section('card-body')
-    {!! Form::open(['route' => ['admin.setting.storage', $setting->id], 'method' => 'POST']) !!}
+@section('page_lang_header', trans('cms.helpers.button.create'))
+
+
+@section('page_lang_body')
+    {!! Form::open(['route' => 'admin.setting.store', 'method' => 'POST']) !!}
         @include($folder_path.'setting.card.create')
 
-
-        @include($folder_path.'helpers.btn', [
-            'text_ok' => trans('setting.button.save'),
-            'route_cancel' => route('admin.setting.index'),
-            'text_cancel' => trans('setting.button.cancel'),
-        ])
+        {!! Form::bsButtonSave() !!}
+        {!! Form::bsButtonReset() !!}
+        {!! Form::bsButtonCancel(route('admin.setting.index')) !!}
 
     {!! Form::close() !!}
-    {{--@include($folder_path.'setting.card.langs')--}}
 @endsection

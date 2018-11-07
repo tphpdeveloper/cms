@@ -26,7 +26,7 @@ class SettingsSeeder extends Seeder
                 'ru' => 'Цветовая тема sidebar'
             ],
             'key' => 'color_scheme',
-            'value' => 'blue',
+            'value' => 'orange',
         ]);
 
         factory(Setting::class)->create([
