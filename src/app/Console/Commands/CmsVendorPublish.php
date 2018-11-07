@@ -86,18 +86,21 @@ class CmsVendorPublish extends Command
 		$this->info('Bye bye!!!');
 
     }
-	
+
 	private function publishConfig(){
 		$this->call('vendor:publish', [
 			'--tag' => [
 				'tphpdeveloper_backend_config',
 				'datagrid_config',
-			]
+			],
+            '--provider' => [
+                'Lavary\Menu\ServiceProvider'
+            ]
 		]);
 	}
 
 	private function publishData(){
-		
+
 
 		$this->call('vendor:publish', [
 			'--provider' => 'Themsaid\Multilingual\MultilingualServiceProvider',
@@ -108,7 +111,7 @@ class CmsVendorPublish extends Command
 				'tphpdeveloper_backend_public',
 				'tphpdeveloper_backend_routes',
 				'tphpdeveloper_backend_views',
-				'laravel-pagination',				
+				'laravel-pagination',
 				'datagrid_view',
 				]
 		]);

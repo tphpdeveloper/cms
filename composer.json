@@ -20,7 +20,8 @@
 		"laravelcollective/html":"*",
 		"themsaid/laravel-multilingual": "*",
 		"tphpdeveloper/datagrid": "*",
-        "caouecs/laravel-lang": "~3.0"
+        "caouecs/laravel-lang": "~3.0",
+        "lavary/laravel-menu": "*"
 
     },
     "autoload": {
@@ -38,12 +39,14 @@
                 "Collective\\Html\\HtmlServiceProvider",
                 "Tphpdeveloper\\Gridview\\DatagridServiceProvider",
                 "Themsaid\\Multilingual\\MultilingualServiceProvider",
-				"Tphpdeveloper\\Cms\\CmsServiceProvider"
+				"Tphpdeveloper\\Cms\\CmsServiceProvider",
+				"Lavary\\Menu\\ServiceProvider"
             ],
             "aliases": {
 				"Datagrid": "Tphpdeveloper\\Gridview\\Datagrid\\DatagridFacade",
                 "Form": "Collective\\Html\\FormFacade",
-                "Html": "Collective\\Html\\HtmlFacade"
+                "Html": "Collective\\Html\\HtmlFacade",
+                "Menu": "Lavary\\Menu\\Facade"
             }
         }
     }
