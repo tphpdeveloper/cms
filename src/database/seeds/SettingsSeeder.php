@@ -64,8 +64,8 @@ class SettingsSeeder extends Seeder
 
         factory(Setting::class)->create([
             'name' => [
-                'en' => 'Languages site',
-                'ru' => 'Язики сайта'
+                'en' => 'Main language site',
+                'ru' => 'Основной язик сайта'
             ],
             'key' => 'lang',
             'value' => 'ru',

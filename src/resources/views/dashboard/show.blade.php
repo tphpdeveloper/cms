@@ -1,5 +1,7 @@
 @extends($folder_path.'layout.app')
 
+
+
 @section('content')
     <div class="row">
         <div class="col-lg-4">

@@ -23,16 +23,26 @@ Route::middleware('web')
 
     });
 
-    Route::middleware('admin:admin')->group(function(){
-//    Route::group([], function(){
+    Route::middleware([
+//        'admin:admin',
+        'admin_menu'
+        ])
+        ->group(function(){
 
         Route::get('/', 'DashboardController@show')->name('dashboard');
         Route::get('map', 'MapController@show')->name('map');
+
+
+        Route::get('main-lang/update', 'SettingController@updateMainLang')->name('main_lang.update');
+
 
         Route::resources([
             'setting' => 'SettingController',
             'lang-static' => 'LangStaticController',
             'page' => 'PageController'
+        ],
+        [
+            'except' => ['show']
         ]);
 
     });

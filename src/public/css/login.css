@@ -1,0 +1,40 @@
+html, body,
+.container-fluid{
+    height: 100vh;
+}
+
+html, body{
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.card{
+    box-shadow: none;
+}
+
+.logo-container img{
+    width: 20%;
+}
+
+.form-group.form-control-lg .form-control,
+.input-group.form-control-lg .form-control{
+    background-color: hsla(0,0%,100%,.1);
+    color: #fff;
+}
+
+.input-group.no-border .input-group-prepend .input-group-text {
+    background-color: hsla(0,0%,100%,.1);
+    border: none;
+    color: #fff;
+}
+
+.form-group.no-border .form-control:active,
+.form-group.no-border .form-control:focus,
+.input-group.no-border .form-control:active,
+.input-group.no-border .form-control:focus {
+    background-color: hsla(0, 0%, 100%, .2);
+    color: #fff;
+}
+

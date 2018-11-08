@@ -17,7 +17,9 @@ $factory->define(AdminMenu::class, function (Faker $faker) {
     return [
         'admin_menu_id' => null,
         'name' => [],
-        'route' => $faker->url,
+        'route' => null,
+        'icon' => '',
+        'o' => null,
         'disabled' => false,
     ];
 });

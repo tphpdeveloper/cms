@@ -19,7 +19,9 @@ class CreateAdminMenuTable extends Migration
             $table->foreign('admin_menu_id')->references('id')->on('admin_menus')->onDelete('cascade')->onUpdate('cascade');
             $table->json('name');
             $table->string('route', 100)->nullable();
+            $table->string('icon', 50)->nullable();
             $table->boolean('disabled');
+            $table->tinyInteger('o')->default(0);
             $table->timestamps();
         });
     }

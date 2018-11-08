@@ -1,0 +1,64 @@
+/*
+1. for icon in form when validation error
+2. sidebar start
+*/
+
+/*1. for icon in form when validation error*/
+.has-danger:after, .has-success:after{
+    top: 35px;
+}
+
+
+/*2. sidebar start*/
+.sidebar .nav li.active > a[data-toggle=collapse] {
+    background-color: hsla(0,0%,100%,.1);
+    box-shadow: none;
+    color: #fff;
+}
+
+.sidebar .nav li.active > a[data-toggle=collapse] i{
+    color: #fff;
+}
+
+.sidebar div.collapse > .nav,
+.sidebar div.collapsing > .nav{
+    margin-left: 16px;
+}
+
+.sidebar .nav li > a{
+    display: flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -ms-flexbox;
+    display: -o-flex;
+    display: -webkit-flex;
+    flex-direction: row;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    align-items: center;
+    -webkit-align-items: center;
+    padding: 6px 6px;
+}
+
+.sidebar .nav i{
+    line-height: normal;
+    float: none;
+}
+
+.sidebar .nav p, .off-canvas-sidebar .nav p {
+    margin: 0;
+     line-height: normal;
+     position: unset;
+     display: unset;
+     height: unset;
+     white-space: normal;
+}
+
+.sidebar .nav .caret{
+    top: unset;
+    position: unset;
+    right: unset;
+    margin-left: auto;
+    margin-right: 3%;
+}
+/*sideber end*/

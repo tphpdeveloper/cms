@@ -16,7 +16,7 @@
         <link rel="stylesheet" href="{{ asset('backend/css/bootstrap.min.css') }}" />
         <link rel="stylesheet" href="{{ asset('backend/css/now-ui-dashboard.css?v=1.1.0') }}" />
         <!-- CSS Just for demo purpose, don't include it in your project -->
-        {{--<link href="{{ asset('backend/demo/demo.css" rel="stylesheet') }}" />--}}
+        <link href="{{ asset('backend/demo/demo.css" rel="stylesheet') }}" />
 
         <link rel="stylesheet" href="{{ asset('backend/css/main.css') }}" />
         @stack('style')
@@ -67,14 +67,14 @@
         <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
         <script src="{{ asset('backend/js/now-ui-dashboard.min.js?v=1.1.0') }}"></script>
         <!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
-        {{--<script src="{{ asset('backend/demo/demo.js') }}"></script>--}}
-        {{--<script>--}}
-            {{--$(document).ready(function() {--}}
-                {{--// Javascript method's body can be found in assets/js/demos.js--}}
-                {{--demo.initDashboardPageCharts();--}}
+        <script src="{{ asset('backend/demo/demo.js') }}"></script>
+        <script>
+            $(document).ready(function() {
+                // Javascript method's body can be found in assets/js/demos.js
+                demo.initDashboardPageCharts();
 
-            {{--});--}}
-        {{--</script>--}}
+            });
+        </script>
         <script src="{{ asset('backend/js/plugins/ckeditor/ckeditor.js') }}"></script>
         <script src="{{ asset('backend/js/main.js') }}"></script>
         <script>

@@ -39,14 +39,29 @@ class AdminMenuSeeder extends Seeder
                         'ru' => 'Панель состояния'
                     ],
                     'route' => 'admin.dashboard',
+                    'icon' => 'media-2_sound-wave',
+                    'o' => 1
                 ]
             ],
+
+            'page' => [
+                'data' => [
+                    'name' => [
+                        'ru' => 'Страницы'
+                    ],
+                    'route' => 'admin.page.index',
+                    'icon' => 'education_paper',
+                    'o' => 2
+                ]
+            ],
+
             'setting' => [
                 'data' => [
                     'name' => [
                         'ru' => 'Настройки'
                     ],
-                    'route' => '#',
+                    'icon' => 'ui-1_settings-gear-63',
+                    'o' => 3
                 ]
             ],
 
@@ -58,17 +73,11 @@ class AdminMenuSeeder extends Seeder
                         'ru' => 'Основные'
                     ],
                     'route' => 'admin.setting.index',
+                    'icon' => 'ui-2_settings-90',
+                    'o' => 1
                 ]
             ],
-            'page' => [
-                'parent' => 'setting',
-                'data' => [
-                    'name' => [
-                        'ru' => 'Страницы'
-                    ],
-                    'route' => 'admin.page.index',
-                ]
-            ],
+
             'lang_static' => [
                 'parent' => 'setting',
                 'data' => [
@@ -76,6 +85,8 @@ class AdminMenuSeeder extends Seeder
                         'ru' => 'Статические переводы'
                     ],
                     'route' => 'admin.lang-static.index',
+                    'icon' => 'location_world',
+                    'o' => 2
                 ]
             ],
 

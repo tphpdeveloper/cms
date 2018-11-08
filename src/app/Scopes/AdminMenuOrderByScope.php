@@ -1,9 +1,7 @@
 <?php
 /**
- * Tphpdeveloper/Cms
- *
  * @author    Igor <igorkutsan@ukr.net>
- * @copyright 2018 Tphpdeveloper/Cms
+ * @copyright 2018
  * @license   https://opensource.org/licenses/MIT
  */
 
@@ -13,7 +11,7 @@ use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 
-class SettingWithoutDisabledScope implements Scope
+class AdminMenuOrderByScope implements Scope
 {
     /**
      * Apply the scope to a given Eloquent query builder.
@@ -24,6 +22,7 @@ class SettingWithoutDisabledScope implements Scope
      */
     public function apply(Builder $builder, Model $model)
     {
-        $builder->whereDisabled(0);
+        $builder->orderBy('admin_menu_id', 'asc');
+        $builder->orderBy('o', 'asc');
     }
 }

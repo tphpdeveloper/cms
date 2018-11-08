@@ -15,6 +15,7 @@ use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Database\Eloquent\Factory;
 use Illuminate\Support\ServiceProvider;
 use Tphpdeveloper\Cms\App\Console\Commands\CmsVendorPublish;
+use Tphpdeveloper\Cms\App\Http\Middleware\AdminMenuMiddleware;
 use Tphpdeveloper\Cms\App\Http\Middleware\AdminMiddleware;
 use Tphpdeveloper\Cms\App\Http\ViewComposer\ColorSidebarComposer;
 use Tphpdeveloper\Cms\App\Http\ViewComposer\LangComposer;
@@ -72,6 +73,7 @@ class CmsServiceProvider extends ServiceProvider
     {
         $router = $this->app['router'];
         $router->aliasMiddleware('admin', AdminMiddleware::class);
+        $router->aliasMiddleware('admin_menu', AdminMenuMiddleware::class);
     }
 
     /**
@@ -140,6 +142,10 @@ class CmsServiceProvider extends ServiceProvider
 		$this->publishes([
             __DIR__.'/routes' => base_path('routes/'.$this->folder_path )
         ], 'tphpdeveloper_backend_routes');
+
+        $this->publishes([
+            base_path('vendor/caouecs/laravel-lang/src/ru') => resource_path('lang/ru')
+        ], 'caouecs_lang_tphpdeveloper');
 
 
     }

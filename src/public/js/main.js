@@ -1,17 +1,16 @@
-$(document).on('load', function () {
 
-    //******** tabs in admin panel **********
-    if ($('#myTab').length) {
-        $('#myTab a').on('click', function (e) {
-            e.preventDefault()
-            $(this).tab('show')
-        })
-    }
-    //****** end tabs in admin panel ********
 
-    //************ ckeditor *****************
-    if($(".ckeditor").length){
-        CKEDITOR.replace( '.ckeditor' );
-    }
-    //********* end ckeditor ****************
-});
+function showNotification(text, color = 'primary', timer = 8000, from = 'top', align = 'left') {
+    $.notify({
+        icon: "now-ui-icons ui-1_bell-53",
+        message: text
+
+    }, {
+        type: color,
+        timer: timer,
+        placement: {
+            from: from,
+            align: align
+        }
+    });
+}

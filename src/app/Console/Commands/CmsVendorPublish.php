@@ -92,11 +92,12 @@ class CmsVendorPublish extends Command
 			'--tag' => [
 				'tphpdeveloper_backend_config',
 				'datagrid_config',
-			],
-            '--provider' => [
-                'Lavary\Menu\ServiceProvider'
-            ]
+			]
 		]);
+
+        $this->call('vendor:publish', [
+            '--provider' => 'Lavary\Menu\ServiceProvider',
+        ]);
 	}
 
 	private function publishData(){
@@ -113,6 +114,7 @@ class CmsVendorPublish extends Command
 				'tphpdeveloper_backend_views',
 				'laravel-pagination',
 				'datagrid_view',
+                'caouecs_lang_tphpdeveloper',
 				]
 		]);
 

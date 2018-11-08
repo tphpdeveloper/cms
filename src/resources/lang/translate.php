@@ -34,6 +34,21 @@ return [
             'meta_description' => [
                 'ru' => 'Описание страницы'
             ],
+            'account' => [
+                'ru' => 'Акаунт'
+            ],
+            'change_main_lang' => [
+                'ru' => 'Изменить основной язик'
+            ],
+            'statistic' => [
+                'ru' => 'Статистика'
+            ],
+            'search' => [
+                'ru' => 'Поиск'
+            ],
+            'toggle_navigation' => [
+                'ru' => 'Переключить навигацию'
+            ],
         ],
         'helpers' => [
             'button' => [

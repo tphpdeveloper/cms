@@ -86,14 +86,24 @@ class SettingController extends BackendController
     }
 
     /**
-     * Display the specified resource.
+     * Update main lang site
      *
-     * @param  Setting  $setting
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function show(Setting $setting)
+    public function updateMainLang(Request $request)
     {
-        //
+//        $setting = Setting::where('key', 'lang')->update(['value' => $request->lang]);
+        $setting = Setting::where('key', 'lang')->first();
+        $setting->update(['value' => $request->lang]);
+        $redirect = redirect()->back();
+        if($setting) {
+            $redirect->with('notification_primary', $setting->name.'.<br>'.trans('cms.notification.success.update'));
+        }
+        else{
+            $redirect->with('notification_danger', $setting->name.'.<br>'.trans('cms.notification.error'));
+        }
+        return $redirect;
     }
 
     /**

@@ -21,10 +21,10 @@
 
 <body style="background-image: url({{ asset('backend/img/bg14.jpg') }}) ">
 
-<div class="container-fluid ">
+<div class="container-fluid">
     <div class="col-md-4 ml-auto mr-auto">
         {!! Form::open(['route' => 'admin.login', 'method' => 'POST']) !!}
-        <div class="card bg-transparent m-auto align-items-center ">
+        <div class="card bg-transparent m-auto ">
 
             <div class="card-header ">
                 <div class="logo-container text-center">
