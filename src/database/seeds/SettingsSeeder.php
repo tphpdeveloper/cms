@@ -67,8 +67,18 @@ class SettingsSeeder extends Seeder
                 'en' => 'Main language site',
                 'ru' => 'Основной язик сайта'
             ],
-            'key' => 'lang',
+            'key' => 'lang_front_end',
             'value' => 'ru',
+        ]);
+
+        factory(Setting::class)->create([
+            'name' => [
+                'en' => 'Main language admin panel',
+                'ru' => 'Основной язик админ-панели'
+            ],
+            'key' => 'lang_back_end',
+            'value' => 'ru',
+            'disabled' => true
         ]);
 
         factory(Setting::class)->create([

@@ -16,6 +16,7 @@ use Tphpdeveloper\Cms\App\Models\Setting;
 use Datagrid;
 use Form;
 use Html;
+use Tphpdeveloper\Cms\App\Scopes\SettingWithoutDisabledScope;
 
 class SettingController extends BackendController
 {
@@ -94,7 +95,9 @@ class SettingController extends BackendController
     public function updateMainLang(Request $request)
     {
 //        $setting = Setting::where('key', 'lang')->update(['value' => $request->lang]);
-        $setting = Setting::where('key', 'lang')->first();
+        $setting = Setting::withoutGlobalScope(SettingWithoutDisabledScope::class)
+            ->where('key', 'lang_back_end')
+            ->first();
         $setting->update(['value' => $request->lang]);
         $redirect = redirect()->back();
         if($setting) {

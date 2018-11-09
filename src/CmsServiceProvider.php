@@ -282,7 +282,7 @@ class CmsServiceProvider extends ServiceProvider
             $settings = Setting::withoutGlobalScope(SettingWithoutDisabledScope::class)->get();
             foreach ($settings as $setting) {
                 switch ($setting->key) {
-                    case 'lang':
+                    case 'lang_back_end':
                         app()->setLocale($setting->value);
                         break;
                     case 'multiple_languages':

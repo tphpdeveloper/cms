@@ -95,9 +95,6 @@ class CmsVendorPublish extends Command
 			]
 		]);
 
-        $this->call('vendor:publish', [
-            '--provider' => 'Lavary\Menu\ServiceProvider',
-        ]);
 	}
 
 	private function publishData(){
@@ -117,6 +114,16 @@ class CmsVendorPublish extends Command
                 'caouecs_lang_tphpdeveloper',
 				]
 		]);
+
+
+        $this->call('vendor:publish', [
+            '--provider' => 'Lavary\Menu\ServiceProvider',
+        ]);
+
+
+        $this->call('vendor:publish', [
+            '--provider' => 'Intervention\Image\ImageServiceProviderLaravel5',
+        ]);
 
 	}
 
