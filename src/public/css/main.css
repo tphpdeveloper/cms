@@ -1,15 +1,18 @@
 /*
-1. for icon in form when validation error
-2. sidebar start
+1. for icon in form when validation error begin
+2. sidebar begin
+3. page images begin
+4. loader begin
+5. style ckeditor block begin
 */
 
-/*1. for icon in form when validation error*/
+/*1. for icon in form when validation error begin*/
 .has-danger:after, .has-success:after{
     top: 35px;
 }
+/*1. for icon in form when validation error end*/
 
-
-/*2. sidebar start*/
+/*2. sidebar begin*/
 .sidebar .nav li.active > a[data-toggle=collapse] {
     background-color: hsla(0,0%,100%,.1);
     box-shadow: none;
@@ -45,7 +48,7 @@
     float: none;
 }
 
-.sidebar .nav p, .off-canvas-sidebar .nav p {
+.sidebar .nav p{
     margin: 0;
      line-height: normal;
      position: unset;
@@ -61,4 +64,70 @@
     margin-left: auto;
     margin-right: 3%;
 }
-/*sideber end*/
+/*2. sidebar end*/
+
+/*3. page images begin*/
+
+.thumbnail_images .thumbnail + div.parent-button-group{
+    position: relative;
+    width: 0px;
+}
+
+.thumbnail_images .thumbnail + div.parent-button-group .button-group{
+    margin: 0px;
+    position: absolute;
+    right: 6px;
+    top: 6px;
+}
+
+.thumbnail_images .thumbnail + div.parent-button-group button{
+    margin: 0px;
+    margin-bottom: 6px;
+}
+
+@media screen and (max-width: 770px){
+    .thumbnail_images .thumbnail + div.parent-button-group button{
+        height: 5.375rem;
+        min-width: 5.375rem;
+        width: 5.375rem;
+        font-size: 1.9375rem;
+        border-radius: 50% ;
+    }
+}
+
+.thumbnail_images .thumbnail:hover{
+    -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+/*3. page images end*/
+
+
+/*4. loader begin*/
+
+#loader {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 999;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    background-image: url('http://files.mimoymima.com/images/loading.gif');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: rgba(0, 0, 0, .3);
+}
+/*4. loader end*/
+
+/*5. style ckeditor block begin*/
+.cke_screen_reader_only{
+    height: 0px!important;
+}
+/*5. style ckeditor block end*/
+
+.parent_pages_images .card{
+    width: 11rem!important;
+    margin: 0px 3px 23px 0px;
+}

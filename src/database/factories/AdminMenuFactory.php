@@ -19,7 +19,7 @@ $factory->define(AdminMenu::class, function (Faker $faker) {
         'name' => [],
         'route' => null,
         'icon' => '',
-        'o' => null,
+        'o' => 0,
         'disabled' => false,
     ];
 });

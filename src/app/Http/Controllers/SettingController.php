@@ -81,7 +81,7 @@ class SettingController extends BackendController
             $redirect->with('notification_primary', $setting->name.'.<br>'.trans('cms.notification.success.create'));
         }
         else{
-            $redirect->with('notification_danger', $setting->name.'.<br>'.trans('cms.notification.error'));
+            $redirect->with('notification_danger', $setting->name.'.<br>'.trans('cms.notification.error.something_wrong'));
         }
         return $redirect;
     }
@@ -104,7 +104,7 @@ class SettingController extends BackendController
             $redirect->with('notification_primary', $setting->name.'.<br>'.trans('cms.notification.success.update'));
         }
         else{
-            $redirect->with('notification_danger', $setting->name.'.<br>'.trans('cms.notification.error'));
+            $redirect->with('notification_danger', $setting->name.'.<br>'.trans('cms.notification.error.something_wrong'));
         }
         return $redirect;
     }
@@ -136,7 +136,7 @@ class SettingController extends BackendController
             $redirect->with('notification_primary', $setting->name.'.<br>'.trans('cms.notification.success.update'));
         }
         else{
-            $redirect->with('notification_danger', $setting->name.'.<br>'.trans('cms.notification.error'));
+            $redirect->with('notification_danger', $setting->name.'.<br>'.trans('cms.notification.error.something_wrong'));
         }
         return $redirect;
 
@@ -158,7 +158,7 @@ class SettingController extends BackendController
             $redirect->with('notification_primary', $name.'.<br>'.trans('cms.notification.success.delete'));
         }
         else{
-            $redirect->with('notification_danger', $name.'.<br>'.trans('cms.notification.error'));
+            $redirect->with('notification_danger', $name.'.<br>'.trans('cms.notification.error.something_wrong'));
         }
         return $redirect;
     }

@@ -27,6 +27,7 @@ class SettingsSeeder extends Seeder
             ],
             'key' => 'color_scheme',
             'value' => 'orange',
+            'disabled' => true
         ]);
 
         factory(Setting::class)->create([
@@ -59,7 +60,7 @@ class SettingsSeeder extends Seeder
                 'ru' => 'Количество элементов на стр. в админ-панели'
             ],
             'key' => 'count_item_on_admin_page',
-            'value' => 3,
+            'value' => 12,
         ]);
 
         factory(Setting::class)->create([
@@ -69,6 +70,7 @@ class SettingsSeeder extends Seeder
             ],
             'key' => 'lang_front_end',
             'value' => 'ru',
+            'disabled' => true
         ]);
 
         factory(Setting::class)->create([
@@ -88,8 +90,9 @@ class SettingsSeeder extends Seeder
             ],
             'key' => 'multiple_languages',
             'value' => 1,
-            'disabled' => 1
+            'disabled' => true
         ]);
+
 
     }
 }

@@ -104,10 +104,26 @@ then vendor publish myself
         $this->call(SettingsSeeder::class);
         $this->call(AdminSeeder::class);
         $this->call(AdminMenuSeeder::class);
+        $this->call(ImageSeeder::class);
+        $this->call(SliderSeeder::class);
 
     }
 ```
 
 ```php
 then can seeding data from the vendor publish myself
+```
+
+```php
+put to backend/js/package plugin ckeditor
+```
+
+```php
+for working with a big image file, change the settings of php
+ 
+memory_limit
+upload_max_filesize
+max_input_time
+max_execution_time
+post_max_size
 ```

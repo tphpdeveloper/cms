@@ -28,8 +28,10 @@ class AdminMenuMiddleware
     {
         if(!$request->isJson()
             && !$request->isMethod('PUT')
+            && !$request->isMethod('PATCH')
             && !$request->isMethod('POST')
             && !$request->isMethod('DELETE')
+            && !$request->ajax()
         ) {
             $items = AdminMenu::all();
 //            dd($items);

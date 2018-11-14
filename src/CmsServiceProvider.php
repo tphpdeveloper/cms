@@ -223,12 +223,12 @@ class CmsServiceProvider extends ServiceProvider
 
         /********* Group components button BEGIN *********/
         Form::component('bsButtonDelete', $this->folder_path.'.components.form.helpers.buttons.button.btn_delete', [
-            'btn_delete_name' => Html::tag('i', '', ['class' => 'fa fa-remove']),
+            'btn_delete_name' => null,
             'btn_delete_attributes' => [],
         ]);
 
         Form::component('bsButtonReset', $this->folder_path.'.components.form.helpers.buttons.input.btn_inp_reset', [
-            'btn_reset_name' => trans('cms.helpers.button.reset'),
+            'btn_reset_name' => null,
             'btn_reset_attributes' => [],
         ]);
 

@@ -2,7 +2,7 @@
     $btn_create_name,
     array_merge([
         'class' => 'btn btn-success btn-simple',
-        'title' =>  trans('cms.helpers.button.create')
+        'title' =>  $btn_create_name
     ], $btn_create_attributes),
     $btn_create_secure,
     $btn_create_escape) !!}

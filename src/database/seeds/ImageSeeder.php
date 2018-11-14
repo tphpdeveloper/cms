@@ -9,9 +9,9 @@
  */
 
 use Illuminate\Database\Seeder;
-use Tphpdeveloper\Cms\App\Models\LangStatic;
+use Tphpdeveloper\Cms\App\Models\Image;
 
-class LangStaticSeeder extends Seeder
+class ImageSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -20,11 +20,6 @@ class LangStaticSeeder extends Seeder
      */
     public function run()
     {
-        factory(LangStatic::class)->create([
-            'key' => 'title',
-            'file' => 'settings',
-        ]);
-
-
+        factory(Image::class, 20)->create();
     }
 }

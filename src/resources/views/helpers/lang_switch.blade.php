@@ -1,6 +1,6 @@
 @if($multilingual)
     <div class="row justify-content-end">
-        <div class="col-md-2 ">
+        <div class="{{ $class ??  'col-md-2' }}">
             <div class="card ">
                 <div class="card-body">
                     {!! Form::bsSelect('', '', config('multilingual.locales'),

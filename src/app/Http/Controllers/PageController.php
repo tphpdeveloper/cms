@@ -78,7 +78,7 @@ class PageController extends BackendController
             $redirect->with('notification_primary', $page->title.'.<br>'.trans('cms.notification.success.create'));
         }
         else{
-            $redirect->with('notification_danger', $page->title.'.<br>'.trans('cms.notification.error'));
+            $redirect->with('notification_danger', $page->title.'.<br>'.trans('cms.notification.error.something_wrong'));
         }
         return $redirect;
     }
@@ -123,7 +123,7 @@ class PageController extends BackendController
             $redirect->with('notification_primary', $page->title.'.<br>'.trans('cms.notification.success.update'));
         }
         else{
-            $redirect->with('notification_danger', $page->title.'.<br>'.trans('cms.notification.error'));
+            $redirect->with('notification_danger', $page->title.'.<br>'.trans('cms.notification.error.something_wrong'));
         }
         return $redirect;
     }
@@ -144,7 +144,7 @@ class PageController extends BackendController
             $redirect->with('notification_primary', $title.'.<br>'.trans('cms.notification.success.delete'));
         }
         else{
-            $redirect->with('notification_danger', $title.'.<br>'.trans('cms.notification.error'));
+            $redirect->with('notification_danger', $title.'.<br>'.trans('cms.notification.error.something_wrong'));
         }
         return $redirect;
     }

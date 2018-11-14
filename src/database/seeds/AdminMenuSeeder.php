@@ -22,11 +22,14 @@ class AdminMenuSeeder extends Seeder
     {
         $items = $this->dataMenu();
         $parent_id = [];
+        $co = 1;
         foreach($items as $name => $item){
             if(isset($item['parent'])){
                 $item['data']['admin_menu_id'] = $parent_id[$item['parent']];
             }
+            $item['data']['o'] = $co;
             $parent_id[$name] = factory(AdminMenu::class)->create($item['data'])->id;
+            ++$co;
         }
 
     }
@@ -40,7 +43,16 @@ class AdminMenuSeeder extends Seeder
                     ],
                     'route' => 'admin.dashboard',
                     'icon' => 'media-2_sound-wave',
-                    'o' => 1
+                ]
+            ],
+
+            'slider' => [
+                'data' => [
+                    'name' => [
+                        'ru' => 'Слайдер'
+                    ],
+                    'route' => 'admin.slider.index',
+                    'icon' => 'media-1_album',
                 ]
             ],
 
@@ -51,7 +63,6 @@ class AdminMenuSeeder extends Seeder
                     ],
                     'route' => 'admin.page.index',
                     'icon' => 'education_paper',
-                    'o' => 2
                 ]
             ],
 
@@ -61,9 +72,9 @@ class AdminMenuSeeder extends Seeder
                         'ru' => 'Настройки'
                     ],
                     'icon' => 'ui-1_settings-gear-63',
-                    'o' => 3
                 ]
             ],
+
 
 
             'main' => [
@@ -74,7 +85,6 @@ class AdminMenuSeeder extends Seeder
                     ],
                     'route' => 'admin.setting.index',
                     'icon' => 'ui-2_settings-90',
-                    'o' => 1
                 ]
             ],
 
@@ -86,7 +96,17 @@ class AdminMenuSeeder extends Seeder
                     ],
                     'route' => 'admin.lang-static.index',
                     'icon' => 'location_world',
-                    'o' => 2
+                ]
+            ],
+
+            'catalog_images' => [
+                'parent' => 'setting',
+                'data' => [
+                    'name' => [
+                        'ru' => 'Каталог изображений'
+                    ],
+                    'route' => 'admin.image.index',
+                    'icon' => 'design_image',
                 ]
             ],
 

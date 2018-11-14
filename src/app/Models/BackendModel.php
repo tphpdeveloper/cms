@@ -11,6 +11,7 @@
 namespace Tphpdeveloper\Cms\App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use View;
 
 class BackendModel extends Model
 {
