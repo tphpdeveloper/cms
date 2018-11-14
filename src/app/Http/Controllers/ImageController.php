@@ -165,6 +165,7 @@ class ImageController extends BackendController
             $data = [
                 'status' => 'ok',
                 'notification_primary' => $name.'.<br>'.trans('cms.notification.success.delete'),
+                'count' => ImageModel::all()->count()
             ];
             File::delete(public_path('uploads/images/'.$image->name));
             DB::commit();

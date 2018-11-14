@@ -7,11 +7,10 @@
                 @include($folder_path.'image.item')
             @endforeach
             @unset($image)
-        @else
-            <div class="col-12 card js_card_no_image">
-                <div class="card-body text-center">{{ trans('cms.page.no_image') }}</div>
-            </div>
         @endif
+        <div class="col-12 card js_card_no_image @if(isset($images) && $images) d-none @endif">
+            <div class="card-body text-center">{{ trans('cms.page.no_image') }}</div>
+        </div>
     </div>
     @if(isset($images) && $images)
         <div class="d-flex justify-content-center" >
@@ -36,8 +35,8 @@
                 processData: false,
                 success: function(data){
                     if(data.status === 'ok') {
-                        if($(".js_card_no_image").length){
-                            $(".js_card_no_image").remove();
+                        if(!$(".js_card_no_image").hasClass('d-none')){
+                            $(".js_card_no_image").addClass('d-none');
                         }
                         $("#single").html(data.form);
                         $(".thumbnail_images").prepend($(data.item));
@@ -157,6 +156,9 @@
                 success: function (data) {
                     if(data.status === 'ok') {
                         $("#item_image_" + image_id).remove();
+                        if(!data.count){
+                            $(".js_card_no_image").removeClass('d-none');
+                        }
                     }
                     hidePreloader();
                     showNotification(data);
