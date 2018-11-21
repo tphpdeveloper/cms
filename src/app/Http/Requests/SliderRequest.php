@@ -31,9 +31,6 @@ class SliderRequest extends FormRequest
     {
         return [
             'name' => 'required|min:5',
-            'text_1' => 'array',
-            'text_2' => 'array',
-            'text_3' => 'array',
         ];
     }
 

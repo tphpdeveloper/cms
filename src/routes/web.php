@@ -10,7 +10,7 @@
 
 Route::middleware('web')
 ->namespace('Tphpdeveloper\Cms\App\Http\Controllers')
-->prefix('admin')
+->prefix(config('cms.url'))
 ->name('admin.')
 ->group(function(){
 
@@ -27,13 +27,17 @@ Route::middleware('web')
         ->group(function(){
 
         Route::get('/', 'DashboardController@show')->name('dashboard');
-        Route::get('map', 'MapController@show')->name('map');
         Route::get('main-lang/update', 'SettingController@updateMainLang')->name('main_lang.update');
 
 
-        Route::get('image_global', 'ImageGlobalController@index')->name('image_global.index');
-        Route::put('image_global/{id}/model_key/{key}/model/{model}', 'ImageGlobalController@update')->name('image_global.update');
-        Route::delete('image_global/{id}/model_key/{key}/model/{model}', 'ImageGlobalController@destroy')->name('image_global.destroy');
+        Route::prefix('image_global')
+            ->name('image_global.')
+            ->group(function(){
+            Route::post('/', 'ImageGlobalController@index')->name('index');
+            Route::post('model_id/{key}/model/{model_name}', 'ImageGlobalController@store')->name('store');
+            Route::put('{id}/model_id/{key}/model/{model_name}', 'ImageGlobalController@update')->name('update');
+            Route::delete('{id}/model_id/{key}/model/{model_name}', 'ImageGlobalController@destroy')->name('destroy');
+        });
 
         Route::resources([
             'setting' => 'SettingController',
@@ -41,6 +45,7 @@ Route::middleware('web')
             'page' => 'PageController',
             'image' => 'ImageController',
             'slider' => 'SliderController',
+            'lang' => 'LangController',
         ]);
 
     });

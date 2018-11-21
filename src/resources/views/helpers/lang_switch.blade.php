@@ -4,7 +4,7 @@
             <div class="card ">
                 <div class="card-body">
                     {!! Form::bsSelect('', '', config('multilingual.locales'),
-                        array_flip(config('multilingual.locales'))[app()->getLocale()],
+                        $selected ?? array_flip(config('multilingual.locales'))[app()->getLocale()],
                         [
                         'id' => 'js_lang_switcher',
                         'label_attributes' => [

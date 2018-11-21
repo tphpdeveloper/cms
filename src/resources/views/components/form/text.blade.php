@@ -34,7 +34,6 @@
         }
 
 
-        $form_group_attributes = [];
         //if a multilingual field
         if($multiple_lang){
             $name = $begin_name.'['.$lang.']';
@@ -44,17 +43,14 @@
             //hide fields, how not equal a current lang
             $d_none = (app()->getLocale() != $lang ? 'd-none ' : '');
 
-            $form_group_attributes = [
-                'lang' => $lang,
-                'class' => 'js_lang_switcher '.$d_none.$class_color_valid
-            ];
+            $form_group_attributes['lang'] = $lang;
+            $form_group_attributes['class'] = 'js_lang_switcher '.$d_none.$class_color_valid;
+
 
             $attributes['lang'] = $lang;
         }
         else{
-            $form_group_attributes = [
-                'class' => $class_color_valid
-            ];
+            $form_group_attributes['class'] = $class_color_valid;
         }
 
         $data[] = [
@@ -70,7 +66,7 @@
 
 @endphp
 @if(!$textarea)
-    @each($folder_path.'components.form.card.text', $data, 'data')
+    @each($prefix.'components.form.card.text', $data, 'data')
 @else
-    @each($folder_path.'components.form.card.textarea', $data, 'data')
+    @each($prefix.'components.form.card.textarea', $data, 'data')
 @endif

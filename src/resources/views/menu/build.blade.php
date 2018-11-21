@@ -27,7 +27,7 @@
                 @endif
                 @if($item->hasChildren())
                     <div class="collapse {{ $item->isActive ? 'show' : '' }}" id="{{ $item->nickname }}">
-                        @include($folder_path.'menu.build', ['items' => $item->children()])
+                        @include($prefix.'menu.build', ['items' => $item->children()])
                     </div>
                 @endif
             </li>

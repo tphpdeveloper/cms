@@ -11,14 +11,21 @@
 namespace Tphpdeveloper\Cms\App\Models;
 
 
+use Tphpdeveloper\Cms\App\Scopes\WithoutDisabledScope;
+
 class Lang extends BackendModel
 {
 
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'disabled'];
+    protected $casts = [
+        'disabled' => 'boolean',
+    ];
 
 
     public function langStaticValue(){
         return $this->hasMany(LangStaticValue::class);
     }
+
+
 
 }

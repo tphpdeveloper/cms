@@ -17,6 +17,7 @@ class CreateLangStaticTable extends Migration
             $table->increments('id')->index();
             $table->string('file', 255);
             $table->string('key', 255);
+            $table->json('name');
             $table->timestamps();
         });
     }

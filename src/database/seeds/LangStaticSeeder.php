@@ -13,8 +13,9 @@ use Tphpdeveloper\Cms\App\Models\LangStatic;
 use Tphpdeveloper\Cms\App\Models\LangStaticValue;
 use Tphpdeveloper\Cms\App\Http\Controllers\LangStaticController;
 use Tphpdeveloper\Cms\App\Models\Lang;
+use Tphpdeveloper\Cms\Events\BuildStaticTranslateEvent;
 
-class LangStaticValueSeeder extends Seeder
+class LangStaticSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -32,7 +33,7 @@ class LangStaticValueSeeder extends Seeder
         }
 
         //build languages file in resources/lang/lang name/name file
-        (new LangStaticController())->buildLanguagesFile();
+        event( new BuildStaticTranslateEvent());
     }
 
     /**
@@ -41,31 +42,27 @@ class LangStaticValueSeeder extends Seeder
      * @param array $langs
      * @param string $bilded_key
      */
-    private function buildData(array $data, string $name_file, array $langs, string $bilded_key = ''): void
+    private function buildData(array $data, string $name_file, array $langs, string $bilded_key = '')
     {
-        $build = false;
-        $parent_key = '';
+        $name = [];
         foreach($data as $key => $value){
+            $res = false;
             if(is_array($value)){
                 $this->buildData($value, $name_file, $langs, ($bilded_key == '' ? $key : $bilded_key.'.'.$key) );
             }
             else {
-                if (!$build) {
-                    //for create paren key in table lang_static
-                    $parent_key = factory(LangStatic::class)->create([
-                        'key' => $bilded_key,
-                        'file' => $name_file,
-                    ]);
-                    $build = true;
-                }
-                //create value translate in table lang_static_value
-                factory(LangStaticValue::class)->create([
-                    'lang_static_id' => $parent_key->id,
-                    'lang_id' => $langs[$key],
-                    'value' => $value,
-                ]);
+                $name[$key] = $value;
+
             }
 
+        }
+        if(count($name)) {
+            //for create paren key in table lang_static
+            factory(LangStatic::class)->create([
+                'file' => $name_file,
+                'key' => $bilded_key,
+                'name' => $name,
+            ]);
         }
 
 

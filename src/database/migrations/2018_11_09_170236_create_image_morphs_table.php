@@ -15,10 +15,11 @@ class CreateImageMorphsTable extends Migration
     {
         Schema::create('image_morphs', function (Blueprint $table) {
             $table->increments('id');
+            $table->morphs('image_morph');
             $table->integer('image_id')->unsigned();
             $table->foreign('image_id')->references('id')->on('images')->onUpdate('cascade')->onDelete('cascade');
-            $table->morphs('image_morph');
             $table->boolean('main')->default(0);
+            $table->tinyInteger('o')->default(0);
             $table->timestamps();
         });
     }

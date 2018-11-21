@@ -18,7 +18,7 @@
     </div>
     <div class="sidebar-wrapper">
         @if(isset($MainMenu))
-            @include($folder_path.'menu.build', ['items' => $MainMenu->roots()])
+            @include($prefix.'menu.build', ['items' => $MainMenu->roots()])
         @endif
     </div>
 </div>

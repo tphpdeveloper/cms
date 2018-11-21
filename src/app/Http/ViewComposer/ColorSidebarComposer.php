@@ -11,7 +11,7 @@ namespace Tphpdeveloper\Cms\App\Http\ViewComposer;
 
 use Illuminate\View\View;
 use Tphpdeveloper\Cms\App\Models\Setting;
-use Tphpdeveloper\Cms\App\Scopes\SettingWithoutDisabledScope;
+use Tphpdeveloper\Cms\App\Scopes\WithoutDisabledScope;
 
 class ColorSidebarComposer
 {
@@ -29,7 +29,7 @@ class ColorSidebarComposer
      */
     public function compose(View $view)
     {
-        $color = Setting::withoutGlobalScope(SettingWithoutDisabledScope::class)->where('key', 'color_scheme')->first();
+        $color = Setting::withoutGlobalScope(WithoutDisabledScope::class)->where('key', 'color_scheme')->first();
         $view->with('color_sidebar', $color->value);
     }
 }

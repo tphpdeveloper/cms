@@ -1,10 +1,10 @@
-@extends($folder_path.'layout.pages.page_image')
+@extends($prefix.'layout.pages.page_image')
 
 @section('page_image_body')
     <div class="row thumbnail_images ">
         @if(isset($images) && $images)
             @foreach($images as $image)
-                @include($folder_path.'image.item')
+                @include($prefix.'image.item')
             @endforeach
             @unset($image)
         @endif

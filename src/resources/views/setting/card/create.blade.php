@@ -1,2 +1,2 @@
-@include($folder_path.'setting.card.edit')
+@include($prefix.'setting.card.edit')
 {!! Form::bsCheckbox('disabled', trans('cms.page.disabled')) !!}

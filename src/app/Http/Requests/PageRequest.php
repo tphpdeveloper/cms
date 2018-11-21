@@ -36,11 +36,8 @@ class PageRequest extends FormRequest
             'short_description' => 'array',
 //            'short_description.*' => 'required',
             'description' => 'array',
-//            'description.*' => 'required',
             'meta_title' => 'array',
-//            'meta_title.*' => 'required',
             'meta_description' => 'array',
-//            'meta_description.*' => 'required',
         ];
     }
 

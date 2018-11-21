@@ -23,13 +23,13 @@ class ImageController extends BackendController
     public function index(Request $request)
     {
         $images = ImageModel::orderBy('id', 'desc')->paginate($this->getAdminElementOnPage());
-//        $img_path = substr($this->getFolderPath(), 0, -1).'/img/no_image.jpg';
+//        $img_path = substr($this->getFolderPath().'/img/no_image.jpg';
 //        $w = 400;
 //        $h = 200;
 //        $img = Image::canvas($w, $h, '#e3e3e3');
 //        // use callback to define details
 //        $img->text("NO IMAGE", $w/2, ($h/5 * 2), function($font)  {
-//            $font->file(public_path(substr($this->getFolderPath(), 0, -1).'/fonts/Monoton-Regular.ttf') );
+//            $font->file(public_path($this->getFolderPath().'/fonts/Monoton-Regular.ttf') );
 //            $font->color('#d35f7a');
 //            $font->size(50);
 //            $font->align('center');
@@ -38,7 +38,7 @@ class ImageController extends BackendController
 //        })->save(public_path($img_path));
 
 
-        return view($this->getFolderPath().'image.content')
+        return view($this->getPrefix().'image.content')
             ->with('images', $images)
             ;
     }
@@ -73,8 +73,8 @@ class ImageController extends BackendController
                 $data = [
                     'status' => 'ok',
                     'notification_primary' => $image->title . '.<br>' . trans('cms.notification.success.create'),
-                    'form' => view($this->getFolderPath() . 'image.single_card')->render(),
-                    'item' => view($this->getFolderPath() . 'image.item')->with('image', $image)->render(),
+                    'form' => view($this->getPrefix() . 'image.single_card')->render(),
+                    'item' => view($this->getPrefix() . 'image.item')->with('image', $image)->render(),
                 ];
             } else {
                 $data = [
@@ -108,7 +108,7 @@ class ImageController extends BackendController
      */
     public function edit(ImageModel $image)
     {
-        return view($this->getFolderPath().'image.single_card')
+        return view($this->getPrefix().'image.single_card')
             ->with('image', $image)
             ;
     }
@@ -131,8 +131,8 @@ class ImageController extends BackendController
             $data = [
                 'status' => 'ok',
                 'notification_primary' => $image->title.'.<br>'.trans('cms.notification.success.update'),
-                'form' => view($this->getFolderPath().'image.single_card')->render(),
-                'item' => view($this->getFolderPath().'image.item')->with('image', $image)->render(),
+                'form' => view($this->getPrefix().'image.single_card')->render(),
+                'item' => view($this->getPrefix().'image.item')->with('image', $image)->render(),
             ];
         }
         else{

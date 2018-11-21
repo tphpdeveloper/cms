@@ -9,7 +9,7 @@ namespace Tphpdeveloper\Cms\App\Models;
 
 
 use Tphpdeveloper\Cms\App\Scopes\AdminMenuOrderByScope;
-use Tphpdeveloper\Cms\App\Scopes\AdminMenuWithoutDisabledScope;
+use Tphpdeveloper\Cms\App\Scopes\WithoutDisabledScope;
 use Themsaid\Multilingual\Translatable;
 
 class AdminMenu extends BackendModel
@@ -35,7 +35,7 @@ class AdminMenu extends BackendModel
     protected static function boot(): void
     {
         parent::boot();
-        static::addGlobalScope(new AdminMenuWithoutDisabledScope);
+        static::addGlobalScope(new WithoutDisabledScope);
         static::addGlobalScope(new AdminMenuOrderByScope);
     }
 

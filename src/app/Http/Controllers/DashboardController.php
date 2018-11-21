@@ -16,7 +16,7 @@ class DashboardController extends BackendController
 {
     public function show()
     {
-        return view($this->getFolderPath().'dashboard.show');
+        return view($this->getPrefix().'dashboard.show');
     }
 
 }

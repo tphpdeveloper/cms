@@ -1,7 +1,7 @@
-@extends($folder_path.'layout.app')
+@extends($prefix.'layout.app')
 
 @section('panel-header')
-    @include($folder_path.'layout.panel-header.sm')
+    @include($prefix.'layout.panel-header.sm')
 @endsection
 
 @section('content')

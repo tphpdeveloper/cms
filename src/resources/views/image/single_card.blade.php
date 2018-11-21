@@ -7,7 +7,7 @@
                  title="{{ isset($image) ? $image->title : '' }}"
                  class="js_has_image @if(!isset($image)) d-none @endif "
             >
-            <img src="{{ asset(substr($folder_path, 0, -1).'/img/no_image.jpg') }}"
+            <img src="{{ asset($folder_path.'/img/no_image.jpg') }}"
                  alt="{{ !isset($image) ? trans('cms.page.no_image') : '' }}"
                  title="{{ !isset($image) ? trans('cms.page.no_image') : '' }}"
                  class="js_no_image @if(isset($image)) d-none @endif"

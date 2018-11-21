@@ -15,7 +15,8 @@ use Tphpdeveloper\Cms\App\Models\LangStatic;
 $factory->define(LangStatic::class, function (Faker $faker) {
 
     return [
+        'file' => '',
         'key' => '',
-        'file' => ''
+        'name' => [],
     ];
 });

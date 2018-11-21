@@ -15,7 +15,7 @@ use Tphpdeveloper\Cms\App\Models\Setting;
 $factory->define(Setting::class, function (Faker $faker) {
 
     return [
-        'name' => [],
+        'name' => '',
         'key' => '',
         'value' => null,
         'value_translate' => null,

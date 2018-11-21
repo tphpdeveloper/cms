@@ -11,6 +11,6 @@ namespace Tphpdeveloper\Cms\App\Models;
 class ImageMorph extends BackendModel
 {
 
-    protected $fillable = ['image_id', 'image_morph_type', 'image_morph_id', 'main', 'o'];
+    protected $fillable = ['image_morph_type', 'image_morph_id', 'image_id', 'main', 'o'];
 
 }

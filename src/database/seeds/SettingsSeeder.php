@@ -21,20 +21,14 @@ class SettingsSeeder extends Seeder
     public function run()
     {
         factory(Setting::class)->create([
-            'name' => [
-                'en' => 'Color sidebar',
-                'ru' => 'Цветовая тема sidebar'
-            ],
+            'name' => 'Цветовая тема sidebar',
             'key' => 'color_scheme',
             'value' => 'orange',
             'disabled' => true
         ]);
 
         factory(Setting::class)->create([
-            'name' => [
-                'en' => 'Title site',
-                'ru' => 'Заголовок сайта'
-            ],
+            'name' => 'Заголовок сайта',
             'key' => 'main_title',
             'value_translate' => [
                 'en' => 'Title site',
@@ -43,10 +37,7 @@ class SettingsSeeder extends Seeder
         ]);
 
 		factory(Setting::class)->create([
-            'name' => [
-                'en' => 'Description site',
-                'ru' => 'Описание сайта'
-            ],
+            'name' => 'Описание сайта',
             'key' => 'main_description',
             'value_translate' => [
                 'en' => 'description site',
@@ -55,39 +46,27 @@ class SettingsSeeder extends Seeder
         ]);
 
         factory(Setting::class)->create([
-            'name' => [
-                'en' => 'Count element on a page in admin panel',
-                'ru' => 'Количество элементов на стр. в админ-панели'
-            ],
+            'name' => 'Количество элементов на стр. в админ-панели',
             'key' => 'count_item_on_admin_page',
             'value' => 12,
         ]);
 
         factory(Setting::class)->create([
-            'name' => [
-                'en' => 'Main language site',
-                'ru' => 'Основной язик сайта'
-            ],
+            'name' => 'Основной язик сайта',
             'key' => 'lang_front_end',
             'value' => 'ru',
             'disabled' => true
         ]);
 
         factory(Setting::class)->create([
-            'name' => [
-                'en' => 'Main language admin panel',
-                'ru' => 'Основной язик админ-панели'
-            ],
+            'name' => 'Основной язик админ-панели',
             'key' => 'lang_back_end',
-            'value' => 'ru',
+            'value' => config('app.locale'),
             'disabled' => true
         ]);
 
         factory(Setting::class)->create([
-            'name' => [
-                'en' => 'Multiple language',
-                'ru' => 'Мультиязичность'
-            ],
+            'name' => 'Мультиязичность',
             'key' => 'multiple_languages',
             'value' => 1,
             'disabled' => true

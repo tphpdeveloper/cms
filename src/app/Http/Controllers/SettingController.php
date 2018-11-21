@@ -16,7 +16,7 @@ use Tphpdeveloper\Cms\App\Models\Setting;
 use Datagrid;
 use Form;
 use Html;
-use Tphpdeveloper\Cms\App\Scopes\SettingWithoutDisabledScope;
+use Tphpdeveloper\Cms\App\Scopes\WithoutDisabledScope;
 
 class SettingController extends BackendController
 {
@@ -25,7 +25,7 @@ class SettingController extends BackendController
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
         $settings = Setting::query()->paginate($this->getAdminElementOnPage());
 
@@ -39,19 +39,32 @@ class SettingController extends BackendController
             ->setColumn('key', [
                 'label' => trans('cms.page.key'),
             ])
-            ->setColumn('', [], function($model){
-                $html = Form::bsButtonEdit(route('admin.setting.edit', $model->id));
+            ->setColumn('', ['attributes' => [
+                'class' => 'd-flex flex-nowrap justify-content-end'
+            ]], function($model){
+                $html = Html::link(route('admin.setting.edit', $model->id), Html::tag('i', '', ['class' => 'fa fa-edit']), [
+                    'class' => 'btn btn-sm btn-success btn-simple',
+                    'title' => trans('cms.helpers.button.edit')
+                ], null, false);
 
 //                $html .= Html::nbsp();
 //                $html .= Form::open(['route' => ['admin.setting.destroy', $model->id], 'method' => 'DELETE']);
-//                $html .= Form::bsButtonDelete();
+//                $html .= Form::button( Html::tag('i', '', ['class' => 'fa fa-remove']), [
+//                            'class' => 'btn btn-sm btn-danger btn-simple',
+//                            'title' =>  trans('cms.helpers.button.delete'),
+//                            'type' => 'submit'
+//                        ]);
 //                $html .= Form::close();
 
                 return $html;
 
-            })
-        ;
-        return view($this->getFolderPath().'setting.index')
+            });
+
+
+        //for after update, return to needed page
+        $this->setPageToSession();
+
+        return view($this->getPrefix().'setting.index')
             ->with('grid', $grid);
     }
 
@@ -62,7 +75,7 @@ class SettingController extends BackendController
      */
     public function create()
     {
-        return view($this->getFolderPath().'setting.create');
+        return view($this->getPrefix().'setting.create');
     }
 
     /**
@@ -74,14 +87,15 @@ class SettingController extends BackendController
     public function store(SettingRequest $request)
     {
         $data = $request->except(['_method', '_token']);
-        $data['key'] = str_slug($request->input('name.'.app()->getLocale()), '_');
-        $setting = Setting::firstOrCreate($data);
-        $redirect = redirect()->route('admin.setting.index');
+        $setting = Setting::create($data);
+        $redirect = redirect()->route('admin.setting.index', $this->getPageFromSession());
         if($setting) {
             $redirect->with('notification_primary', $setting->name.'.<br>'.trans('cms.notification.success.create'));
         }
         else{
-            $redirect->with('notification_danger', $setting->name.'.<br>'.trans('cms.notification.error.something_wrong'));
+            $redirect = redirect()->route('admin.setting.create')
+            ->with('notification_danger', $request->name[app()->getLocale()].'.<br>'.trans('cms.notification.error.something_wrong'))
+            ->withInput();
         }
         return $redirect;
     }
@@ -95,7 +109,7 @@ class SettingController extends BackendController
     public function updateMainLang(Request $request)
     {
 //        $setting = Setting::where('key', 'lang')->update(['value' => $request->lang]);
-        $setting = Setting::withoutGlobalScope(SettingWithoutDisabledScope::class)
+        $setting = Setting::withoutGlobalScope(WithoutDisabledScope::class)
             ->where('key', 'lang_back_end')
             ->first();
         $setting->update(['value' => $request->lang]);
@@ -117,7 +131,7 @@ class SettingController extends BackendController
      */
     public function edit(Setting $setting)
     {
-        return view($this->getFolderPath().'setting.edit')
+        return view($this->getPrefix().'setting.edit')
             ->with('setting', $setting);
     }
 
@@ -130,13 +144,15 @@ class SettingController extends BackendController
      */
     public function update(SettingRequest $request, Setting $setting)
     {
-        $setting->update($request->all());
-        $redirect = redirect()->route('admin.setting.index');
-        if($setting) {
+        $res = $setting->update($request->all());
+        $redirect = redirect()->route('admin.setting.index', $this->getPageFromSession());
+        if($res) {
             $redirect->with('notification_primary', $setting->name.'.<br>'.trans('cms.notification.success.update'));
         }
         else{
-            $redirect->with('notification_danger', $setting->name.'.<br>'.trans('cms.notification.error.something_wrong'));
+            $redirect = redirect()->route('admin.setting.edit', $setting->id )
+            ->with('notification_danger', $setting->name.'.<br>'.trans('cms.notification.error.something_wrong'))
+            ->withInput();
         }
         return $redirect;
 
@@ -152,9 +168,9 @@ class SettingController extends BackendController
     public function destroy(Setting $setting)
     {
         $name = $setting->name;
-        $setting->delete();
-        $redirect = redirect()->route('admin.page.index');
-        if($setting) {
+        $res = $setting->delete();
+        $redirect = redirect()->route('admin.page.index', $this->getPageFromSession());
+        if($res) {
             $redirect->with('notification_primary', $name.'.<br>'.trans('cms.notification.success.delete'));
         }
         else{

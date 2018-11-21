@@ -11,18 +11,19 @@
 namespace Tphpdeveloper\Cms\App\Models;
 
 
+use Themsaid\Multilingual\Translatable;
+
 class LangStatic extends BackendModel
 {
 
-    protected $fillable = ['key', 'file'];
+    use Translatable;
 
-    /**
-     * link with table lang_static_value
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function langStaticValue()
-    {
-        return $this->hasMany(LangStaticValue::class);
-    }
+    protected $fillable = ['key', 'file', 'name'];
+    public $translatable = [
+        'name',
+    ];
+    protected $casts = [
+        'name' => 'array',
+    ];
 
 }

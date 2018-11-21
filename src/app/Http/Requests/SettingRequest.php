@@ -24,11 +24,28 @@ class SettingRequest extends FormRequest
      */
     public function rules()
     {
-
-        return [
-            'name' => 'array',
+        $data = [
             'value_translate' => 'array',
-            'name.'.app()->getLocale() => 'required|min:5',
+            'name' => 'required|min:5',
         ];
+        if($this->has('key')){
+           $data['key'] = 'required|unique:settings,key'.(isset($this->setting) ? ', '.$this->setting->id : '');
+        }
+
+        return $data;
+    }
+
+    protected function validationData()
+    {
+        if(!$this->key || trim($this->key) == '') {
+            $key = str_slug($this->input('name'), '_');
+            //for validation data
+            $this->merge([
+                'key' => $key
+            ]);
+            //for old() function data
+            app("request")->offsetSet('key', $key);
+        }
+        return $this->all();
     }
 }

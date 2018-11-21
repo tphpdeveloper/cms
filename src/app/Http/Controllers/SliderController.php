@@ -26,20 +26,33 @@ class SliderController extends BackendController
                 'label' => '#',
             ])
             ->setColumn('name', [
-                'name' => trans('cms.page.name'),
+                'label' => trans('cms.page.name'),
             ])
-            ->setColumn('', [], function($model){
-                $html = Form::bsButtonEdit(route('admin.slider.edit', $model->id));
+            ->setColumn('', ['attributes' => [
+                'class' => 'd-flex flex-nowrap justify-content-end'
+            ]], function($model){
+                $html = Html::link(route('admin.slider.edit', $model->id), Html::tag('i', '', ['class' => 'fa fa-edit']), [
+                            'class' => 'btn btn-sm btn-success btn-simple',
+                            'title' => trans('cms.helpers.button.edit')
+                        ], null, false);
                 $html .= Html::nbsp();
                 $html .= Form::open(['route' => ['admin.slider.destroy', $model->id], 'method' => 'DELETE']);
-                $html .= Form::bsButtonDelete();
+                $html .= Form::button( Html::tag('i', '', ['class' => 'fa fa-remove']), [
+                            'class' => 'btn btn-sm btn-danger btn-simple',
+                            'title' =>  trans('cms.helpers.button.delete'),
+                            'type' => 'submit'
+                        ]);
                 $html .= Form::close();
 
                 return $html;
 
             })
         ;
-        return view($this->getFolderPath().'slider.index')
+
+        //for after update, return to needed page
+        $this->setPageToSession();
+
+        return view($this->getPrefix().'slider.index')
             ->with('grid', $grid);
     }
 
@@ -50,7 +63,7 @@ class SliderController extends BackendController
      */
     public function create()
     {
-        return view($this->getFolderPath().'slider.create');
+        return view($this->getPrefix().'slider.create');
     }
 
     /**
@@ -65,13 +78,15 @@ class SliderController extends BackendController
         $data = $request->except(['_method', '_token']);
 
         //dd($data);
-        $slider = Slider::firstOrCreate($data);
-        $redirect = redirect()->route('admin.slider.index');
+        $slider = Slider::create($data);
+        $redirect = redirect()->route('admin.slider.index', $this->getPageFromSession());
         if($slider) {
             $redirect->with('notification_primary', $slider->name.'.<br>'.trans('cms.notification.success.create'));
         }
         else{
-            $redirect->with('notification_danger', $slider->name.'.<br>'.trans('cms.notification.error.something_wrong'));
+            $redirect = back()
+            ->with('notification_danger', $request->name.'.<br>'.trans('cms.notification.error.something_wrong'))
+            ->withInput();
         }
         return $redirect;
     }
@@ -95,7 +110,7 @@ class SliderController extends BackendController
      */
     public function edit(Slider $slider)
     {
-        return view($this->getFolderPath().'slider.edit')
+        return view($this->getPrefix().'slider.edit')
             ->with('slider', $slider);
     }
 
@@ -108,15 +123,16 @@ class SliderController extends BackendController
      */
     public function update(SliderRequest $request, Slider $slider)
     {
-//        dd($request->all());
+        $res = $slider->update($request->all());
+        $redirect = redirect()->route('admin.slider.index', $this->getPageFromSession());
 
-        $slider->update($request->all());
-        $redirect = redirect()->route('admin.slider.index');
-        if($slider) {
+        if($res) {
             $redirect->with('notification_primary', $slider->name.'.<br>'.trans('cms.notification.success.update'));
         }
         else{
-            $redirect->with('notification_danger', $slider->name.'.<br>'.trans('cms.notification.error.something_wrong'));
+            $redirect = back()
+            ->with('notification_danger', $slider->name.'.<br>'.trans('cms.notification.error.something_wrong'))
+            ->withInput();
         }
         return $redirect;
     }
@@ -131,9 +147,9 @@ class SliderController extends BackendController
     public function destroy(Slider $slider)
     {
         $name = $slider->name;
-        $slider->delete();
-        $redirect = redirect()->route('admin.slider.index');
-        if($slider) {
+        $res = $slider->delete();
+        $redirect = redirect()->route('admin.slider.index', $this->getPageFromSession());
+        if($res) {
             $redirect->with('notification_primary', $name.'.<br>'.trans('cms.notification.success.delete'));
         }
         else{

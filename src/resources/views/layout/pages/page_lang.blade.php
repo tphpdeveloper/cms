@@ -1,7 +1,7 @@
-@extends($folder_path.'layout.app')
+@extends($prefix.'layout.app')
 
 @section('content')
-    @include($folder_path.'helpers.lang_switch')
+    @include($prefix.'helpers.lang_switch')
     <div class="row">
         <div class="col-md-12">
             <div class="card">

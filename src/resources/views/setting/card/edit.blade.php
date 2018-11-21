@@ -1,10 +1,11 @@
 {!! Form::bsText('name',
     trans('cms.page.name'),
-    isset($setting) ? $setting->nameTranslations->toArray() : [],
-    true
+    isset($setting) ? $setting->name : '',
+    false,
+    ['required']
 ) !!}
 
-{!! Form::bsText('key', trans('cms.page.key'), $setting->key ?? '', false, ['disabled']) !!}
+{!! Form::bsText('key', trans('cms.page.key'), $setting->key ?? '', false, [isset($setting) ? 'disabled'  : ''] ) !!}
 
 @if( (isset($setting->value_translate) && $setting->value_translate == '' ) || !isset($setting->value_translate) )
 {!! Form::bsText('value', trans('cms.page.value'), $setting->value ?? '') !!}
@@ -16,4 +17,4 @@
     true) !!}
 @endif
 
-{!! Form::bsNumber('o', trans('cms.page.order'), $setting->o ?? '') !!}
+{!! Form::bsNumber('o', trans('cms.page.order'), $setting->o ?? 0) !!}

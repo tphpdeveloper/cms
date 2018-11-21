@@ -1,4 +1,4 @@
-@extends($folder_path.'layout.app')
+@extends($prefix.'layout.app')
 
 @section('content')
     <div class="row">

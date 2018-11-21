@@ -238,7 +238,23 @@ demo = {
           backgroundColor: gradientFill,
           borderWidth: 2,
           data: [50, 150, 100, 190, 130, 90, 150, 160, 120, 140, 190, 95]
-        }]
+        },
+            {
+                label: "Data Seccond",
+                borderColor: "#81c67d",
+                pointBorderColor: "#81c67d",
+                pointBackgroundColor: "#1e3d60",
+                pointHoverBackgroundColor: "#1e3d60",
+                pointHoverBorderColor: "#81c67d",
+                pointBorderWidth: 1,
+                pointHoverRadius: 7,
+                pointHoverBorderWidth: 2,
+                pointRadius: 5,
+                fill: true,
+                backgroundColor: gradientFill,
+                borderWidth: 2,
+                data: [150, 50, 200, 90, 230, 190, 250, 260, 220, 240, 290, 195]
+            }]
       },
       options: {
         layout: {
@@ -263,7 +279,7 @@ demo = {
         legend: {
           position: "bottom",
           fillStyle: "#FFF",
-          display: false
+          display: true
         },
         scales: {
           yAxes: [{

@@ -18,7 +18,7 @@ class LoginController extends BackendController
 
     public function showLoginForm()
     {
-        return view($this->getFolderPath().'login.show');
+        return view($this->getPrefix().'login.show');
     }
 
     protected function redirectTo()

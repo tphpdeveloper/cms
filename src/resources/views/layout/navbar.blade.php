@@ -28,6 +28,8 @@
                 </div>
             </form>
             <ul class="navbar-nav">
+                @php
+                /*
                 <li class="nav-item">
                     <a class="nav-link" href="#">
                         <i class="now-ui-icons media-2_sound-wave"></i>
@@ -37,21 +39,23 @@
                     </a>
                 </li>
                 @if($multilingual)
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="now-ui-icons location_world"></i>
-                        <p>
-                            <span class="d-lg-none d-md-block">{{ trans('cms.page.change_main_lang') }}</span>
-                        </p>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                        @foreach(config('multilingual.locales') as $lang_name)
-                        <a class="dropdown-item {{ app()->getLocale() == $lang_name ? 'active' : '' }}"
-                           href="{{ route('admin.main_lang.update', ['lang' => $lang_name]) }}">{{ $lang_name }}</a>
-                        @endforeach
-                    </div>
-                </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="now-ui-icons location_world"></i>
+                            <p>
+                                <span class="d-lg-none d-md-block">{{ trans('cms.page.change_main_lang') }}</span>
+                            </p>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                            @foreach(config('multilingual.locales') as $lang_name)
+                            <a class="dropdown-item {{ app()->getLocale() == $lang_name ? 'active' : '' }}"
+                               href="{{ route('admin.main_lang.update', ['lang' => $lang_name]) }}">{{ $lang_name }}</a>
+                            @endforeach
+                        </div>
+                    </li>
                 @endif
+                */
+                @endphp
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="now-ui-icons users_single-02"></i>

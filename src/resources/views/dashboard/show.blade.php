@@ -1,8 +1,9 @@
-@extends($folder_path.'layout.app')
+@extends($prefix.'layout.app')
 
 
 
 @section('content')
+
     <div class="row">
         <div class="col-lg-4">
             <div class="card card-chart">
@@ -85,6 +86,8 @@
             </div>
         </div>
     </div>
+
+
     <div class="row">
         <div class="col-md-6">
             <div class="card  card-tasks">

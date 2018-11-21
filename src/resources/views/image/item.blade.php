@@ -1,12 +1,9 @@
 <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 d-flex flex-row flex-nowrap" id="item_image_{{ $image->id }}">
-    <div class="thumbnail  text-center w-100">
-            <img src="{{ $image->url }}"
-                 alt="{{ $image->alt }}"
-                 title="{{ $image->title}}"
-            >
-            <div class="caption ">
-                <p class="" style="word-wrap: break-word; ">{{ $image->title }}</p>
-            </div>
+    <div class="thumbnail text-center w-100">
+        {!! Html::image($image->url, $image->alt, ['title' => $image->title]) !!}
+        <div class="caption ">
+            <p class="" style="word-wrap: break-word; ">{{ $image->title }}</p>
+        </div>
     </div>
     <div class="parent-button-group">
         <div class="button-group d-flex flex-column">

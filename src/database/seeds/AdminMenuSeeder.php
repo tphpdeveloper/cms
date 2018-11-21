@@ -95,7 +95,7 @@ class AdminMenuSeeder extends Seeder
                         'ru' => 'Статические переводы'
                     ],
                     'route' => 'admin.lang-static.index',
-                    'icon' => 'location_world',
+                    'icon' => 'text_caps-small',
                 ]
             ],
 
@@ -107,6 +107,17 @@ class AdminMenuSeeder extends Seeder
                     ],
                     'route' => 'admin.image.index',
                     'icon' => 'design_image',
+                ]
+            ],
+
+            'langs' => [
+                'parent' => 'setting',
+                'data' => [
+                    'name' => [
+                        'ru' => 'Языки'
+                    ],
+                    'route' => 'admin.lang.index',
+                    'icon' => 'location_world',
                 ]
             ],
 

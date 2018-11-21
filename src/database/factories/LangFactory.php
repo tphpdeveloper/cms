@@ -15,6 +15,7 @@ use Tphpdeveloper\Cms\App\Models\Lang;
 $factory->define(Lang::class, function (Faker $faker) {
 
     return [
-        'name' => ''
+        'name' => '',
+        'disabled' => false,
     ];
 });

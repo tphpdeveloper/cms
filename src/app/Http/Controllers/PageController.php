@@ -29,18 +29,30 @@ class PageController extends BackendController
             ->setColumn('title', [
                 'label' => trans('cms.page.name'),
             ])
-            ->setColumn('', [], function($model){
-                $html = Form::bsButtonEdit(route('admin.page.edit', $model->id));
+            ->setColumn('', ['attributes' => [
+                'class' => 'd-flex flex-nowrap justify-content-end'
+            ]], function($model){
+                $html = Html::link(route('admin.page.edit', $model->id), Html::tag('i', '', ['class' => 'fa fa-edit']), [
+                    'class' => 'btn btn-sm btn-success btn-simple',
+                    'title' => trans('cms.helpers.button.edit')
+                ], null, false);
                 $html .= Html::nbsp();
                 $html .= Form::open(['route' => ['admin.page.destroy', $model->id], 'method' => 'DELETE']);
-                $html .= Form::bsButtonDelete();
+                $html .= Form::button( Html::tag('i', '', ['class' => 'fa fa-remove']), [
+                            'class' => 'btn btn-sm btn-danger btn-simple',
+                            'title' =>  trans('cms.helpers.button.delete'),
+                            'type' => 'submit'
+                        ]);
                 $html .= Form::close();
 
                 return $html;
 
-            })
-        ;
-        return view($this->getFolderPath().'page.index')
+            });
+
+        //for after update, return to needed page
+        $this->setPageToSession();
+
+        return view($this->getPrefix().'page.index')
             ->with('grid', $grid);
     }
 
@@ -51,7 +63,7 @@ class PageController extends BackendController
      */
     public function create()
     {
-        return view($this->getFolderPath().'page.create');
+        return view($this->getPrefix().'page.create');
     }
 
     /**
@@ -72,13 +84,15 @@ class PageController extends BackendController
             $data['meta_description'] = $request->input('title');
         }
         //dd($data);
-        $page = Page::firstOrCreate($data);
-        $redirect = redirect()->route('admin.page.index');
+        $page = Page::create($data);
+        $redirect = redirect()->route('admin.page.index', $this->getPageFromSession());
         if($page) {
             $redirect->with('notification_primary', $page->title.'.<br>'.trans('cms.notification.success.create'));
         }
         else{
-            $redirect->with('notification_danger', $page->title.'.<br>'.trans('cms.notification.error.something_wrong'));
+            $redirect = redirect()->route('admin.page.create')
+            ->with('notification_danger', $page->title.'.<br>'.trans('cms.notification.error.something_wrong'))
+            ->withInput();
         }
         return $redirect;
     }
@@ -102,7 +116,7 @@ class PageController extends BackendController
      */
     public function edit(Page $page)
     {
-        return view($this->getFolderPath().'page.edit')
+        return view($this->getPrefix().'page.edit')
             ->with('page', $page);
     }
 
@@ -115,15 +129,15 @@ class PageController extends BackendController
      */
     public function update(PageRequest $request, Page $page)
     {
-//        dd($request->all());
-
-        $page->update($request->all());
-        $redirect = redirect()->route('admin.page.index');
-        if($page) {
+        $res = $page->update($request->all());
+        $redirect = redirect()->route('admin.page.index', $this->getPageFromSession());
+        if($res) {
             $redirect->with('notification_primary', $page->title.'.<br>'.trans('cms.notification.success.update'));
         }
         else{
-            $redirect->with('notification_danger', $page->title.'.<br>'.trans('cms.notification.error.something_wrong'));
+            $redirect = redirect()->route('admin.page.edit', $page->id)
+            ->with('notification_danger', $page->title.'.<br>'.trans('cms.notification.error.something_wrong'))
+            ->withInput();
         }
         return $redirect;
     }
@@ -138,9 +152,9 @@ class PageController extends BackendController
     public function destroy(Page $page)
     {
         $title = $page->title;
-        $page->delete();
-        $redirect = redirect()->route('admin.page.index');
-        if($page) {
+        $res = $page->delete();
+        $redirect = redirect()->route('admin.page.index', $this->getPageFromSession());
+        if($res) {
             $redirect->with('notification_primary', $title.'.<br>'.trans('cms.notification.success.delete'));
         }
         else{

@@ -1,7 +1,10 @@
-@extends($folder_path.'layout.pages.page_index')
+@extends($prefix.'layout.pages.page_index')
 
 @section('page_index_header')
-    {!! Form::bsButtonCreate(route('admin.slider.create')) !!}
+    {!! Html::link(route('admin.slider.create'), trans('cms.helpers.button.create'), [
+            'class' => 'btn btn-success btn-simple',
+            'title' =>  trans('cms.helpers.button.create')
+        ]) !!}
 @endsection
 
 @section('page_index_body')
