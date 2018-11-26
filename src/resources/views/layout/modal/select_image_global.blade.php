@@ -66,10 +66,13 @@
                 $.ajax({
                     method: 'POST',
                     url: '{{ route('admin.image_global.store', [$model_key, $model_name]) }}',
-                    data: form.serialize(),
+                    data: form.serialize()+'&'+$.param( { view: '{{ $view }}' } ),
                     success: function (data) {
                         if (data.status === 'ok') {
                             $('#js_parent_pages_images').append(data.items);
+                            if(!$('.js-text-no-image').hasClass('d-none')){
+                                $('.js-text-no-image').addClass('d-none');
+                            }
                         }
                         hidePreloader();
                         showNotification(data);

@@ -14,23 +14,23 @@ $model_name = basename(get_class($model));
     </div>
 </div>
 <div class="row mt-3">
-    <div class="col-12 d-flex flex-row flex-wrap justify-content-between parent_pages_images" id="js_parent_pages_images">
+    <div class="col-12 parent_pages_imagess" id="js_parent_pages_images">
         @if(isset($model) && $images = $model->images)
             @foreach($images as $image)
-                @include($prefix.'image.global_usage.page_item',['image' => $image, 'model_key' => $model_key, 'model_name' => $model_name])
+                @include($prefix.'slider.card.item_image',['image' => $image, 'model_key' => $model_key, 'model_name' => $model_name])
             @endforeach
         @endif
-        <h6 class="w-100 text-center  @if(isset($model) && $model->images) d-none @endif js-text-no-image">
+        <h6 class="w-100 text-center  @if(isset($model) && count($model->images)) d-none @endif js-text-no-image">
             @lang('cms.page.no_image')
         </h6>
     </div>
 
 </div>
-@include($prefix.'layout.modal.select_image_global', ['model_key' => $model_key, 'model_name' => $model_name, 'view' => $prefix.'image.global_usage.page_item'])
+@include($prefix.'layout.modal.select_image_global', ['model_key' => $model_key, 'model_name' => $model_name, 'view' => $prefix.'slider.card.item_image'])
 
 @push('script')
     <script>
-        // change main image in model
+        // change main image from slider
         function mainImage(elem, route){
             showPreloader();
             $.ajax({
@@ -57,7 +57,7 @@ $model_name = basename(get_class($model));
             });
         }
 
-        //delete image from model
+        //delete image slider
         function deleteImage(pivot_id, route){
             showPreloader();
 
@@ -88,7 +88,32 @@ $model_name = basename(get_class($model));
                         if(!data.count){
                             $(".js-text-no-image").removeClass('d-none')
                         }
+                        else{
+                            $(".js-text-no-image").addClass('d-none')
+                        }
                     }
+                    hidePreloader();
+                    showNotification(data);
+
+                },
+                error: function(jqXHR, status){
+                    hidePreloader();
+                    jqXHRNotification(jqXHR);
+                }
+
+            });
+
+        }
+
+        //update slide text on image
+        function slideTextUpdate(pivot_id){
+            showPreloader();
+
+            $.ajax({
+                method: "POST",
+                url: $('#js_slide_'+pivot_id).attr('action'),
+                data: $('#js_slide_'+pivot_id).serialize(),
+                success: function(data){
                     hidePreloader();
                     showNotification(data);
 

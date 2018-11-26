@@ -4,11 +4,11 @@
     {{ trans('cms.helpers.button.update') . ' '.$slider->name}}
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item" data-color="red">
-            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+            <a class="nav-link " id="home-tab" data-toggle="tab" href="#home" role="tab"
                aria-controls="home" aria-selected="true">@lang('cms.page.tabs.main')</a>
         </li>
         <li class="nav-item" data-color="red">
-            <a class="nav-link " id="profile-tab" data-toggle="tab" href="#images" role="tab"
+            <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#images" role="tab"
                aria-controls="profile" aria-selected="false">@lang('cms.page.tabs.image')</a>
         </li>
     </ul>
@@ -18,7 +18,7 @@
 
     <div class="tab-content" id="myTabContent">
         {{--Главная--}}
-        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+        <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
             {!! Form::open(['route' => ['admin.slider.update', $slider->id], 'method' => 'PUT']) !!}
 
             @include($prefix.'slider.card.field')
@@ -35,8 +35,8 @@
             {!! Form::close() !!}
         </div>
         {{--Изображения сайта--}}
-        <div class="tab-pane fade " id="images" role="tabpanel" aria-labelledby="profile-tab">
-            @include($prefix.'image.global_usage.page', [
+        <div class="tab-pane fade show active " id="images" role="tabpanel" aria-labelledby="profile-tab">
+            @include($prefix.'slider.card.image_page', [
                 'model' => $slider
             ])
         </div>

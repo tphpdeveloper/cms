@@ -43,14 +43,14 @@ class LangController extends BackendController
                             'class' => 'btn btn-sm btn-success btn-simple',
                             'title' => trans('cms.helpers.button.edit')
                         ], null, false);
-                $html .= Html::nbsp();
-                $html .= Form::open(['route' => ['admin.lang.destroy', $model->id], 'method' => 'DELETE']);
-                $html .= Form::button( Html::tag('i', '', ['class' => 'fa fa-remove']), [
-                            'class' => 'btn btn-sm btn-danger btn-simple',
-                            'title' =>  trans('cms.helpers.button.delete'),
-                            'type' => 'submit'
-                        ]);
-                $html .= Form::close();
+//                $html .= Html::nbsp();
+//                $html .= Form::open(['route' => ['admin.lang.destroy', $model->id], 'method' => 'DELETE']);
+//                $html .= Form::button( Html::tag('i', '', ['class' => 'fa fa-remove']), [
+//                            'class' => 'btn btn-sm btn-danger btn-simple',
+//                            'title' =>  trans('cms.helpers.button.delete'),
+//                            'type' => 'submit'
+//                        ]);
+//                $html .= Form::close();
 
                 return $html;
 
@@ -91,7 +91,7 @@ class LangController extends BackendController
             $redirect->with('notification_primary', $lang->name.'.<br>'.trans('cms.notification.success.create'));
         }
         else{
-            $redirect = redirect()->route('admin.lang.create')
+            $redirect = back()
                 ->with('notification_danger', $request->name.'.<br>'.trans('cms.notification.error.something_wrong'))
                 ->withInput();
         }
@@ -138,7 +138,7 @@ class LangController extends BackendController
             $redirect->with('notification_primary', $lang->name.'.<br>'.trans('cms.notification.success.update'));
         }
         else{
-            $redirect = redirect()->route('admin.lang.edit', $lang->id)
+            $redirect = back()
                 ->with('notification_danger', $lang->name.'.<br>'.trans('cms.notification.error.something_wrong'))
                 ->withInput();
         }

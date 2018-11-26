@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * Tphpdeveloper/Cms
+ *
+ * @author    Igor <igorkutsan@ukr.net>
+ * @copyright 2018 Tphpdeveloper/Cms
+ * @license   https://opensource.org/licenses/MIT
+ */
+
 namespace Tphpdeveloper\Cms\App\Http\Controllers;
 
 use Tphpdeveloper\Cms\App\Http\Requests\SliderRequest;
@@ -9,6 +17,7 @@ use Illuminate\Http\Request;
 use Datagrid;
 use Form;
 use Html;
+use DB;
 
 class SliderController extends BackendController
 {
@@ -147,12 +156,17 @@ class SliderController extends BackendController
     public function destroy(Slider $slider)
     {
         $name = $slider->name;
+        DB::beginTransaction();
+        $images_id = $slider->images->pluck('id')->toArray();
+        $image_del = $slider->images()->detach($images_id);
         $res = $slider->delete();
         $redirect = redirect()->route('admin.slider.index', $this->getPageFromSession());
         if($res) {
+            DB::commit();
             $redirect->with('notification_primary', $name.'.<br>'.trans('cms.notification.success.delete'));
         }
         else{
+            DB::rollBack();
             $redirect->with('notification_danger', $name.'.<br>'.trans('cms.notification.error.something_wrong'));
         }
         return $redirect;

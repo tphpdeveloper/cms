@@ -90,8 +90,8 @@ class PageController extends BackendController
             $redirect->with('notification_primary', $page->title.'.<br>'.trans('cms.notification.success.create'));
         }
         else{
-            $redirect = redirect()->route('admin.page.create')
-            ->with('notification_danger', $page->title.'.<br>'.trans('cms.notification.error.something_wrong'))
+            $redirect = back()
+            ->with('notification_danger', $request->title.'.<br>'.trans('cms.notification.error.something_wrong'))
             ->withInput();
         }
         return $redirect;

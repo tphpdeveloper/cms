@@ -64,10 +64,10 @@
             </div>
 
             <div class="card-footer ">
-                {!! Form::bsButtonSave(trans('cms.helpers.button.login'), [
+                {!! Form::submit(trans('cms.helpers.button.login'), [
                     'class' => 'btn btn-primary btn-round btn-lg btn-block mb-3',
-                    'title' => trans('cms.helpers.button.login')
-                ]) !!}
+                    'title' =>  trans('cms.helpers.button.login')
+                ])!!}
             </div>
 
         </div>

@@ -8,11 +8,11 @@ use Tphpdeveloper\Cms\App\Models\ImageMorph;
 use Carbon\Carbon;
 use DB;
 
-class ImageGlobalController extends BackendController
+class ImageMorphController extends BackendController
 {
     private $namespace = '';
 
-    public function __construct(Request $request)
+    public function __construct()
     {
         $this->namespace = dirname(__NAMESPACE__,2).'\Models\\';
     }
@@ -50,43 +50,61 @@ class ImageGlobalController extends BackendController
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request, $model_id, $model_name)
+    public function store(Request $request, $model_key, $model_name)
     {
         $namespace = $this->namespace.$model_name;
-        $model = app()->make($namespace)->find($model_id);
+        $model = app()->make($namespace)->find($model_key);
         $items = '';
         $true = [];
+
+        //attach to model image
         if(count($images_id = $request->images)){
             DB::beginTransaction();
-            $images = Image::find($images_id);
-            foreach($images as $image){
-                $inserted = ImageMorph::create([
-                    'image_id' => $image->id,
-                    'image_morph_type' => $namespace,
-                    'image_morph_id' => $model_id,
-                    'created_at' => Carbon::now(),
-                    'updated_at' => Carbon::now()
+            $pivot_images = $model->images()->wherePivotIn('image_id', $images_id)->get();
+            $pivot_ids = $pivot_images->pluck('id')->toArray();
+
+            //for add unique images
+            $images_id = array_diff($images_id, $pivot_ids);
+            if(!count($images_id)){
+                return response()->json([
+                    'status' => 'error',
+                    'notification_danger' => trans('cms.notification.error.all_added_images_exists')
                 ]);
-                if($inserted){
-                    $true[] = 1;
-                    $items .= view($this->getPrefix().'image.global_usage.page_item')
-                    ->with('image', $image)
-                    ->with('pivot_id', $inserted->id)
-                    ->with('model_key', $model_id)
-                    ->with('model_name', $model_name);
-                }
             }
 
 
+            $images = Image::find($images_id);
+            foreach($images as $image){
+                $attached = $model->images()->save($image);
+                $id = DB::getPdo()->lastInsertId();
+                if($attached){
+                    $true[$id] = $image->id;
+                }
+            }
         }
+
         //if all saved saccesful
         if(count($true) == count($images_id)){
             DB::commit();
+            $to_main = $this->setMainImage($namespace, $model_key);
+
+            //create view each image for insert to body
+            $model = app()->make($namespace)->find($model_key);
+            foreach($true as $attach_id => $image_id){
+                $items .= view($request->view)
+                    ->with('image', $model->images()->where('image_id', $image_id)->first())
+                    ->with('pivot_id', $attach_id)
+                    ->with('model_key', $model_key)
+                    ->with('model_name', $model_name);
+            }
+
+
             $data = [
                 'status' => 'ok',
                 'notification_primary' => trans('cms.notification.success.create'),
                 'items' => $items
             ];
+
         }
         else{
             DB::rollBack();
@@ -98,7 +116,6 @@ class ImageGlobalController extends BackendController
 
         return response()->json($data);
     }
-
 
     /**
      * Update main image in model
@@ -113,15 +130,23 @@ class ImageGlobalController extends BackendController
     {
         $namespace = $this->namespace.$model_name;
         $model = app()->make($namespace)->find($model_key);
+        $main = $model->images()->wherePivot('main', 1)->first();
+
         DB::beginTransaction();
-        $to_disable = ImageMorph::where([
-            ['image_morph_type', $namespace],
-            ['image_morph_id', $model_key],
-        ])->update(['main' => false]);
-        $to_main = ImageMorph::find($image_morph_id)->update(['main' => true]);
+
+        //for create main image
+        if($main) {
+            $images = $model->images()->allRelatedIds();
+            foreach($images as $image){
+                $model->images()->updateExistingPivot($image, ['main' => false]);
+            }
+        }
+        $image = $model->images()->wherePivot('id', $image_morph_id)->first();
+        $to_main = $model->images()->updateExistingPivot($image->id, ['main' => true]);
+
         $data = [];
         //$to_disable=false;
-        if($to_disable && $to_main) {
+        if($to_main) {
             DB::commit();
             $data = [
                 'status' => 'ok',
@@ -151,23 +176,11 @@ class ImageGlobalController extends BackendController
     public function destroy(Request $request, $image_morph_id, $model_key, $model_name)
     {
         $namespace = $this->namespace.$model_name;
-
+        $model = app()->make($namespace)->find($model_key);
         DB::beginTransaction();
-        $morph = ImageMorph::find($image_morph_id);
-        $main = $morph->main;
-        //if delet main image
-        $to_main = false;
-        if($main){
-            $to_main = ImageMorph::where([
-                ['id', '<>', $image_morph_id],
-                ['image_morph_type', $namespace],
-                ['image_morph_id', $model_key],
-            ])->first();
-            if($to_main) {
-                $to_main->update(['main' => true]);
-            }
-        }
-        $morph = $morph->destroy($image_morph_id);
+        $image_d = $model->images()->wherePivot('id', $image_morph_id)->first();
+        //dd($image_d);
+        $morph = $model->images()->detach($image_d->id);
         $data = [];
         if($morph) {
             DB::commit();
@@ -175,13 +188,13 @@ class ImageGlobalController extends BackendController
                 'status' => 'ok',
                 'notification_primary' => trans('cms.notification.success.delete'),
             ];
+            $to_main = $this->setMainImage($namespace, $model_key);
+            //dd($to_main);
             if($to_main){
                 $data['to_main_id'] = $to_main->id;
             }
-            $data['count'] = ImageMorph::where([
-                                ['image_morph_type', $namespace],
-                                ['image_morph_id', $model_key],
-                            ])->count();
+            $data['count'] = $model->images()->count();
+
         }
         else{
             DB::rollBack();
@@ -191,5 +204,23 @@ class ImageGlobalController extends BackendController
             ];
         }
         return response()->json($data);
+    }
+
+    private function setMainImage($namespace, $model_key)
+    {
+        $model = app()->make($namespace)->find($model_key);
+        $main = $model->images()->wherePivot('main', 1)->first();
+        //for create main image
+        if(!$main) {
+            $main = $model->images()->first();
+            if($main) {
+                $model->images()->updateExistingPivot($main->id, ['main' => 1]);
+                $main = $model->images()->wherePivot('main', 1)->first();
+            }
+            else{
+                return false;
+            }
+        }
+        return $main->pivot;
     }
 }

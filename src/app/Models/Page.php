@@ -29,4 +29,13 @@ class Page extends BackendModel
     ];
 
 
+    /**
+     * Get all of the images that are assigned this page.
+     */
+    public function images()
+    {
+        return $this->morphToMany(Image::class, 'image_morph')->withPivot(['id', 'main', 'o', 'text_1', 'text_2', 'text_3']);
+    }
+
+
 }

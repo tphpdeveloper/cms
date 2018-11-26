@@ -129,7 +129,7 @@ class LangStaticController extends BackendController
             event( new BuildStaticTranslateEvent);
         }
         else{
-            $redirect = redirect()->route('admin.lang-static.create')
+            $redirect = back()
             ->with('notification_danger', $request->key.'.<br>'.trans('cms.notification.error.something_wrong'))
             ->withInput();
         }
@@ -179,7 +179,7 @@ class LangStaticController extends BackendController
             event( new BuildStaticTranslateEvent);
         }
         else{
-            $redirect = redirect()->route('admin.lang-static.edit', $lang_static->id)
+            $redirect = back()
             ->with('notification_danger', $lang_static->name.'.<br>'.trans('cms.notification.error.something_wrong'))
             ->withInput();
         }

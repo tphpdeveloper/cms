@@ -33,11 +33,13 @@ Route::middleware('web')
         Route::prefix('image_global')
             ->name('image_global.')
             ->group(function(){
-            Route::post('/', 'ImageGlobalController@index')->name('index');
-            Route::post('model_id/{key}/model/{model_name}', 'ImageGlobalController@store')->name('store');
-            Route::put('{id}/model_id/{key}/model/{model_name}', 'ImageGlobalController@update')->name('update');
-            Route::delete('{id}/model_id/{key}/model/{model_name}', 'ImageGlobalController@destroy')->name('destroy');
+            Route::post('/', 'ImageMorphController@index')->name('index');
+            Route::post('model_id/{key}/model/{model_name}', 'ImageMorphController@store')->name('store');
+            Route::put('{id}/model_id/{key}/model/{model_name}', 'ImageMorphController@update')->name('update');
+            Route::delete('{id}/model_id/{key}/model/{model_name}', 'ImageMorphController@destroy')->name('destroy');
         });
+
+        Route::put('slide-text/{slider}', 'SlideTextController@update')->name('slide-text.update');
 
         Route::resources([
             'setting' => 'SettingController',

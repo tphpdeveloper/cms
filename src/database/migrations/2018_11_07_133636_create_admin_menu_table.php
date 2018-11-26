@@ -16,7 +16,7 @@ class CreateAdminMenuTable extends Migration
         Schema::create('admin_menus', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('admin_menu_id')->nullable()->unsigned()->index();
-            $table->foreign('admin_menu_id')->references('id')->on('admin_menus')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('admin_menu_id')->references('id')->on('admin_menus')->onDelete('set null')->onUpdate('cascade');
             $table->json('name');
             $table->string('route', 100)->nullable();
             $table->string('icon', 50)->nullable();

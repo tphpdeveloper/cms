@@ -93,7 +93,7 @@ class SettingController extends BackendController
             $redirect->with('notification_primary', $setting->name.'.<br>'.trans('cms.notification.success.create'));
         }
         else{
-            $redirect = redirect()->route('admin.setting.create')
+            $redirect = back()
             ->with('notification_danger', $request->name[app()->getLocale()].'.<br>'.trans('cms.notification.error.something_wrong'))
             ->withInput();
         }
@@ -150,7 +150,7 @@ class SettingController extends BackendController
             $redirect->with('notification_primary', $setting->name.'.<br>'.trans('cms.notification.success.update'));
         }
         else{
-            $redirect = redirect()->route('admin.setting.edit', $setting->id )
+            $redirect = back()
             ->with('notification_danger', $setting->name.'.<br>'.trans('cms.notification.error.something_wrong'))
             ->withInput();
         }

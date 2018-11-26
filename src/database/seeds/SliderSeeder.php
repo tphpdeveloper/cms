@@ -24,14 +24,17 @@ class SliderSeeder extends Seeder
         factory(Slider::class, 2)->create()->each(function($slider){
             $first = true;
             $number = rand(5,10);
+            $images_id = [];
             for($i = 0; $i < $number; $i++) {
                 $image = Image::inRandomOrder()->first();
                 if($first) {
-                    $slider->images()->save($image, ['main' => true]);
+                    $slider->images()->attach($image->id, ['main' => 1]);
                     $first = false;
+                    continue;
                 }
-                $slider->images()->save($image);
+                $images_id[] = $image->id;
             }
+            $slider->images()->attach($images_id);
         });
 
 

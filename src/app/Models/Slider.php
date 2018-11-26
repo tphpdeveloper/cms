@@ -10,8 +10,6 @@ namespace Tphpdeveloper\Cms\App\Models;
 
 class Slider extends BackendModel
 {
-
-
     protected $fillable = ['name'];
 
     /**
@@ -19,7 +17,13 @@ class Slider extends BackendModel
      */
     public function images()
     {
-        return $this->morphToMany(Image::class, 'image_morph')->withPivot(['id', 'main', 'o']);
+        return $this->morphToMany(Image::class, 'image_morph')
+            ->using(ImageMorph::class)
+            ->withTimestamps()
+            ->withPivot(['id', 'main', 'o', 'text_1', 'text_2', 'text_3'])
+            ;
+
     }
+
 
 }

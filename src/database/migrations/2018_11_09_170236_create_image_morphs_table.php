@@ -20,6 +20,9 @@ class CreateImageMorphsTable extends Migration
             $table->foreign('image_id')->references('id')->on('images')->onUpdate('cascade')->onDelete('cascade');
             $table->boolean('main')->default(0);
             $table->tinyInteger('o')->default(0);
+            $table->json('text_1');
+            $table->json('text_2');
+            $table->json('text_3');
             $table->timestamps();
         });
     }

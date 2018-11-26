@@ -29,7 +29,7 @@ class SettingRequest extends FormRequest
             'name' => 'required|min:5',
         ];
         if($this->has('key')){
-           $data['key'] = 'required|unique:settings,key'.(isset($this->setting) ? ', '.$this->setting->id : '');
+           $data['key'] = 'required|unique:settings,key'.(isset($this->setting) ? ','.$this->setting->id : '');
         }
 
         return $data;
