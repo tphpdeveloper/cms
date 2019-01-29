@@ -30,6 +30,7 @@ class ImageRequest extends FormRequest
     public function rules()
     {
         return [
+            'preview_image' => 'image'
 //            'alt.ru' => 'min:6|',
 //            'title.ru' => 'min:6',
         ];

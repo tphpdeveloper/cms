@@ -61,7 +61,7 @@ function jqXHRNotification(jqXHR){
         errors = obj.errors;
     for(var key in errors){
         for(var i in errors[key]){
-            dangerNotification(errors[key][i])
+            dangerNotification(errors[key][i]);
         }
 
     }

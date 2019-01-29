@@ -75,7 +75,8 @@
                     }
                     hidePreloader();
                     showNotification(data);
-
+                    //hide button update image
+                    $('.js_update_image').addClass('d-none');
                 },
                 error: function(jqXHR, status){
                     hidePreloader();
@@ -95,6 +96,8 @@
                     reader.onload = function(e){
                         var lastIndex = image.files[0].name.lastIndexOf(".");       // position last dot
                         var withoutDot = image.files[0].name.substring(0, lastIndex);
+
+                        //TODO check on type uploaded file
 
                         $(".js_has_image").attr('src', e.target.result);
                         $(".js_has_image").removeClass('d-none');
@@ -133,6 +136,8 @@
                 "success": function (data) {
                     $("#single").html(data);
                     hidePreloader();
+                    //show button update image
+                    $('.js_update_image').removeClass('d-none');
 
                 },
                 "error": function (jqXHR, status) {

@@ -37,7 +37,10 @@
             'for' => 'upload_preview_image'
             ]
         ) !!}
-        {!! Form::button(trans('cms.helpers.button.update'), ['class' => 'btn btn-primary btn-simple mb-sm-1 mb-lg-1', 'onclick' => 'updateImage("'.( isset($image) ? $image->id : 0 ).'")']) !!}
+        {!! Form::button(trans('cms.helpers.button.update'), [
+            'class' => 'btn btn-primary btn-simple mb-sm-1 mb-lg-1 d-none js_update_image',
+            'onclick' => 'updateImage("'.( isset($image) ? $image->id : 0 ).'")'
+        ]) !!}
 
     </div>
 </div>
